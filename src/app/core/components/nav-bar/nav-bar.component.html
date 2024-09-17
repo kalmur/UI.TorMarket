@@ -1,0 +1,32 @@
+<nav>
+  <div class="menu-icon">
+    <span class="fas fa-bars"></span>
+  </div>
+  <div class="logo">
+    <a [routerLink]="['/']" style="text-decoration: none; color: inherit;">Tor Market</a>
+  </div>
+  <form action="#">
+    <input type="search" class="search-data" placeholder="Search" required>
+    <button type="submit" class="fas fa-search"></button>
+  </form>
+  <div class="nav-items">
+    <li><a [routerLink]="['/sell']">Sell</a></li>
+    <li><a [routerLink]="['/login']">Login</a></li>
+    <li><a [routerLink]="['/register']">Register</a></li>
+  </div>
+  <div class="search-icon">
+    <span class="fas fa-search"></span>
+  </div>   
+  <div class="cancel-icon">
+    <span class="fas fa-times"></span>
+  </div>
+</nav>
+<div class="container-fluid px-0">
+  <div class="row justify-content-center bg-dark text-white py-2">
+    <div class="col-auto" *ngFor="let category of categories">
+      <a class="category px-3 py-1" [routerLink]="['/category', category]">
+        {{ category }}
+      </a>
+    </div>
+  </div>
+</div>

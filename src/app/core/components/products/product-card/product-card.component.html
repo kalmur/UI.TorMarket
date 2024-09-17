@@ -1,0 +1,24 @@
+<div class="card">
+    <div class="card-img-wrapper">
+        <!-- <img *ngIf="product.image" class="card-img-top" src="" /> -->
+        <img class="card-img-top" src="" />
+        <ul class="list-inline text-center member-icons animate">
+        <li class="list-inline-item">
+            <!-- <button routerLink="/item-detail/{{property.id}}" class="btn btn-primary"><i class="fa-sharp fa-solid fa-pen-to-square"></i></button>
+              -->
+              <button class="btn btn-primary"><i class="fa-sharp fa-solid fa-pen-to-square"></i></button>
+        </li>
+        <li class="list-inline-item">
+            <button class="btn btn-primary"><i class="fa-regular fa-address-book"></i></button>
+        </li>
+        </ul>
+    </div>
+
+    <div class="card-body p-1" style="text-align: center">
+        <h2 class="mt-2"> {{product.name}} </h2>
+        <h6 class="pt-2"> {{product.city}} </h6>
+        <h5 class="pt-2"> <span class="font-highlight">£ {{product.price}}</span></h5>
+        <p> CategoryID : {{product.categoryId}} </p>
+        <p> {{product.rating}} </p>
+    </div>
+</div>
