@@ -10,12 +10,17 @@ import { RouterLink } from '@angular/router';
   styleUrl: './nav-bar.component.scss'
 })
 export class NavBarComponent {
-  categories = [
-    'Electronics', 
-    'Furniture', 
-    'Vehicles', 
-    'Clothing', 
-    'Jobs', 
-    'Real Estate'
-  ];
+  categories: string[] = []
+
+  constructor() {
+    this.categories = [
+      'Electronics', 
+      'Games', 
+      'Toys', 
+      'Clothing', 
+      'Vehicles', 
+      'Pets',
+      'Other'
+    ]
+  }
 }

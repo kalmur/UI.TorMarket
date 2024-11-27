@@ -81,7 +81,7 @@ nav .nav-items li a {
 }
 
 nav .nav-items li a:hover {
-  color: #ff3d00;
+  color: #ff3d00 !important;
 }
 
 nav .menu-icon,
@@ -113,8 +113,7 @@ nav .search-icon {
   text-decoration: none;
 
   &:hover {
-    text-decoration: underline; 
-    background-color: #333; 
+    color: #ff3d00;
   }
 }
 

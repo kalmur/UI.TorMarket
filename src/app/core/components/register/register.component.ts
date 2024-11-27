@@ -1,9 +1,14 @@
 import { Component } from '@angular/core';
+import { NavBarComponent } from '../nav-bar/nav-bar.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [],
+  imports: [
+    FormsModule,
+    NavBarComponent
+  ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })

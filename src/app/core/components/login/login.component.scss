@@ -5,15 +5,6 @@
   font-family: Arial, sans-serif;
 }
   
-body, html {
-  height: 100%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #f0f0f0;
-}
-  
 .custom-container {
   margin-top: 0.2rem;
   width: 100%;
@@ -37,7 +28,7 @@ body, html {
 .left {
   width: 60%;
   border-radius: 15px;
-  background-image: url('https://i.pinimg.com/originals/cc/d7/91/ccd791805259af1b14ad5fabc905d018.jpg'); /* Add your background image here */
+  background-image: url('https://i.pinimg.com/originals/cc/d7/91/ccd791805259af1b14ad5fabc905d018.jpg'); 
   background-size: cover;
   background-position: center;
   position: relative;
@@ -175,7 +166,6 @@ input[type="password"] {
     flex-direction: column; 
     height: auto;
     box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.241);
-
   }
 
   .left, .right {
@@ -194,7 +184,8 @@ input[type="password"] {
   }
   .left::before {
     border-bottom-left-radius:0px ;
-    border-bottom-right-radius:0px ;            }
+    border-bottom-right-radius:0px ;            
+  }
 
   .left .welcome-message {
     position: relative; 

@@ -6,19 +6,23 @@
         <li class="list-inline-item">
             <!-- <button routerLink="/item-detail/{{property.id}}" class="btn btn-primary"><i class="fa-sharp fa-solid fa-pen-to-square"></i></button>
               -->
-              <button class="btn btn-primary"><i class="fa-sharp fa-solid fa-pen-to-square"></i></button>
+              <button class="btn btn-primary red-button"><i class="fa-sharp fa-solid fa-pen-to-square"></i></button>
         </li>
         <li class="list-inline-item">
-            <button class="btn btn-primary"><i class="fa-regular fa-address-book"></i></button>
+            <button class="btn btn-primary red-button"><i class="fa-regular fa-address-book"></i></button>
         </li>
         </ul>
     </div>
 
-    <div class="card-body p-1" style="text-align: center">
-        <h2 class="mt-2"> {{product.name}} </h2>
-        <h6 class="pt-2"> {{product.city}} </h6>
-        <h5 class="pt-2"> <span class="font-highlight">£ {{product.price}}</span></h5>
-        <p> CategoryID : {{product.categoryId}} </p>
-        <p> {{product.rating}} </p>
+    <div class="card-body p-1 mt-3" style="text-align: center">
+        <h2> {{product.name}} </h2>
+        <h4> {{product.city}} </h4>
+        <h5><span class="font-highlight">£{{product.price}}</span></h5>
+        <p-rating 
+            [(ngModel)]="product.rating" 
+            [readonly]="true" 
+            [cancel]="false" 
+            [iconOnStyle]="{'color':'white'}"
+        />
     </div>
 </div>

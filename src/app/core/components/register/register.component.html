@@ -1,1 +1,55 @@
-<p>register works!</p>
+<app-nav-bar></app-nav-bar>
+
+<div class="custom-container">
+    <div class="left">
+        <div class="welcome-message">
+            <h1>Become a member of Tor Market</h1>
+        </div>
+    </div>
+    <div class="right">
+        <div class="login-box">
+            <div class="login-title">
+            <h2>Register</h2>
+        </div>
+            <form action="/register" method="POST">
+                <div class="input-box">
+                    <label for="username">Username:</label>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        name="username" 
+                        required
+                    >
+                </div>
+                <div class="input-box">
+                    <label for="username">Email address:</label>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        name="username" 
+                        required
+                    >
+                </div>
+                <div class="input-box">
+                    <label for="password">Password:</label>
+                    <input 
+                        type="password"
+                        id="password" 
+                        name="password" 
+                        required
+                    >
+                </div>
+                <div class="input-box">
+                    <label for="password">Confirm password:</label>
+                    <input 
+                        type="password"
+                        id="password" 
+                        name="password" 
+                        required
+                    >
+                </div>
+                <button type="button">Register</button>
+            </form>
+        </div>
+    </div>
+</div>
