@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterOutlet } from '@angular/router';
-import { NavBarComponent } from '../../components/nav-bar/nav-bar.component';
-import { ILoginDetails } from '../models/user';
+import { NavBarComponent } from '../../../components/nav-bar/nav-bar.component';
+import { ILoginDetails } from '../../models/user';
 
 @Component({
   selector: 'app-login',

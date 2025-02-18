@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
   selector: 'app-nav-bar',
@@ -10,6 +11,8 @@ import { RouterLink } from '@angular/router';
   styleUrl: './nav-bar.component.scss'
 })
 export class NavBarComponent {
+  private readonly auth = inject(AuthService);
+
   categories: string[] = []
 
   constructor() {
@@ -22,5 +25,9 @@ export class NavBarComponent {
       'Pets',
       'Other'
     ]
+  }
+
+  login() {
+    this.auth.loginWithRedirect();
   }
 }

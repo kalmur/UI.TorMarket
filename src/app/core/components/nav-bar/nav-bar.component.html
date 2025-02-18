@@ -16,10 +16,13 @@
     >
     <button type="submit" class="fas fa-search"></button>
   </form>
-  <div class="nav-items">
-    <li><a [routerLink]="['/sell']">Sell</a></li>
-    <li><a [routerLink]="['/login']">Login</a></li>
-    <li><a [routerLink]="['/register']">Register</a></li>
+  <div class="nav-items me-4">
+    <li>
+      <a [routerLink]="['/sell']">Sell</a>
+    </li>
+    <li>
+      <a (click)="login()">Login / Register</a>
+    </li>
   </div>
   <div class="search-icon">
     <span class="fas fa-search"></span>

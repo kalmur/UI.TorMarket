@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './core/auth/login/login.component';
+import { LoginComponent } from './core/auth/old-implementation/login/login.component';
 import { HomeComponent } from './core/components/home/home.component';
 import { ProductListComponent } from './features/product/product-list/product-list.component';
-import { RegisterComponent } from './core/auth/register/register.component';
+import { RegisterComponent } from './core/auth/old-implementation/register/register.component';
 import { ElectronicsComponent } from './features/product/product-categories/electronics/electronics.component';
 import { GamesComponent } from './features/product/product-categories/games/games.component';
 import { ToysComponent } from './features/product/product-categories/toys/toys.component';
