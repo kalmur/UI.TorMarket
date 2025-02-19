@@ -37,7 +37,7 @@ export class NavBarComponent {
   handleLogin(): void {
     this.auth.loginWithRedirect({
       appState: {
-        target: '/sell',
+        // target: '/sell',
       },
     });
   }
@@ -45,7 +45,7 @@ export class NavBarComponent {
   handleSignUp(): void {
     this.auth.loginWithRedirect({
       appState: {
-        target: '/sell',
+        // target: '/',
       },
       authorizationParams: {
         screen_hint: 'signup',

@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { AuthModule } from '@auth0/auth0-angular';
 import { authConfig } from './app/core/auth/config/auth.config';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 
 const appConfig = {
   providers: [
@@ -15,9 +15,9 @@ const appConfig = {
     importProvidersFrom(
       BrowserAnimationsModule,
       TabsModule.forRoot(),
-      AuthModule.forRoot(authConfig),
-      HttpClientModule
-    )
+      AuthModule.forRoot(authConfig)
+    ),
+    provideHttpClient(withFetch())
   ]
 };
 
