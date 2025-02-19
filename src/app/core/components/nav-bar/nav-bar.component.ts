@@ -60,6 +60,10 @@ export class NavBarComponent {
     });
   }
 
+  handleProfileNavigation(): void {
+    this.router.navigate(['/profile']);
+  }
+
   handleSell(): void {
     this.isAuthenticated$.subscribe(isAuthenticated => {
       if (isAuthenticated) {

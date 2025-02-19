@@ -37,6 +37,7 @@
         <span *ngIf="user$ | async as user" style="color: white">Hi, {{ user.name }}</span>
       </a>
       <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="userDropdown">
+        <li><a class="dropdown-item" (click)="handleProfileNavigation()">Profile</a></li>
         <li><a class="dropdown-item" (click)="handleLogout()">Logout</a></li>
       </ul>
     </li>

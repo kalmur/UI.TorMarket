@@ -10,6 +10,7 @@ import { PetsComponent } from './features/product/product-categories/pets/pets.c
 import { OtherComponent } from './features/product/product-categories/other/other.component';
 import { SellProductComponent } from './features/product/sell-product/sell-product.component';
 import { AuthPromptComponent } from './core/auth/auth-prompt/auth-prompt.component';
+import { UserProfileDetailComponent } from './features/user-profile/user-profile-detail/user-profile-detail.component';
 
 export const routes: Routes = [
     { path: 'sell', component: SellProductComponent },
@@ -21,6 +22,7 @@ export const routes: Routes = [
     { path: 'vehicles', component: VehiclesComponent },
     { path: 'pets', component: PetsComponent },
     { path: 'other', component: OtherComponent },
+    { path: 'profile', component: UserProfileDetailComponent},
     {
         path: '',
         component: HomeComponent,
