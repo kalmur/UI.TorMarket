@@ -20,13 +20,13 @@
     <li>
       <a [routerLink]="['/sell']">Sell</a>
     </li>
-    <li>
+    <li *ngIf="!(isAuthenticated$ | async)">
       <a (click)="handleLogin()">Login</a>
     </li>
-    <li>
+    <li *ngIf="!(isAuthenticated$ | async)">
       <a (click)="handleSignUp()">Register</a>
     </li>
-    <li>
+    <li *ngIf="isAuthenticated$ | async">
       <a (click)="handleLogout()">Logout</a>
     </li>
   </div>
