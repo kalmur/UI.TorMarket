@@ -18,7 +18,7 @@
   </form>
   <div class="nav-items me-4">
     <li>
-      <a [routerLink]="['/sell']">Sell</a>
+      <a (click)="handleSell()">Sell</a>
     </li>
     <li *ngIf="!(isAuthenticated$ | async)">
       <a (click)="handleLogin()">Login</a>
@@ -26,8 +26,19 @@
     <li *ngIf="!(isAuthenticated$ | async)">
       <a (click)="handleSignUp()">Register</a>
     </li>
-    <li *ngIf="isAuthenticated$ | async" class="me-2">
-      <a (click)="handleLogout()">Logout</a>
+    <li *ngIf="isAuthenticated$ | async" class="nav-item dropdown">
+      <a 
+        class="nav-link dropdown-toggle" 
+        href="#" id="userDropdown" 
+        role="button" 
+        data-bs-toggle="dropdown" 
+        aria-expanded="false"
+      >
+        <span *ngIf="user$ | async as user" style="color: white">Hi, {{ user.name }}</span>
+      </a>
+      <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="userDropdown">
+        <li><a class="dropdown-item" (click)="handleLogout()">Logout</a></li>
+      </ul>
     </li>
   </div>
   <div class="search-icon">

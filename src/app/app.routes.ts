@@ -1,8 +1,6 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './core/auth/old-implementation/login/login.component';
 import { HomeComponent } from './core/components/home/home.component';
 import { ProductListComponent } from './features/product/product-list/product-list.component';
-import { RegisterComponent } from './core/auth/old-implementation/register/register.component';
 import { ElectronicsComponent } from './features/product/product-categories/electronics/electronics.component';
 import { GamesComponent } from './features/product/product-categories/games/games.component';
 import { ToysComponent } from './features/product/product-categories/toys/toys.component';
@@ -11,11 +9,11 @@ import { VehiclesComponent } from './features/product/product-categories/vehicle
 import { PetsComponent } from './features/product/product-categories/pets/pets.component';
 import { OtherComponent } from './features/product/product-categories/other/other.component';
 import { SellProductComponent } from './features/product/sell-product/sell-product.component';
+import { AuthPromptComponent } from './core/auth/auth-prompt/auth-prompt.component';
 
 export const routes: Routes = [
-    { path: 'login', component: LoginComponent },
-    { path: 'register', component: RegisterComponent},
     { path: 'sell', component: SellProductComponent },
+    { path: 'auth-prompt', component: AuthPromptComponent},
     { path: 'electronics', component: ElectronicsComponent },
     { path: 'games', component: GamesComponent },
     { path: 'toys', component: ToysComponent },

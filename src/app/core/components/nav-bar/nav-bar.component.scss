@@ -261,3 +261,14 @@ nav .search-icon {
 .content .space {
   margin: 10px 0;
 }
+
+.custom-dropdown-menu {
+  background-color: #171c24; 
+  color: #171c24;
+  padding-top: 0.75rem;
+}
+
+.custom-dropdown-menu .dropdown-item:hover {
+  color: #e63600;
+  background-color: #171c24;
+}
