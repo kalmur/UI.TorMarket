@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ProductListComponent } from '../product-list/product-list.component';
 import { RatingModule } from 'primeng/rating';
 import { FormsModule } from '@angular/forms';
-import { IProduct } from '../../../core/models/model';
+import { IProduct } from '../models/product';
 
 @Component({
   selector: 'app-product-card',

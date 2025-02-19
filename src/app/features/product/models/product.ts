@@ -11,9 +11,3 @@ export interface IProduct {
     availableFrom?: Date;
     rating: number;
 }
-
-export interface IApiResponseModel {
-    message: string,
-    result: boolean,
-    data: any
-}
