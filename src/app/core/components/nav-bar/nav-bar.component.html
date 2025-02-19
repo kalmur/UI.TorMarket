@@ -21,7 +21,13 @@
       <a [routerLink]="['/sell']">Sell</a>
     </li>
     <li>
-      <a (click)="login()">Login / Register</a>
+      <a (click)="handleLogin()">Login</a>
+    </li>
+    <li>
+      <a (click)="handleSignUp()">Register</a>
+    </li>
+    <li>
+      <a (click)="handleLogout()">Logout</a>
     </li>
   </div>
   <div class="search-icon">

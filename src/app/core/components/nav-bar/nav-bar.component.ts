@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { AuthService } from '@auth0/auth0-angular';
-
+import { AppState, AuthService } from '@auth0/auth0-angular';
+import { RedirectLoginOptions } from '@auth0/auth0-spa-js';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-nav-bar',
   standalone: true,
@@ -13,7 +14,9 @@ import { AuthService } from '@auth0/auth0-angular';
 export class NavBarComponent {
   private readonly auth = inject(AuthService);
 
-  categories: string[] = []
+  isAuthenticated$: Observable<boolean> = this.auth.isAuthenticated$;
+
+  categories: string[] = [];
 
   constructor() {
     this.categories = [
@@ -25,9 +28,36 @@ export class NavBarComponent {
       'Pets',
       'Other'
     ]
+
+    this.isAuthenticated$.subscribe(isAuthenticated => {
+      console.log('User is authenticated:', isAuthenticated);
+    });
   }
 
-  login() {
-    this.auth.loginWithRedirect();
+  handleLogin(): void {
+    this.auth.loginWithRedirect({
+      appState: {
+        target: '/sell',
+      },
+    });
+  }
+
+  handleSignUp(): void {
+    this.auth.loginWithRedirect({
+      appState: {
+        target: '/sell',
+      },
+      authorizationParams: {
+        screen_hint: 'signup',
+      }
+    });
+  }
+
+  handleLogout() {
+    this.auth.logout({
+      logoutParams: {
+        returnTo: window.location.origin
+      }
+    });
   }
 }
