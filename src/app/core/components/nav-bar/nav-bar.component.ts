@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { AppState, AuthService } from '@auth0/auth0-angular';
-import { RedirectLoginOptions } from '@auth0/auth0-spa-js';
+import { AuthHelperService } from '../../auth/services/auth-helper.service';
 import { Observable } from 'rxjs';
 @Component({
   selector: 'app-nav-bar',
@@ -12,12 +11,12 @@ import { Observable } from 'rxjs';
   styleUrl: './nav-bar.component.scss'
 })
 export class NavBarComponent {
-  private readonly auth = inject(AuthService);
+  private readonly authHelper = inject(AuthHelperService);
   private readonly router = inject(Router);
 
-  isAuthenticated$: Observable<boolean> = this.auth.isAuthenticated$;
-  user$: Observable<any> = this.auth.user$;
-
+  isAuthenticated$: Observable<boolean> = this.authHelper.isAuthenticated$;
+  user$: Observable<any> = this.authHelper.user$;
+  
   categories: string[] = [];
 
   constructor() {
@@ -30,51 +29,25 @@ export class NavBarComponent {
       'Pets',
       'Other'
     ]
-
-    this.isAuthenticated$.subscribe(isAuthenticated => {
-      console.log('User is authenticated:', isAuthenticated);
-    });
-
-    this.user$.subscribe(user => {
-      console.log('User profile:', user);
-    });
   }
 
   handleLogin(): void {
-    this.auth.loginWithRedirect();
+    this.authHelper.login();
   }
 
   handleSignUp(): void {
-    this.auth.loginWithRedirect({
-      authorizationParams: {
-        screen_hint: 'signup',
-      }
-    });
+    this.authHelper.signUp();
   }
 
-  handleLogout() {
-    this.auth.logout({
-      logoutParams: {
-        returnTo: window.location.origin
-      }
-    });
+  handleLogout(): void {
+    this.authHelper.logout();
+  }
+
+  handleSell(): void {
+    this.authHelper.navigateToSellPage();
   }
 
   handleProfileNavigation(): void {
     this.router.navigate(['/profile']);
-  }
-
-  handleSell(): void {
-    this.isAuthenticated$.subscribe(isAuthenticated => {
-      if (isAuthenticated) {
-        this.router.navigate(['/sell']);
-      } else {
-        this.router.navigate(['/auth-prompt'], { 
-          queryParams: { 
-            action: 'sell a product' 
-          } 
-        });
-      }
-    });
   }
 }
