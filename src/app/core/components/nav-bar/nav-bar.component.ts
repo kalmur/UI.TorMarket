@@ -3,7 +3,7 @@ import { Component, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthHelperService } from '../../auth/services/auth-helper.service';
 import { Observable } from 'rxjs';
-import { UserService } from '../../services/user.service';
+
 @Component({
   selector: 'app-nav-bar',
   standalone: true,
@@ -11,6 +11,7 @@ import { UserService } from '../../services/user.service';
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.scss'
 })
+
 export class NavBarComponent {
   private readonly authHelper = inject(AuthHelperService);
   private readonly router = inject(Router);
