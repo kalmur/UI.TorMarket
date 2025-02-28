@@ -2,13 +2,15 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Categories } from '../../../shared/enums/categories';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 @Component({
   selector: 'app-product-form',
   standalone: true,
   imports: [ 
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BsDatepickerModule
   ],
   templateUrl: './product-form.component.html',
   styleUrl: './product-form.component.scss'
