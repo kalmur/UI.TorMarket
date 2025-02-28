@@ -11,3 +11,12 @@ export interface IProduct {
     availableFrom?: Date;
     rating: number;
 }
+
+export interface IProductFormDetails {
+    name: string;
+    category: string;
+    price: number;
+    availableFrom: Date;
+    description: string;
+    imageUrl: string;
+}

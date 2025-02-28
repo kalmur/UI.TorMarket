@@ -3,6 +3,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Categories } from '../../../shared/enums/categories';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { IProductFormDetails } from '../models/product';
 
 @Component({
   selector: 'app-product-form',
@@ -16,7 +17,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
   styleUrl: './product-form.component.scss'
 })
 export class ProductFormComponent {
-  @Output() productChange = new EventEmitter<any>();
+  @Output() productChange = new EventEmitter<IProductFormDetails>();
 
   productFormGroup: FormGroup;
   categories = Object.values(Categories);
