@@ -3,6 +3,7 @@ import { Component, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthHelperService } from '../../auth/services/auth-helper.service';
 import { Observable } from 'rxjs';
+import { Categories } from '../../../shared/enums/categories';
 
 @Component({
   selector: 'app-nav-bar',
@@ -19,19 +20,7 @@ export class NavBarComponent {
   isAuthenticated$: Observable<boolean> = this.authHelper.isAuthenticated$;
   user$: Observable<any> = this.authHelper.user$;
   
-  categories: string[] = [];
-
-  constructor() {
-    this.categories = [
-      'Electronics', 
-      'Games', 
-      'Toys', 
-      'Clothing', 
-      'Vehicles', 
-      'Pets',
-      'Other'
-    ]
-  }
+  categories = Object.values(Categories);
 
   handleLogin(): void {
     this.authHelper.login();

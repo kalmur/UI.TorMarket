@@ -1,37 +1,23 @@
 import { Component } from '@angular/core';
 import { NavBarComponent } from '../../../core/components/nav-bar/nav-bar.component';
-import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { ProductFormComponent } from '../product-form/product-form.component';
+import { ProductPreviewComponent } from '../product-preview/product-preview.component';
 
 @Component({
   selector: 'app-sell-product',
   standalone: true,
   imports: [
-     NavBarComponent,
-     CommonModule,
-     ReactiveFormsModule
+    NavBarComponent,
+    ProductFormComponent,
+    ProductPreviewComponent
   ],
   templateUrl: './sell-product.component.html',
   styleUrl: './sell-product.component.scss'
 })
 export class SellProductComponent {
-  listingForm: FormGroup;
-  
-    constructor(private fb: FormBuilder) {
-      this.listingForm = this.fb.group({
-        name: [''],
-        category: [''],
-        price: [''],
-        address: [''],
-        city: [''],
-        state: [''],
-        zip: [''],
-        availableFrom: [''],
-        description: ['']
-      });
-    }
+  product: any = {};
 
-    onSubmit() {
-      console.log(this.listingForm.value);
-    }
+  onProductChange(product: any) {
+    this.product = product;
+  }
 }

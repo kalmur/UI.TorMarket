@@ -1,0 +1,39 @@
+.full-background {
+    background-color: var(--primary-bg-color);
+    min-height: calc(100vh - 200px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .form-background {
+    background-color: var(--primary-bg-color);
+  }
+  
+  .card {
+    background-color: var(--primary-bg-color);
+  }
+  
+  .card-header {
+    background-color: var(--primary-bg-color);
+  }
+  
+  .card-body {
+    background-color: var(--primary-bg-color);
+  }
+  
+  .white-text {
+    color: white !important;
+    text-align: center !important;
+  }
+  
+.next-button {
+  background-color: var(--primary-button-color) !important;
+  outline: none !important;
+  border: none;
+}
+  
+.next-button:focus {
+    outline: none !important;
+    box-shadow: none;
+}
