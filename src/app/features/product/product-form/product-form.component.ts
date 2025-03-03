@@ -3,6 +3,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Categories } from '../../../shared/enums/categories';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { IProductFormDetails } from '../models/product';
 
 @Component({
@@ -11,7 +12,8 @@ import { IProductFormDetails } from '../models/product';
   imports: [ 
     CommonModule,
     ReactiveFormsModule,
-    BsDatepickerModule
+    BsDatepickerModule,
+    BsDropdownModule
   ],
   templateUrl: './product-form.component.html',
   styleUrl: './product-form.component.scss'
