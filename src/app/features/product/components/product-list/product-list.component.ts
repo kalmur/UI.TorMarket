@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
-import { ProductService } from '../services/product.service';
+import { ProductService } from '../../services/product.service';
 import { ProductCardComponent } from '../product-card/product-card.component';
 import { CommonModule } from '@angular/common';
-import { IProduct } from '../models/product';
+import { IProduct } from '../../models/product';
 
 @Component({
   selector: 'app-product-list',

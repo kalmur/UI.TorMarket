@@ -41,11 +41,10 @@ export class ProductService {
           this.toastr.success('Product created successfully');
           return response;
         }),
-        catchError(error => 
-          throwError(
-            this.log('create product request', error)
-          )
-        )
+        catchError(error => {
+          this.toastr.error('Failed to create product');
+          return throwError(this.log('create product request', error));
+        })
       );
   }
 

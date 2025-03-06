@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
-import { NavBarComponent } from '../../../core/components/nav-bar/nav-bar.component';
+import { Component, Inject } from '@angular/core';
+import { NavBarComponent } from '../../../../core/components/nav-bar/nav-bar.component';
 import { ProductFormComponent } from '../product-form/product-form.component';
 import { ProductPreviewComponent } from '../product-preview/product-preview.component';
+import { ProductService } from '../../services/product.service';
 
 @Component({
   selector: 'app-sell-product',

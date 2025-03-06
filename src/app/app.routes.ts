@@ -1,14 +1,14 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './core/components/home/home.component';
-import { ProductListComponent } from './features/product/product-list/product-list.component';
-import { ElectronicsComponent } from './features/product/product-categories/electronics/electronics.component';
-import { GamesComponent } from './features/product/product-categories/games/games.component';
-import { ToysComponent } from './features/product/product-categories/toys/toys.component';
-import { ClothingComponent } from './features/product/product-categories/clothing/clothing.component';
-import { VehiclesComponent } from './features/product/product-categories/vehicles/vehicles.component';
-import { PetsComponent } from './features/product/product-categories/pets/pets.component';
-import { OtherComponent } from './features/product/product-categories/other/other.component';
-import { SellProductComponent } from './features/product/sell-product/sell-product.component';
+import { ProductListComponent } from './features/product/components/product-list/product-list.component';
+import { ElectronicsComponent } from './features/product-category/components/electronics/electronics.component';
+import { GamesComponent } from './features/product-category/components/games/games.component';
+import { ToysComponent } from './features/product-category/components/toys/toys.component';
+import { ClothingComponent } from './features/product-category/components/clothing/clothing.component';
+import { VehiclesComponent } from './features/product-category/components/vehicles/vehicles.component';
+import { PetsComponent } from './features/product-category/components/pets/pets.component';
+import { OtherComponent } from './features/product-category/components/other/other.component';
+import { SellProductComponent } from './features/product/components/sell-product/sell-product.component';
 import { AuthPromptComponent } from './core/auth/auth-prompt/auth-prompt.component';
 import { UserProfileDetailComponent } from './features/user-profile/user-profile-detail/user-profile-detail.component';
 
