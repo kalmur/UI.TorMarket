@@ -8,6 +8,7 @@ export class UrlProviderService {
 
   private readonly userEndpoint = `${this.baseUrl}/users`;
   private readonly productEnpoint = `${this.baseUrl}/product`;
+  private readonly productCategoryEnpoint = `${this.baseUrl}/product-category`;
 
   // Users
   get createUser(): string {
@@ -22,5 +23,10 @@ export class UrlProviderService {
 
   get getAllProducts(): string {
     return this.productEnpoint;
+  }
+
+  // Product category
+  get getAllProductCategories(): string {
+    return this.productCategoryEnpoint;
   }
 }

@@ -1,11 +1,11 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { IApiResponseModel } from '../../../core/models/api-response';
 import { UrlProviderService } from '../../../core/services/url-provider.service';
 import { ToastrService } from 'ngx-toastr';
-import { interpretError } from '../../../core/services/error-interpreter.function';
 import { ICreatedProduct, ICreateProductRequest } from '../models/product';
+import { LoggingService } from '../../../core/services/logging.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,8 @@ export class ProductService {
   constructor(
     private readonly httpClient: HttpClient,
     private readonly urlProvider: UrlProviderService,
-    private readonly toastr: ToastrService
+    private readonly toastr: ToastrService,
+    private readonly logger: LoggingService
   ) {}
 
   getAllProducts(): Observable<IApiResponseModel> {
@@ -25,7 +26,7 @@ export class ProductService {
       .pipe(
         catchError(error => 
           throwError(
-            this.log('get all products request', error)
+            this.logger.log('get all products request', error)
           )
         )
     );
@@ -43,16 +44,8 @@ export class ProductService {
         }),
         catchError(error => {
           this.toastr.error('Failed to create product');
-          return throwError(this.log('create product request', error));
+          return throwError(this.logger.log('create product request', error));
         })
       );
-  }
-
-  private log(serviceName: string, error: HttpErrorResponse): any {
-    const compiledMessage =
-        `Failed to ${serviceName} ${interpretError(error)}`.trim() +
-        '\nPlease refresh your page to see the latest changes.';
-    this.toastr.error(compiledMessage);
-    return compiledMessage;
   }
 }

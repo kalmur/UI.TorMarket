@@ -18,7 +18,7 @@ import { ProductService } from '../../services/product.service';
 export class SellProductComponent {
   product: any = {};
 
-  onProductChange(product: any) {
+  onProductChanged(product: any) {
     this.product = product;
   }
 }

@@ -8,6 +8,7 @@ import { ICreateProductRequest, IProductFormDetails } from '../../models/product
 import { ProductService } from '../../services/product.service';
 import { ToastrService } from 'ngx-toastr';
 import { Subject, takeUntil } from 'rxjs';
+import { ProductCategoryService } from '../../../product-category/services/product-category.service';
 
 @Component({
   selector: 'app-product-form',
@@ -32,6 +33,7 @@ export class ProductFormComponent implements OnDestroy{
   constructor(
     private fb: FormBuilder,
     private readonly productService: ProductService,
+    private readonly productCategoryService: ProductCategoryService,
     private readonly toastr: ToastrService
   ) {
     this.productFormGroup = this.fb.group({
