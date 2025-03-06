@@ -8,6 +8,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { AuthModule } from '@auth0/auth0-angular';
 import { authConfig } from './app/core/auth/config/auth.config';
 import { provideHttpClient, withFetch } from '@angular/common/http';
+import { ToastrModule } from 'ngx-toastr';
 
 const appConfig = {
   providers: [
@@ -15,7 +16,12 @@ const appConfig = {
     importProvidersFrom(
       BrowserAnimationsModule,
       TabsModule.forRoot(),
-      AuthModule.forRoot(authConfig)
+      AuthModule.forRoot(authConfig),
+      ToastrModule.forRoot({
+        timeOut: 3000,
+        positionClass: 'toast-top-right',
+        preventDuplicates: true,
+      })
     ),
     provideHttpClient(withFetch())
   ]

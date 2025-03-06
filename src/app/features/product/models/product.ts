@@ -20,3 +20,21 @@ export interface IProductFormDetails {
     description: string;
     imageUrl: string;
 }
+
+export interface ICreateProductRequest {
+    userId: number;
+    name: string;
+    categoryId: number;
+    price: number;
+    availableFrom: Date;
+    description: string;
+}
+
+export interface ICreatedProduct {
+    productId: number;
+    categoryId: number;
+    name: string;
+    price: number;
+    description: string;
+    availableFrom: Date;
+}

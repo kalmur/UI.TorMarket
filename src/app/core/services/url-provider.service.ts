@@ -4,9 +4,23 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class UrlProviderService {
-  private readonly baseUrl = 'https://localhost:5001/api';
+  private readonly baseUrl = 'http://localhost:5261/api';
 
+  private readonly userEndpoint = `${this.baseUrl}/users`;
+  private readonly productEnpoint = `${this.baseUrl}/product`;
+
+  // Users
   get createUser(): string {
-    return `${this.baseUrl}/users`;
+    return this.userEndpoint;
+  }
+
+  
+  // Products
+  get createProduct(): string {
+    return this.productEnpoint;
+  }
+
+  get getAllProducts(): string {
+    return this.productEnpoint;
   }
 }
