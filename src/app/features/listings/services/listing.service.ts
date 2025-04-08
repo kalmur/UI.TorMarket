@@ -4,13 +4,13 @@ import { catchError, map, Observable, throwError } from 'rxjs';
 import { IApiResponseModel } from '../../../core/models/api-response';
 import { UrlProviderService } from '../../../core/services/url-provider.service';
 import { ToastrService } from 'ngx-toastr';
-import { ICreatedProduct, ICreateProductRequest } from '../models/product';
+import { ICreatedListing, ICreateListingRequest } from '../models/listings';
 import { LoggingService } from '../../../core/services/logging.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProductService {
+export class ListingService {
   constructor(
     private readonly httpClient: HttpClient,
     private readonly urlProvider: UrlProviderService,
@@ -18,7 +18,7 @@ export class ProductService {
     private readonly logger: LoggingService
   ) {}
 
-  getAllProducts(): Observable<IApiResponseModel> {
+  getAllListings(): Observable<IApiResponseModel> {
     const endPoint = this.urlProvider.getAllProducts;
 
     return this.httpClient
@@ -32,19 +32,21 @@ export class ProductService {
     );
   }
 
-  createProduct(product: ICreateProductRequest): Observable<ICreatedProduct> {
+  createListing(product: ICreateListingRequest): Observable<ICreatedListing> {
     const endPoint = this.urlProvider.createProduct;
-    
+
     return this.httpClient
-      .post<ICreatedProduct>(endPoint, product)
+      .post<ICreatedListing>(endPoint, product)
       .pipe(
         map(response => {
-          this.toastr.success('Product created successfully');
+          this.toastr.success('Listing created successfully');
           return response;
         }),
         catchError(error => {
-          this.toastr.error('Failed to create product');
-          return throwError(this.logger.log('create product request', error));
+          this.toastr.error('Failed to create listing');
+          return throwError(
+            this.logger.log('create listing request', error)
+          );
         })
       );
   }

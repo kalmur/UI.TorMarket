@@ -42,7 +42,7 @@ export class AuthHelperService {
       } else {
         this.router.navigate(['/auth-prompt'], { 
           queryParams: { 
-            action: 'sell a product' 
+            action: 'sell' 
           } 
         });
       }

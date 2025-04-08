@@ -4,14 +4,14 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Categories } from '../../../../shared/enums/categories';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { ICreateProductRequest, IProductFormDetails } from '../../models/product';
-import { ProductService } from '../../services/product.service';
+import { ICreateListingRequest, IListingFormDetails } from '../../models/listings';
+import { ListingService } from '../../services/listing.service';
 import { ToastrService } from 'ngx-toastr';
 import { Subject, takeUntil } from 'rxjs';
-import { ProductCategoryService } from '../../../product-category/services/product-category.service';
+import { ListingCategoryService } from '../../../categories/services/listing-category.service';
 
 @Component({
-  selector: 'app-product-form',
+  selector: 'app-listing-form',
   standalone: true,
   imports: [ 
     CommonModule,
@@ -19,21 +19,21 @@ import { ProductCategoryService } from '../../../product-category/services/produ
     BsDatepickerModule,
     BsDropdownModule
   ],
-  templateUrl: './product-form.component.html',
-  styleUrl: './product-form.component.scss'
+  templateUrl: './listing-form.component.html',
+  styleUrl: './listing-form.component.scss'
 })
 export class ProductFormComponent implements OnDestroy{
   private destroy$ = new Subject<void>();
 
-  @Output() productChange = new EventEmitter<IProductFormDetails>();
+  @Output() productChange = new EventEmitter<IListingFormDetails>();
 
   productFormGroup: FormGroup;
   categories = Object.values(Categories);
 
   constructor(
     private fb: FormBuilder,
-    private readonly productService: ProductService,
-    private readonly productCategoryService: ProductCategoryService,
+    private readonly productService: ListingService,
+    private readonly listingCategoryService: ListingCategoryService,
     private readonly toastr: ToastrService
   ) {
     this.productFormGroup = this.fb.group({
@@ -66,7 +66,7 @@ export class ProductFormComponent implements OnDestroy{
   private createProduct() {
     console.log('Starting request');
 
-    const product: ICreateProductRequest = {
+    const product: ICreateListingRequest = {
       userId: this.productFormGroup.value.userId,
       name: this.productFormGroup.value.name,
       // fEtch from db
@@ -76,7 +76,7 @@ export class ProductFormComponent implements OnDestroy{
       availableFrom: this.productFormGroup.value.availableFrom
     };
 
-    this.productService.createProduct(product)
+    this.productService.createListing(product)
       .pipe(takeUntil(this.destroy$))
       .subscribe();
   }

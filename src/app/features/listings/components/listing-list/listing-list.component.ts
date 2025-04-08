@@ -1,21 +1,24 @@
 import { Component, inject } from '@angular/core';
-import { ProductService } from '../../services/product.service';
-import { ProductCardComponent } from '../product-card/product-card.component';
+import { ListingService } from '../../services/listing.service';
+import { ListingCardComponent } from '../listing-card/listing-card.component';
 import { CommonModule } from '@angular/common';
-import { IProduct } from '../../models/product';
+import { IListing } from '../../models/listings';
 
 @Component({
-  selector: 'app-product-list',
+  selector: 'app-listing-list',
   standalone: true,
-  imports: [ProductCardComponent, CommonModule],
-  templateUrl: './product-list.component.html',
-  styleUrl: './product-list.component.scss'
+  imports: [
+    ListingCardComponent, 
+    CommonModule
+  ],
+  templateUrl: './listing-list.component.html',
+  styleUrl: './listing-list.component.scss'
 })
-export class ProductListComponent {
+export class ListingListComponent {
 
-  products: IProduct[] = [];
+  products: IListing[] = [];
 
-  productService = inject(ProductService);
+  productService = inject(ListingService);
 
   constructor() {
     this.products = [

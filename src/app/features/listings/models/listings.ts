@@ -1,4 +1,4 @@
-export interface IProduct {
+export interface IListing {
     listingId: number;
     userId: number;
     categoryId: number;
@@ -12,7 +12,7 @@ export interface IProduct {
     rating: number;
 }
 
-export interface IProductFormDetails {
+export interface IListingFormDetails {
     name: string;
     category: string;
     price: number;
@@ -21,7 +21,7 @@ export interface IProductFormDetails {
     imageUrl: string;
 }
 
-export interface ICreateProductRequest {
+export interface ICreateListingRequest {
     userId: number;
     name: string;
     categoryId: number;
@@ -30,7 +30,7 @@ export interface ICreateProductRequest {
     description: string;
 }
 
-export interface ICreatedProduct {
+export interface ICreatedListing {
     productId: number;
     categoryId: number;
     name: string;

@@ -8,7 +8,7 @@ import { LoggingService } from '../../../core/services/logging.service';
 @Injectable({
   providedIn: 'root'
 })
-export class ProductCategoryService {
+export class ListingCategoryService {
   constructor(
     private readonly httpClient: HttpClient,
     private readonly urlProvider: UrlProviderService,
