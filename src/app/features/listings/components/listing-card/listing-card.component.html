@@ -16,11 +16,13 @@
         <h2> {{listing.name}} </h2>
         <h5> {{listing.category.name}} </h5>
         <h5><span class="font-highlight">£{{listing.price}}</span></h5>
-        <!-- <p-rating 
-            [(ngModel)]="listing.rating" 
+        <p-rating 
+            value="4"
             [readonly]="true" 
             [cancel]="false" 
             [iconOnStyle]="{'color':'white'}"
-        /> -->
+            style="color: white;"
+        />
+        <!-- [(ngModel)]="listing.rating"  -->
     </div>
 </div>
