@@ -1,10 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, throwError } from 'rxjs';
-import { IApiResponseModel } from '../../../core/models/api-response';
 import { UrlProviderService } from '../../../core/services/url-provider.service';
 import { ToastrService } from 'ngx-toastr';
-import { ICreatedListing, ICreateListingRequest } from '../models/listings';
+import { ICreatedListing, ICreateListingRequest, IListing } from '../models/listings';
 import { LoggingService } from '../../../core/services/logging.service';
 
 @Injectable({
@@ -18,11 +17,11 @@ export class ListingService {
     private readonly logger: LoggingService
   ) {}
 
-  getAllListings(): Observable<IApiResponseModel> {
-    const endPoint = this.urlProvider.getAllProducts;
+  getAllListings(): Observable<IListing[]> {
+    const endPoint = this.urlProvider.getAllListings;
 
     return this.httpClient
-      .get<IApiResponseModel>(endPoint)
+      .get<IListing[]>(endPoint)
       .pipe(
         catchError(error => 
           throwError(
@@ -33,7 +32,7 @@ export class ListingService {
   }
 
   createListing(product: ICreateListingRequest): Observable<ICreatedListing> {
-    const endPoint = this.urlProvider.createProduct;
+    const endPoint = this.urlProvider.createListing;
 
     return this.httpClient
       .post<ICreatedListing>(endPoint, product)
@@ -47,7 +46,8 @@ export class ListingService {
           return throwError(
             this.logger.log('create listing request', error)
           );
-        })
-      );
+        }
+      )
+    );
   }
 }

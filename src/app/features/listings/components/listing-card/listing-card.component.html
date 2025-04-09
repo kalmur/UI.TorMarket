@@ -4,8 +4,6 @@
         <img class="card-img-top" src="" />
         <ul class="list-inline text-center member-icons animate">
         <li class="list-inline-item">
-            <!-- <button routerLink="/item-detail/{{property.id}}" class="btn btn-primary"><i class="fa-sharp fa-solid fa-pen-to-square"></i></button>
-              -->
               <button class="btn btn-primary red-button"><i class="fa-sharp fa-solid fa-pen-to-square"></i></button>
         </li>
         <li class="list-inline-item">
@@ -15,14 +13,14 @@
     </div>
 
     <div class="card-body p-1 mt-3" style="text-align: center">
-        <h2> {{product.name}} </h2>
-        <h4> {{product.city}} </h4>
-        <h5><span class="font-highlight">£{{product.price}}</span></h5>
-        <p-rating 
-            [(ngModel)]="product.rating" 
+        <h2> {{listing.name}} </h2>
+        <h5> {{listing.category.name}} </h5>
+        <h5><span class="font-highlight">£{{listing.price}}</span></h5>
+        <!-- <p-rating 
+            [(ngModel)]="listing.rating" 
             [readonly]="true" 
             [cancel]="false" 
             [iconOnStyle]="{'color':'white'}"
-        />
+        /> -->
     </div>
 </div>

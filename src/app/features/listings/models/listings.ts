@@ -3,13 +3,17 @@ export interface IListing {
     userId: number;
     categoryId: number;
     name: string;
-    sellLease: number;
-    description?: string; 
     price: number;
-    city: string;
-    country: string;
-    availableFrom?: Date;
-    rating: number;
+    description?: string;
+    availableFrom?: string;
+    user: {
+        userId: number;
+        providerId: string;
+    };
+    category: {
+        categoryId: number;
+        name: string;
+    };
 }
 
 export interface IListingFormDetails {

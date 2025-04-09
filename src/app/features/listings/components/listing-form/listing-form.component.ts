@@ -9,6 +9,7 @@ import { ListingService } from '../../services/listing.service';
 import { ToastrService } from 'ngx-toastr';
 import { Subject, takeUntil } from 'rxjs';
 import { ListingCategoryService } from '../../../categories/services/listing-category.service';
+import { ICategory } from '../../../../core/models/categories';
 
 @Component({
   selector: 'app-listing-form',
@@ -28,7 +29,7 @@ export class ProductFormComponent implements OnDestroy{
   @Output() productChange = new EventEmitter<IListingFormDetails>();
 
   productFormGroup: FormGroup;
-  categories = Object.values(Categories);
+  categories: ICategory[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -36,18 +37,9 @@ export class ProductFormComponent implements OnDestroy{
     private readonly listingCategoryService: ListingCategoryService,
     private readonly toastr: ToastrService
   ) {
-    this.productFormGroup = this.fb.group({
-      name: ['', Validators.required],
-      category: ['', Validators.required],
-      price: ['', Validators.required],
-      availableFrom: [''],
-      description: [''],
-      imageUrl: ['']
-    });
-
-    this.productFormGroup.valueChanges.subscribe(value => {
-      this.productChange.emit(value);
-    });
+    this.productFormGroup = this.initializeForm();
+    this.subscribeToFormChanges();
+    this.fetchAllCategories();
   }
 
   ngOnDestroy() {
@@ -61,6 +53,35 @@ export class ProductFormComponent implements OnDestroy{
     } else {
       this.toastr.error('Please fill in all required fields');
     }
+  }
+
+  private initializeForm(): FormGroup {
+    return this.fb.group({
+      name: ['', Validators.required],
+      category: ['', Validators.required],
+      price: ['', Validators.required],
+      availableFrom: [''],
+      description: [''],
+      imageUrl: ['']
+    });
+  }
+  
+  private subscribeToFormChanges(): void {
+    this.productFormGroup.valueChanges.subscribe(value => {
+      this.productChange.emit(value);
+    });
+  }
+
+  private fetchAllCategories(): void {
+      this.listingCategoryService.getAllProductCategories().subscribe({
+        next: (response: ICategory[]) => {
+          this.categories = response;
+        },
+        error: (error) => {
+          console.error('Failed to fetch categories:', error);
+        }
+      }
+    );
   }
 
   private createProduct() {

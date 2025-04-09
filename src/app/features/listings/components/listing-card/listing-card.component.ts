@@ -14,5 +14,5 @@ import { IListing } from '../../models/listings';
 })
 export class ListingCardComponent {
 
-  @Input() product!: IListing;
+  @Input() listing!: IListing;
 }

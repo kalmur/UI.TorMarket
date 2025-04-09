@@ -17,7 +17,7 @@
                   </button>
                   <ul id="dropdown-category" *dropdownMenu class="dropdown-menu w-100" role="menu" aria-labelledby="button-category">
                     <li role="menuitem" *ngFor="let category of categories">
-                      <a class="dropdown-item text-center" (click)="productFormGroup.controls['category'].setValue(category)">{{ category }}</a>
+                      <a class="dropdown-item text-center" (click)="productFormGroup.controls['category'].setValue(category.name)">{{ category.name }}</a>
                     </li>
                   </ul>
                 </div>

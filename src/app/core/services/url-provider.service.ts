@@ -7,26 +7,29 @@ export class UrlProviderService {
   private readonly baseUrl = 'http://localhost:5261/api';
 
   private readonly userEndpoint = `${this.baseUrl}/users`;
-  private readonly productEnpoint = `${this.baseUrl}/product`;
-  private readonly productCategoryEnpoint = `${this.baseUrl}/product-category`;
+  private readonly listingEndpoint = `${this.baseUrl}/listings`;
+  private readonly listingCategoryEndpoint = `${this.baseUrl}/listings/categories`;
 
   // Users
   get createUser(): string {
     return this.userEndpoint;
   }
 
-  
-  // Products
-  get createProduct(): string {
-    return this.productEnpoint;
+  // Listings
+  get createListing(): string {
+    return this.listingEndpoint;
   }
 
-  get getAllProducts(): string {
-    return this.productEnpoint;
+  get getAllListings(): string {
+    return this.listingEndpoint + '/all';
   }
 
-  // Product category
-  get getAllProductCategories(): string {
-    return this.productCategoryEnpoint;
+  // Listing categories
+  get getAllListingCategories(): string {
+    return this.listingCategoryEndpoint + '/all';
+  }
+
+  get getListingCategoryByName(): string {
+    return this.listingCategoryEndpoint + '/name';
   }
 }
