@@ -10,7 +10,8 @@ import { ListingListComponent } from '../../../features/listings/components/list
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
-  @Input() title = 'Best sellers';
+  @Input() title: string = 'Best sellers';
+  @Input() categoryName: string = '';
 
   constructor() {
   }

@@ -9,5 +9,5 @@ import { HomeComponent } from '../../../../core/components/home/home.component';
   styleUrl: './games.component.scss'
 })
 export class GamesComponent {
-
+  categoryName: string = 'Games';
 }

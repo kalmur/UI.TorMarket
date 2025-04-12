@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { HomeComponent } from '../../../../core/components/home/home.component';
+import { ListingCategoryService } from '../../services/listing-category.service';
 
 @Component({
   selector: 'app-clothing',
@@ -9,5 +10,5 @@ import { HomeComponent } from '../../../../core/components/home/home.component';
   styleUrl: './clothing.component.scss'
 })
 export class ClothingComponent {
-
+  categoryName: string = 'Clothing';
 }

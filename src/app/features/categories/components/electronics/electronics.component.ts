@@ -9,4 +9,5 @@ import { HomeComponent } from '../../../../core/components/home/home.component';
   styleUrl: './electronics.component.scss'
 })
 export class ElectronicsComponent {
+  categoryName: string = 'Electronics';
 }

@@ -24,6 +24,11 @@ export class UrlProviderService {
     return this.listingEndpoint + '/all';
   }
 
+  get getListingByCategory(): (category: string) => string {
+    return (category: string) => 
+      `${this.listingEndpoint}?category=${encodeURIComponent(category)}`;
+  }
+
   // Listing categories
   get getAllListingCategories(): string {
     return this.listingCategoryEndpoint + '/all';

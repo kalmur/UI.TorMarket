@@ -9,5 +9,5 @@ import { HomeComponent } from '../../../../core/components/home/home.component';
   styleUrl: './pets.component.scss'
 })
 export class PetsComponent {
-
+  categoryName: string = 'Pets';
 }
