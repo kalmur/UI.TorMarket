@@ -8,7 +8,7 @@ export class UrlProviderService {
 
   private readonly userEndpoint = `${this.baseUrl}/users`;
   private readonly listingEndpoint = `${this.baseUrl}/listings`;
-  private readonly listingCategoryEndpoint = `${this.baseUrl}/listings/categories`;
+  private readonly listingCategoryEndpoint = `${this.baseUrl}/categories`;
 
   // Users
   get createUser(): string {
@@ -29,7 +29,12 @@ export class UrlProviderService {
       `${this.listingEndpoint}?category=${encodeURIComponent(category)}`;
   }
 
-  // Listing categories
+  get getListingBySearchTerm(): (searchTerm: string) => string {
+    return (searchTerm: string) => 
+      `${this.listingEndpoint}/${encodeURIComponent(searchTerm)}`;
+  }
+
+  // Categories
   get getAllListingCategories(): string {
     return this.listingCategoryEndpoint + '/all';
   }

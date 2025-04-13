@@ -13,6 +13,12 @@ export class HomeComponent {
   @Input() title: string = 'Best sellers';
   @Input() categoryName: string = '';
 
+  searchTerm: string = ''; 
+
   constructor() {
+  }
+
+  onSearchTermChange(term: string): void {
+    this.searchTerm = term;
   }
 }

@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthHelperService } from '../../auth/services/auth-helper.service';
 import { Observable } from 'rxjs';
 import { ListingCategoryService } from '../../../features/categories/services/listing-category.service';
 import { ICategory } from '../../models/categories';
+import { SearchService } from '../../services/search.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -15,6 +16,8 @@ import { ICategory } from '../../models/categories';
 })
 
 export class NavBarComponent implements OnInit {
+  @Output() searchTermChange = new EventEmitter<string>();
+
   categories: ICategory[] = []; 
 
   isAuthenticated$: Observable<boolean> = this.authHelperService.isAuthenticated$;
@@ -23,6 +26,7 @@ export class NavBarComponent implements OnInit {
   constructor(
     private readonly authHelperService: AuthHelperService,
     private readonly listingCategoryService: ListingCategoryService,
+    private readonly searchService: SearchService,
     private readonly router: Router
   ) {}
 
@@ -48,6 +52,24 @@ export class NavBarComponent implements OnInit {
 
   handleProfileNavigation(): void {
     this.router.navigate(['/profile']);
+  }
+
+  handlerSearch(searchTerm: string): void {
+    if (!searchTerm.trim()) {
+      return;
+    }
+
+    this.searchTermChange.emit(searchTerm);
+  
+    this.searchService.getListingBySearchTerm(searchTerm).subscribe({
+      next: () => {
+        this.router.navigate(['/search'], { queryParams: { query: searchTerm } });
+        console.log('Search successful:', searchTerm);
+      },
+      error: (error) => {
+        console.error('Search failed:', error);
+      }
+    });
   }
 
   private fetchAllCategories(): void {

@@ -16,6 +16,7 @@ import { ListingCategoryService } from '../../../categories/services/listing-cat
   styleUrl: './listing-list.component.scss'
 })
 export class ListingListComponent {
+  @Input() searchTerm: string = '';
   @Input() categoryName: string = '';
 
   listings: IListing[] = [];

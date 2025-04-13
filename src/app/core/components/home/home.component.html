@@ -1,9 +1,12 @@
-<app-nav-bar></app-nav-bar> 
+<app-nav-bar (searchTermChange)="onSearchTermChange($event)"></app-nav-bar> 
 <div class="background">
     <div class="best-sellers">
         <h4 style="color: white">{{title}}</h4>
     </div>
     <div class="extra-padding">
-        <app-listing-list [categoryName]="categoryName"></app-listing-list>
+        <app-listing-list 
+            [searchTerm]="searchTerm" 
+            [categoryName]="categoryName"
+        ></app-listing-list>
     </div>
 </div>

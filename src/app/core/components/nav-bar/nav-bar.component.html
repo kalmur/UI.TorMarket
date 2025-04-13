@@ -7,8 +7,9 @@
       Tor Market
     </a>
   </div>
-  <form action="#">
+  <form (submit)="handlerSearch(searchInput.value)">
     <input 
+      #searchInput
       type="search" 
       class="search-data" 
       placeholder="Search" 
