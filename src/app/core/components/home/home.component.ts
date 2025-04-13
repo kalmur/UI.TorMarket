@@ -20,5 +20,6 @@ export class HomeComponent {
 
   onSearchTermChange(term: string): void {
     this.searchTerm = term;
+    console.log(this.searchTerm);
   }
 }

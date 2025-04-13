@@ -2,7 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UrlProviderService } from './url-provider.service';
 import { LoggingService } from './logging.service';
-import { catchError, throwError } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
+import { IListing } from '../../features/listings/models/listings';
 
 @Injectable({
   providedIn: 'root'
@@ -14,11 +15,11 @@ export class SearchService {
     private readonly logger: LoggingService
   ) {}
 
-  getListingBySearchTerm(searchTerm: string) {
+  getListingBySearchTerm(searchTerm: string): Observable<IListing[]> {
     const endPoint = this.urlProvider.getListingBySearchTerm(searchTerm);
-
+  
     return this.httpClient
-      .get(endPoint)
+      .get<IListing[]>(endPoint)
       .pipe(
         catchError(error => 
           throwError(

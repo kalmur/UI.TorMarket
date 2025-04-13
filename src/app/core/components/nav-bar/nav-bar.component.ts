@@ -60,16 +60,6 @@ export class NavBarComponent implements OnInit {
     }
 
     this.searchTermChange.emit(searchTerm);
-  
-    this.searchService.getListingBySearchTerm(searchTerm).subscribe({
-      next: () => {
-        this.router.navigate(['/search'], { queryParams: { query: searchTerm } });
-        console.log('Search successful:', searchTerm);
-      },
-      error: (error) => {
-        console.error('Search failed:', error);
-      }
-    });
   }
 
   private fetchAllCategories(): void {

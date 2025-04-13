@@ -4,6 +4,7 @@ import { ListingCardComponent } from '../listing-card/listing-card.component';
 import { CommonModule } from '@angular/common';
 import { IListing } from '../../models/listings';
 import { ListingCategoryService } from '../../../categories/services/listing-category.service';
+import { SearchService } from '../../../../core/services/search.service';
 
 @Component({
   selector: 'app-listing-list',
@@ -23,26 +24,22 @@ export class ListingListComponent {
 
   constructor(
     private readonly listingService: ListingService,
-    private readonly listingCategoryService: ListingCategoryService
+    private readonly listingCategoryService: ListingCategoryService,
+    private readonly searchService: SearchService
   ) {}
 
   ngOnInit(): void {
+    this.loadListings();
+  }
+
+  private loadListings(): void {
     if (this.categoryName) {
       this.fetchListingsByCategory(this.categoryName);
+    } else if (this.searchTerm) {
+      this.getListingsBySearchTerm(this.searchTerm);
     } else {
       this.fetchAllListings();
     }
-  }
-
-  private fetchAllListings(): void {
-    this.listingService.getAllListings().subscribe({
-      next: (response: IListing[]) => {
-        this.listings = response;
-      },
-      error: (error) => {
-        console.error('Failed to fetch listings:', error);
-      }
-    });
   }
 
   private fetchListingsByCategory(category: string): void {
@@ -52,6 +49,28 @@ export class ListingListComponent {
       },
       error: (error) => {
         console.error('Error fetching listings:', error);
+      }
+    });
+  }
+
+  private getListingsBySearchTerm(searchTerm: string): void {
+    this.searchService.getListingBySearchTerm(searchTerm).subscribe({
+      next: (response: IListing[]) => {
+        this.listings = response;
+      },
+      error: (error: any) => {
+        console.error('Failed to fetch listings:', error);
+      }
+    });
+  }
+
+  private fetchAllListings(): void {
+    this.listingService.getAllListings().subscribe({
+      next: (response: IListing[]) => {
+        this.listings = response;
+      },
+      error: (error) => {
+        console.error('Failed to fetch listings:', error);
       }
     });
   }
