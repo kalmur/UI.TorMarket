@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Inject, OnDestroy, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Categories } from '../../../../shared/enums/categories';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ICreateListingRequest, IListingFormDetails } from '../../models/listings';
@@ -23,7 +22,7 @@ import { ICategory } from '../../../../core/models/categories';
   templateUrl: './listing-form.component.html',
   styleUrl: './listing-form.component.scss'
 })
-export class ProductFormComponent implements OnDestroy{
+export class ListingFormComponent implements OnDestroy{
   private destroy$ = new Subject<void>();
 
   @Output() listingChange = new EventEmitter<IListingFormDetails>();

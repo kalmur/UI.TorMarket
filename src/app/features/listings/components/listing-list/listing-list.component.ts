@@ -43,7 +43,7 @@ export class ListingListComponent {
   }
 
   private fetchListingsByCategory(category: string): void {
-    this.listingCategoryService.getListingsByCategory(category).subscribe({
+    this.listingCategoryService.getListingsByCategoryId(category).subscribe({
       next: (listings) => {
         this.listings = listings;
       },

@@ -1,20 +1,20 @@
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavBarComponent } from '../../../../core/components/nav-bar/nav-bar.component';
-import { ProductFormComponent } from '../listing-form/listing-form.component';
+import { ListingFormComponent } from '../listing-form/listing-form.component';
 import { ListingPreviewComponent } from '../listing-preview/listing-preview.component';
 
 @Component({
-  selector: 'app-sell',
+  selector: 'app-edit-listing',
   standalone: true,
   imports: [
     NavBarComponent,
-    ProductFormComponent,
+    ListingFormComponent,
     ListingPreviewComponent
   ],
-  templateUrl: './sell.component.html',
-  styleUrl: './sell.component.scss'
+  templateUrl: './edit-listing.component.html',
+  styleUrl: './edit-listing.component.scss'
 })
-export class SellComponent {
+export class EditListingComponent {
   listing: any = {};
 
   onListingChanged(listing: any) {

@@ -1,4 +1,4 @@
 export interface IListingCategory {
   categoryId: number;
-  name: string;
+  categoryName: string;
 }

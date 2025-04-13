@@ -1,0 +1,12 @@
+<app-nav-bar></app-nav-bar>
+
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-6">
+      <app-listing-preview [listing]="listing"></app-listing-preview>
+    </div>
+    <div class="col-md-6">
+      <app-listing-form (listingChange)="onListingChanged($event)"></app-listing-form>
+    </div>
+  </div>
+</div>

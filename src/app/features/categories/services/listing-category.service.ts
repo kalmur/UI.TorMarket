@@ -30,7 +30,7 @@ export class ListingCategoryService {
     );
   }
 
-  getListingsByCategory(categoryId: string): Observable<IListing[]> {
+  getListingsByCategoryId(categoryId: string): Observable<IListing[]> {
     const endPoint = this.urlProvider.getListingByCategory(categoryId);
 
     return this.httpClient
