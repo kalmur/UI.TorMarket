@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { NavBarComponent } from '../../../../core/components/nav-bar/nav-bar.component';
 import { ProductFormComponent } from '../listing-form/listing-form.component';
-import { ListingPreviewComponent } from '../listing-review/listing-preview.component';
+import { ListingPreviewComponent } from '../listing-preview/listing-preview.component';
 
 @Component({
   selector: 'app-sell',
@@ -15,9 +15,9 @@ import { ListingPreviewComponent } from '../listing-review/listing-preview.compo
   styleUrl: './sell.component.scss'
 })
 export class SellComponent {
-  product: any = {};
+  listing: any = {};
 
-  onProductChanged(product: any) {
-    this.product = product;
+  onListingChanged(listing: any) {
+    this.listing = listing;
   }
 }

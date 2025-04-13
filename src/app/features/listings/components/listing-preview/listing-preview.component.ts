@@ -10,5 +10,5 @@ import { IListingFormDetails } from '../../models/listings';
   styleUrl: './listing-preview.component.scss'
 })
 export class ListingPreviewComponent {
-  @Input() product?: IListingFormDetails;
+  @Input() listing?: IListingFormDetails;
 }
