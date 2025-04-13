@@ -26,9 +26,9 @@ import { ICategory } from '../../../../core/models/categories';
 export class ProductFormComponent implements OnDestroy{
   private destroy$ = new Subject<void>();
 
-  @Output() productChange = new EventEmitter<IListingFormDetails>();
+  @Output() listingChange = new EventEmitter<IListingFormDetails>();
 
-  productFormGroup: FormGroup;
+  listingFormGroup: FormGroup;
   categories: ICategory[] = [];
 
   constructor(
@@ -37,7 +37,7 @@ export class ProductFormComponent implements OnDestroy{
     private readonly listingCategoryService: ListingCategoryService,
     private readonly toastr: ToastrService
   ) {
-    this.productFormGroup = this.initializeForm();
+    this.listingFormGroup = this.initializeForm();
     this.subscribeToFormChanges();
     this.fetchAllCategories();
   }
@@ -48,7 +48,7 @@ export class ProductFormComponent implements OnDestroy{
   }
 
   onSubmit(): void {
-    if(this.productFormGroup.valid) {
+    if(this.listingFormGroup.valid) {
       this.createProduct();
     } else {
       this.toastr.error('Please fill in all required fields');
@@ -67,8 +67,8 @@ export class ProductFormComponent implements OnDestroy{
   }
   
   private subscribeToFormChanges(): void {
-    this.productFormGroup.valueChanges.subscribe(value => {
-      this.productChange.emit(value);
+    this.listingFormGroup.valueChanges.subscribe(value => {
+      this.listingChange.emit(value);
     });
   }
 
@@ -88,13 +88,13 @@ export class ProductFormComponent implements OnDestroy{
     console.log('Starting request');
 
     const product: ICreateListingRequest = {
-      userId: this.productFormGroup.value.userId,
-      name: this.productFormGroup.value.name,
+      userId: this.listingFormGroup.value.userId,
+      name: this.listingFormGroup.value.name,
       // fEtch from db
       categoryId: 1,
-      price: this.productFormGroup.value.price,
-      description: this.productFormGroup.value.description,
-      availableFrom: this.productFormGroup.value.availableFrom
+      price: this.listingFormGroup.value.price,
+      description: this.listingFormGroup.value.description,
+      availableFrom: this.listingFormGroup.value.availableFrom
     };
 
     this.productService.createListing(product)

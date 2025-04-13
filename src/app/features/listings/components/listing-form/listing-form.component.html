@@ -4,20 +4,20 @@
       <div class="col-md-12 shadow-lg p-0 form-background">
         <div class="card">
           <div class="card-body">
-            <form (ngSubmit)="onSubmit()" [formGroup]="productFormGroup">
+            <form (ngSubmit)="onSubmit()" [formGroup]="listingFormGroup">
               <div class="form-group col-12 col-md-8 mx-auto">
-                <label for="name" class="white-text">Product name</label>
+                <label for="name" class="white-text">Listing name</label>
                 <input type="text" formControlName="name" placeholder="" class="form-control" />
               </div>
 
               <div class="form-group col-12 col-md-8 mx-auto mt-4">
                 <div class="btn-group w-100" dropdown [autoClose]="true">
                   <button id="button-category" dropdownToggle type="button" class="btn btn-primary dropdown-toggle w-100" aria-controls="dropdown-category">
-                    {{ productFormGroup.controls['category'].value || 'Select Category' }} <span class="caret"></span>
+                    {{ listingFormGroup.controls['category'].value || 'Select Category' }} <span class="caret"></span>
                   </button>
                   <ul id="dropdown-category" *dropdownMenu class="dropdown-menu w-100" role="menu" aria-labelledby="button-category">
                     <li role="menuitem" *ngFor="let category of categories">
-                      <a class="dropdown-item text-center" (click)="productFormGroup.controls['category'].setValue(category.name)">{{ category.name }}</a>
+                      <a class="dropdown-item text-center" (click)="listingFormGroup.controls['category'].setValue(category.name)">{{ category.name }}</a>
                     </li>
                   </ul>
                 </div>
