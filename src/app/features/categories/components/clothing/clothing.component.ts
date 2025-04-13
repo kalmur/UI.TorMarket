@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { HomeComponent } from '../../../../core/components/home/home.component';
-import { ListingCategoryService } from '../../services/listing-category.service';
 
 @Component({
   selector: 'app-clothing',

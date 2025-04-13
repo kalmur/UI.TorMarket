@@ -3,12 +3,12 @@ import { Component, Input } from '@angular/core';
 import { IListingFormDetails } from '../../models/listings';
 
 @Component({
-  selector: 'app-listing-preview',
+  selector: 'app-listing-form-preview',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './listing-preview.component.html',
-  styleUrl: './listing-preview.component.scss'
+  templateUrl: './listing-form-preview.component.html',
+  styleUrl: './listing-form-preview.component.scss'
 })
-export class ListingPreviewComponent {
+export class ListingFormPreviewComponent {
   @Input() listing?: IListingFormDetails;
 }

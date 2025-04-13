@@ -54,7 +54,7 @@ export class NavBarComponent implements OnInit {
     this.router.navigate(['/profile']);
   }
 
-  handlerSearch(searchTerm: string): void {
+  handleSearch(searchTerm: string): void {
     if (!searchTerm.trim()) {
       return;
     }

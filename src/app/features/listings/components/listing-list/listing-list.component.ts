@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ListingService } from '../../services/listing.service';
 import { ListingCardComponent } from '../listing-card/listing-card.component';
 import { CommonModule } from '@angular/common';
@@ -16,7 +16,7 @@ import { SearchService } from '../../../../core/services/search.service';
   templateUrl: './listing-list.component.html',
   styleUrl: './listing-list.component.scss'
 })
-export class ListingListComponent {
+export class ListingListComponent implements OnChanges {
   @Input() searchTerm: string = '';
   @Input() categoryName: string = '';
 
@@ -29,22 +29,23 @@ export class ListingListComponent {
   ) {}
 
   ngOnInit(): void {
-    this.loadListings();
-  }
-
-  private loadListings(): void {
     if (this.categoryName) {
       this.fetchListingsByCategory(this.categoryName);
-    } else if (this.searchTerm) {
-      this.getListingsBySearchTerm(this.searchTerm);
     } else {
       this.fetchAllListings();
     }
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['searchTerm']) {
+      this.getListingsBySearchTerm(this.searchTerm);
+      console.log(this.searchTerm)
+    }
+  }
+
   private fetchListingsByCategory(category: string): void {
     this.listingCategoryService.getListingsByCategoryId(category).subscribe({
-      next: (listings) => {
+      next: (listings: IListing[]) => {
         this.listings = listings;
       },
       error: (error) => {

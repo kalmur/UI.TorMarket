@@ -17,6 +17,8 @@ export class SearchService {
 
   getListingBySearchTerm(searchTerm: string): Observable<IListing[]> {
     const endPoint = this.urlProvider.getListingBySearchTerm(searchTerm);
+
+    console.log(endPoint);
   
     return this.httpClient
       .get<IListing[]>(endPoint)

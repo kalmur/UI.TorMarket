@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavBarComponent } from '../../../../core/components/nav-bar/nav-bar.component';
 import { ListingFormComponent } from '../listing-form/listing-form.component';
-import { ListingPreviewComponent } from '../listing-preview/listing-preview.component';
+import { ListingFormPreviewComponent } from '../listing-form-preview/listing-form-preview.component';
 
 @Component({
   selector: 'app-edit-listing',
@@ -9,7 +9,7 @@ import { ListingPreviewComponent } from '../listing-preview/listing-preview.comp
   imports: [
     NavBarComponent,
     ListingFormComponent,
-    ListingPreviewComponent
+    ListingFormPreviewComponent
   ],
   templateUrl: './edit-listing.component.html',
   styleUrl: './edit-listing.component.scss'
