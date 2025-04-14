@@ -25,7 +25,7 @@ export class SearchedListingsComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.searchTerm = params['searchTerm'] || '';
+      this.searchTerm = params['searchTerm'];
     });
   }
 }

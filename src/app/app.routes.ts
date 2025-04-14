@@ -27,6 +27,7 @@ export const routes: Routes = [
     { path: 'pets', component: PetsComponent },
     { path: 'other', component: OtherComponent },
     { path: 'profile', component: UserProfileDetailComponent},
+    { path: '**', redirectTo: '' },
     {
         path: '',
         component: HomeComponent,
