@@ -16,11 +16,10 @@ import { SearchService } from '../../../../core/services/search.service';
   templateUrl: './listing-list.component.html',
   styleUrl: './listing-list.component.scss'
 })
-export class ListingListComponent implements OnChanges {
+export class ListingListComponent {
+  @Input() listings: IListing[] = [];
   @Input() searchTerm: string = '';
   @Input() categoryName: string = '';
-
-  listings: IListing[] = [];
 
   constructor(
     private readonly listingService: ListingService,
@@ -33,13 +32,6 @@ export class ListingListComponent implements OnChanges {
       this.fetchListingsByCategory(this.categoryName);
     } else {
       this.fetchAllListings();
-    }
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['searchTerm']) {
-      this.getListingsBySearchTerm(this.searchTerm);
-      console.log(this.searchTerm)
     }
   }
 

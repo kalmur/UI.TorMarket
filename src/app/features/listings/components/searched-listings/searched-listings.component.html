@@ -1,0 +1,12 @@
+<app-nav-bar></app-nav-bar>
+<div class="background">
+    <div class="best-sellers">
+        <h4 style="color: white">{{ title }}</h4>
+    </div>
+    <div class="extra-padding">
+        <app-listing-list 
+            [listings]="listings"
+            [categoryName]="categoryName"
+        ></app-listing-list>
+    </div>
+</div>

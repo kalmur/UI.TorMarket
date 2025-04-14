@@ -12,10 +12,12 @@ import { OtherComponent } from './features/categories/components/other/other.com
 import { ListingListComponent } from './features/listings/components/listing-list/listing-list.component';
 import { CreateListingComponent } from './features/listings/components/create-listing/create-listing.component';
 import { EditListingComponent } from './features/listings/components/edit-listing/edit-listing.component';
+import { SearchedListingsComponent } from './features/listings/components/searched-listings/searched-listings.component';
 
 export const routes: Routes = [
     { path: 'sell', component: CreateListingComponent },
     { path: 'edit', component: EditListingComponent },
+    { path: 'searched-listings/:searchTerm', component: SearchedListingsComponent },
     { path: 'auth-prompt', component: AuthPromptComponent},
     { path: 'electronics', component: ElectronicsComponent },
     { path: 'games', component: GamesComponent },

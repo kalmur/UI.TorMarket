@@ -12,8 +12,7 @@ import { ListingListComponent } from '../../../features/listings/components/list
 export class HomeComponent {
   @Input() title: string = 'Best sellers';
   @Input() categoryName: string = '';
-
-  searchTerm: string = ''; 
+  @Input() searchTerm: string = '';
 
   constructor() {
   }

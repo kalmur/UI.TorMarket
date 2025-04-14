@@ -15,7 +15,12 @@
       placeholder="Search" 
       required
     >
-    <button type="submit" class="btn btn-outline-secondary">
+    <button 
+      type="submit" 
+      class="btn btn-outline-secondary"
+      [routerLink]="['/searched-listings']" 
+      [queryParams]="{ query: searchInput.value }"
+    >
       <i class="bi bi-search"></i>
     </button>
   </form>

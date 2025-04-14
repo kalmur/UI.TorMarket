@@ -26,7 +26,6 @@ export class NavBarComponent implements OnInit {
   constructor(
     private readonly authHelperService: AuthHelperService,
     private readonly listingCategoryService: ListingCategoryService,
-    private readonly searchService: SearchService,
     private readonly router: Router
   ) {}
 
@@ -58,8 +57,10 @@ export class NavBarComponent implements OnInit {
     if (!searchTerm.trim()) {
       return;
     }
-
+  
     this.searchTermChange.emit(searchTerm);
+  
+    this.router.navigate(['/searched-listings', searchTerm]);
   }
 
   private fetchAllCategories(): void {
