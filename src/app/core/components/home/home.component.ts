@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { NavBarComponent } from '../nav-bar/nav-bar.component';
 import { ListingListComponent } from '../../../features/listings/components/listing-list/listing-list.component';
 import { ListingService } from '../../../features/listings/services/listing.service';
@@ -13,9 +13,9 @@ import { SearchService } from '../../services/search.service';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent implements OnInit{
+export class HomeComponent implements OnInit, OnChanges{
   @Input() title: string = 'Best sellers';
-  @Input() listings: any[] = [];
+  @Input() listings: IListing[] = [];
   @Input() categoryName: string = '';
   @Input() searchTerm: string = '';
   @Output() searchTermChange = new EventEmitter<string>();
@@ -27,6 +27,21 @@ export class HomeComponent implements OnInit{
   ) {}
 
   ngOnInit(): void {
+    this.loadListings();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['searchTerm'] && !changes['searchTerm'].firstChange) {
+      this.fetchListingsBySearchTerm(this.searchTerm);
+    }
+  }
+
+  onSearchTermChange(searchTerm: string): void {
+    this.searchTerm = searchTerm;
+    this.searchTermChange.emit(searchTerm);
+  }
+
+  private loadListings(): void {
     if (this.searchTerm) {
       this.fetchListingsBySearchTerm(this.searchTerm);
     } else if (this.categoryName) {
@@ -34,11 +49,6 @@ export class HomeComponent implements OnInit{
     } else {
       this.fetchAllListings();
     }
-  }
-
-  onSearchTermChange(searchTerm: string): void {
-    this.searchTerm = searchTerm;
-    this.searchTermChange.emit(searchTerm);
   }
 
   private fetchListingsBySearchTerm(searchTerm: string): void {

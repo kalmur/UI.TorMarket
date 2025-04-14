@@ -11,5 +11,4 @@ import { IListing } from '../../../listings/models/listings';
 })
 export class GamesComponent {
   categoryName: string = 'Games';
-  listings: IListing[] = [];
 }

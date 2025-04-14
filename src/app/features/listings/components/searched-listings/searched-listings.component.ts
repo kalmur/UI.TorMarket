@@ -24,4 +24,9 @@ export class SearchedListingsComponent implements OnInit {
       this.searchTerm = params['searchTerm'];
     });
   }
+
+  onSearchTermChange(searchTerm: string): void {
+    this.searchTerm = searchTerm;
+    console.log('Search term updated in ClothingComponent:', this.searchTerm);
+  }
 }

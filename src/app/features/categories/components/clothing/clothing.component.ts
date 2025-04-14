@@ -10,11 +10,5 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './clothing.component.scss'
 })
 export class ClothingComponent {
-  searchTerm: string = '';
   categoryName: string = 'Clothing';
-
-  onSearchTermChange(searchTerm: string): void {
-    this.searchTerm = searchTerm;
-    console.log('Search term updated in ClothingComponent:', this.searchTerm);
-  }
 }
