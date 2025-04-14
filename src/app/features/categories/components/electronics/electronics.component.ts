@@ -10,5 +10,4 @@ import { HomeComponent } from '../../../../core/components/home/home.component';
 })
 export class ElectronicsComponent {
   categoryName: string = 'Electronics';
-  searchTerm: string = '';
 }

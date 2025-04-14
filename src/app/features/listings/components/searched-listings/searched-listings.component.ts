@@ -2,23 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SearchService } from '../../../../core/services/search.service';
 import { IListing } from '../../models/listings';
-import { NavBarComponent } from '../../../../core/components/nav-bar/nav-bar.component';
-import { ListingListComponent } from '../listing-list/listing-list.component';
+import { HomeComponent } from '../../../../core/components/home/home.component';
 
 @Component({
   selector: 'app-searched-listings',
   standalone: true,
   imports: [
-    NavBarComponent,
-    ListingListComponent
+    HomeComponent
   ],
   templateUrl: './searched-listings.component.html',
   styleUrls: ['./searched-listings.component.scss']
 })
 export class SearchedListingsComponent implements OnInit {
-  title: string = 'Search Results';
+  title: string = 'Search listings';
   searchTerm: string = '';
-  categoryName: string = '';
   listings: IListing[] = [];
 
   constructor(
@@ -28,11 +25,8 @@ export class SearchedListingsComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      console.log('Route Params:', params);
       this.searchTerm = params['searchTerm'] || '';
-      console.log('Search Term in SearchedListingsComponent:', this.searchTerm);
   
-      // Fetch listings whenever the searchTerm changes
       if (this.searchTerm) {
         this.fetchListingsBySearchTerm(this.searchTerm);
       }

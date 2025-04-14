@@ -28,7 +28,9 @@ export class ListingListComponent {
   ) {}
 
   ngOnInit(): void {
-    if (this.categoryName) {
+    if (this.searchTerm) {
+      this.getListingsBySearchTerm(this.searchTerm);
+    } else if (this.categoryName) {
       this.fetchListingsByCategory(this.categoryName);
     } else {
       this.fetchAllListings();
