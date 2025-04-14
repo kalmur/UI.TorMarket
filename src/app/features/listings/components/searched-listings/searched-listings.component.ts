@@ -14,7 +14,7 @@ import { HomeComponent } from '../../../../core/components/home/home.component';
   styleUrls: ['./searched-listings.component.scss']
 })
 export class SearchedListingsComponent implements OnInit {
-  title: string = 'Search listings';
+  title: string = 'Searched Listings';
   searchTerm: string = '';
   listings: IListing[] = [];
 
@@ -37,7 +37,6 @@ export class SearchedListingsComponent implements OnInit {
     this.searchService.getListingBySearchTerm(searchTerm).subscribe({
       next: (listings) => {
         this.listings = listings;
-        console.log(this.listings);
       },
       error: (error) => {
         console.error('Error fetching search results:', error);
