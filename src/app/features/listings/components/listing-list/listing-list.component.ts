@@ -18,6 +18,4 @@ import { SearchService } from '../../../../core/services/search.service';
 })
 export class ListingListComponent {
   @Input() listings: IListing[] = [];
-  @Input() searchTerm: string = '';
-  @Input() categoryName: string = '';
 }

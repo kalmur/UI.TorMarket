@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SearchService } from '../../../../core/services/search.service';
-import { IListing } from '../../models/listings';
 import { HomeComponent } from '../../../../core/components/home/home.component';
 
 @Component({

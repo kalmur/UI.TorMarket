@@ -1,21 +1,22 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthHelperService } from '../../auth/services/auth-helper.service';
 import { Observable } from 'rxjs';
 import { ListingCategoryService } from '../../../features/categories/services/listing-category.service';
 import { ICategory } from '../../models/categories';
-import { SearchService } from '../../services/search.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-nav-bar',
   standalone: true,
-  imports: [RouterLink, CommonModule],
+  imports: [FormsModule, RouterLink, CommonModule],
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.scss'
 })
 
 export class NavBarComponent implements OnInit {
+  @Input() searchTerm: string = '';
   @Output() searchTermChange = new EventEmitter<string>();
 
   categories: ICategory[] = []; 
