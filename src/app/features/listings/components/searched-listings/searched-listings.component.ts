@@ -16,11 +16,9 @@ import { HomeComponent } from '../../../../core/components/home/home.component';
 export class SearchedListingsComponent implements OnInit {
   title: string = 'Searched Listings';
   searchTerm: string = '';
-  listings: IListing[] = [];
 
   constructor(
     private readonly route: ActivatedRoute,
-    private readonly searchService: SearchService
   ) {}
 
   ngOnInit(): void {

@@ -60,7 +60,7 @@ export class NavBarComponent implements OnInit {
   
     this.searchTermChange.emit(searchTerm);
   
-    this.router.navigate(['/searched-listings', searchTerm]);
+    this.router.navigate(['/search', searchTerm]);
   }
 
   private fetchAllCategories(): void {

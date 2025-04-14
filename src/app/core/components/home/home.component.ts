@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NavBarComponent } from '../nav-bar/nav-bar.component';
 import { ListingListComponent } from '../../../features/listings/components/listing-list/listing-list.component';
 import { ListingService } from '../../../features/listings/services/listing.service';
@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit{
   @Input() listings: any[] = [];
   @Input() categoryName: string = '';
   @Input() searchTerm: string = '';
+  @Output() searchTermChange = new EventEmitter<string>();
 
   constructor(
     private readonly listingService: ListingService,
@@ -35,8 +36,9 @@ export class HomeComponent implements OnInit{
     }
   }
 
-  onSearchTermChange(term: string): void {
-    this.searchTerm = term;
+  onSearchTermChange(searchTerm: string): void {
+    this.searchTerm = searchTerm;
+    this.searchTermChange.emit(searchTerm);
   }
 
   private fetchListingsBySearchTerm(searchTerm: string): void {

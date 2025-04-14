@@ -17,7 +17,7 @@ import { SearchedListingsComponent } from './features/listings/components/search
 export const routes: Routes = [
     { path: 'sell', component: CreateListingComponent },
     { path: 'edit', component: EditListingComponent },
-    { path: 'searched-listings/:searchTerm', component: SearchedListingsComponent },
+    { path: 'search/:searchTerm', component: SearchedListingsComponent },
     { path: 'auth-prompt', component: AuthPromptComponent},
     { path: 'electronics', component: ElectronicsComponent },
     { path: 'games', component: GamesComponent },
