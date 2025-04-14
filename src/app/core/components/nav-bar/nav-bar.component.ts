@@ -1,62 +1,76 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { AppState, AuthService } from '@auth0/auth0-angular';
-import { RedirectLoginOptions } from '@auth0/auth0-spa-js';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
+import { AuthHelperService } from '../../auth/services/auth-helper.service';
 import { Observable } from 'rxjs';
+import { ListingCategoryService } from '../../../features/categories/services/listing-category.service';
+import { ICategory } from '../../models/categories';
+import { FormsModule } from '@angular/forms';
+
 @Component({
   selector: 'app-nav-bar',
   standalone: true,
-  imports: [RouterLink, CommonModule],
+  imports: [FormsModule, RouterLink, CommonModule],
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.scss'
 })
-export class NavBarComponent {
-  private readonly auth = inject(AuthService);
 
-  isAuthenticated$: Observable<boolean> = this.auth.isAuthenticated$;
+export class NavBarComponent implements OnInit {
+  @Input() searchTerm: string = '';
+  @Output() searchTermChange = new EventEmitter<string>();
 
-  categories: string[] = [];
+  categories: ICategory[] = []; 
 
-  constructor() {
-    this.categories = [
-      'Electronics', 
-      'Games', 
-      'Toys', 
-      'Clothing', 
-      'Vehicles', 
-      'Pets',
-      'Other'
-    ]
+  isAuthenticated$: Observable<boolean> = this.authHelperService.isAuthenticated$;
+  user$: Observable<any> = this.authHelperService.user$;
 
-    this.isAuthenticated$.subscribe(isAuthenticated => {
-      console.log('User is authenticated:', isAuthenticated);
-    });
+  constructor(
+    private readonly authHelperService: AuthHelperService,
+    private readonly listingCategoryService: ListingCategoryService,
+    private readonly router: Router
+  ) {}
+
+  ngOnInit(): void {
+    this.fetchAllCategories();
   }
 
   handleLogin(): void {
-    this.auth.loginWithRedirect({
-      appState: {
-        // target: '/sell',
-      },
-    });
+    this.authHelperService.login();
   }
 
   handleSignUp(): void {
-    this.auth.loginWithRedirect({
-      appState: {
-        // target: '/',
-      },
-      authorizationParams: {
-        screen_hint: 'signup',
-      }
-    });
+    this.authHelperService.signUp();
   }
 
-  handleLogout() {
-    this.auth.logout({
-      logoutParams: {
-        returnTo: window.location.origin
+  handleLogout(): void {
+    this.authHelperService.logout();
+  }
+
+  handleSell(): void {
+    this.authHelperService.navigateToSellPage();
+  }
+
+  handleProfileNavigation(): void {
+    this.router.navigate(['/profile']);
+  }
+
+  handleSearch(searchTerm: string): void {
+    if (!searchTerm.trim()) {
+      return;
+    }
+  
+    this.searchTermChange.emit(searchTerm);
+  
+    this.router.navigate(['/search', searchTerm]);
+  }
+
+  private fetchAllCategories(): void {
+    this.listingCategoryService.getAllProductCategories().subscribe({
+      next: (response: ICategory[]) => {
+        this.categories = response;
+      },
+      error: (error) => {
+        console.error('Failed to fetch categories:', error);
       }
     });
   }

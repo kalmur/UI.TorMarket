@@ -9,7 +9,6 @@
 }
 
 nav {
-  background: #171c24;
   display: flex;
   align-items: center;
   height: 70px;
@@ -29,7 +28,6 @@ nav form {
   display: flex;
   height: 40px;
   padding: 2px;
-  background: #1e232b;
   min-width: 39%!important;
   border-radius: 2px;
   border: 1px solid rgba(155,155,155,0.2);
@@ -260,4 +258,15 @@ nav .search-icon {
 
 .content .space {
   margin: 10px 0;
+}
+
+.custom-dropdown-menu {
+  background-color: #171c24; 
+  color: #171c24;
+  padding-top: 0.75rem;
+}
+
+.custom-dropdown-menu .dropdown-item:hover {
+  color: #e63600;
+  background-color: #171c24;
 }

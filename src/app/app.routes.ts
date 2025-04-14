@@ -1,21 +1,24 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './core/auth/old-implementation/login/login.component';
 import { HomeComponent } from './core/components/home/home.component';
-import { ProductListComponent } from './features/product/product-list/product-list.component';
-import { RegisterComponent } from './core/auth/old-implementation/register/register.component';
-import { ElectronicsComponent } from './features/product/product-categories/electronics/electronics.component';
-import { GamesComponent } from './features/product/product-categories/games/games.component';
-import { ToysComponent } from './features/product/product-categories/toys/toys.component';
-import { ClothingComponent } from './features/product/product-categories/clothing/clothing.component';
-import { VehiclesComponent } from './features/product/product-categories/vehicles/vehicles.component';
-import { PetsComponent } from './features/product/product-categories/pets/pets.component';
-import { OtherComponent } from './features/product/product-categories/other/other.component';
-import { SellProductComponent } from './features/product/sell-product/sell-product.component';
+import { AuthPromptComponent } from './core/auth/auth-prompt/auth-prompt.component';
+import { UserProfileDetailComponent } from './features/user-profile/user-profile-detail/user-profile-detail.component';
+import { ElectronicsComponent } from './features/categories/components/electronics/electronics.component';
+import { GamesComponent } from './features/categories/components/games/games.component';
+import { ToysComponent } from './features/categories/components/toys/toys.component';
+import { ClothingComponent } from './features/categories/components/clothing/clothing.component';
+import { VehiclesComponent } from './features/categories/components/vehicles/vehicles.component';
+import { PetsComponent } from './features/categories/components/pets/pets.component';
+import { OtherComponent } from './features/categories/components/other/other.component';
+import { ListingListComponent } from './features/listings/components/listing-list/listing-list.component';
+import { CreateListingComponent } from './features/listings/components/create-listing/create-listing.component';
+import { EditListingComponent } from './features/listings/components/edit-listing/edit-listing.component';
+import { SearchedListingsComponent } from './features/listings/components/searched-listings/searched-listings.component';
 
 export const routes: Routes = [
-    { path: 'login', component: LoginComponent },
-    { path: 'register', component: RegisterComponent},
-    { path: 'sell', component: SellProductComponent },
+    { path: 'sell', component: CreateListingComponent },
+    { path: 'edit', component: EditListingComponent },
+    { path: 'search/:searchTerm', component: SearchedListingsComponent },
+    { path: 'auth-prompt', component: AuthPromptComponent},
     { path: 'electronics', component: ElectronicsComponent },
     { path: 'games', component: GamesComponent },
     { path: 'toys', component: ToysComponent },
@@ -23,13 +26,15 @@ export const routes: Routes = [
     { path: 'vehicles', component: VehiclesComponent },
     { path: 'pets', component: PetsComponent },
     { path: 'other', component: OtherComponent },
+    { path: 'profile', component: UserProfileDetailComponent},
+    { path: '**', redirectTo: '' },
     {
         path: '',
         component: HomeComponent,
         children: [
             {
-                path: 'products',
-                component: ProductListComponent
+                path: 'listings',
+                component: ListingListComponent
             }
         ]
     }

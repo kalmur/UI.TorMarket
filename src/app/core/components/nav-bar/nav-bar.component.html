@@ -7,18 +7,26 @@
       Tor Market
     </a>
   </div>
-  <form action="#">
+  <form (submit)="handleSearch(searchInput.value)">
     <input 
+      #searchInput
       type="search" 
       class="search-data" 
       placeholder="Search" 
+      [(ngModel)]="searchTerm" 
+      name="searchTerm"
       required
     >
-    <button type="submit" class="fas fa-search"></button>
+    <button 
+      type="submit" 
+      class="btn btn-outline-secondary"
+    >
+      <i class="bi bi-search"></i>
+    </button>
   </form>
   <div class="nav-items me-4">
     <li>
-      <a [routerLink]="['/sell']">Sell</a>
+      <a (click)="handleSell()">Sell</a>
     </li>
     <li *ngIf="!(isAuthenticated$ | async)">
       <a (click)="handleLogin()">Login</a>
@@ -26,8 +34,14 @@
     <li *ngIf="!(isAuthenticated$ | async)">
       <a (click)="handleSignUp()">Register</a>
     </li>
-    <li *ngIf="isAuthenticated$ | async" class="me-2">
-      <a (click)="handleLogout()">Logout</a>
+    <li *ngIf="isAuthenticated$ | async" class="nav-item dropdown me-4">
+      <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="bi bi-person"></i>
+      </a>
+      <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="userDropdown">
+        <li><a class="dropdown-item" (click)="handleProfileNavigation()">Profile</a></li>
+        <li><a class="dropdown-item" (click)="handleLogout()">Logout</a></li>
+      </ul>
     </li>
   </div>
   <div class="search-icon">
@@ -40,8 +54,8 @@
 <div class="container-fluid px-0">
   <div class="row justify-content-center bg-dark text-white py-2">
     <div class="col-auto" *ngFor="let category of categories">
-      <a class="category px-3 py-1" [routerLink]="['/', category | lowercase]">
-        {{ category }}
+      <a class="category px-3 py-1" [routerLink]="['/', category.name | lowercase]">
+        {{ category.name }}
       </a>
     </div>
   </div>

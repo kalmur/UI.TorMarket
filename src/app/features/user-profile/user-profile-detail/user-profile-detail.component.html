@@ -1,0 +1,9 @@
+<app-nav-bar></app-nav-bar>
+<div class="profile-container">
+    <div class="profile-card" *ngIf="user$ | async as user">
+      <h2>User Profile</h2>
+      <img [src]="user.picture" alt="User Picture" class="profile-picture">
+      <p><strong>Name:</strong> {{ user.name }}</p>
+      <p><strong>Email:</strong> {{ user.email }}</p>
+    </div>
+</div>

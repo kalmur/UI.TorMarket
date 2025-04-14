@@ -1,0 +1,57 @@
+<div class="full-background">
+  <div class="container py-5">
+    <div class="row mb-5 justify-content-center">
+      <div class="col-md-12 shadow-lg p-0 form-background">
+        <div class="card">
+          <div class="card-body">
+            <form (ngSubmit)="onSubmit()" [formGroup]="listingFormGroup">
+              <div class="form-group col-12 col-md-8 mx-auto">
+                <label for="name" class="white-text">Listing name</label>
+                <input type="text" formControlName="name" placeholder="" class="form-control" />
+              </div>
+
+              <div class="form-group col-12 col-md-8 mx-auto mt-4">
+                <div class="btn-group w-100" dropdown [autoClose]="true">
+                  <button id="button-category" dropdownToggle type="button" class="btn btn-primary dropdown-toggle w-100" aria-controls="dropdown-category">
+                    {{ listingFormGroup.controls['category'].value || 'Select Category' }} <span class="caret"></span>
+                  </button>
+                  <ul id="dropdown-category" *dropdownMenu class="dropdown-menu w-100" role="menu" aria-labelledby="button-category">
+                    <li role="menuitem" *ngFor="let category of categories">
+                      <a class="dropdown-item text-center" (click)="listingFormGroup.controls['category'].setValue(category.name)">{{ category.name }}</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="form-group col-12 col-md-8 mx-auto mt-4">
+                <label for="price" class="white-text">Price</label>
+                <input type="text" formControlName="price" placeholder="" class="form-control" />
+              </div>
+
+              <div class="form-group col-12 col-md-8 mx-auto mt-4">
+                <label for="description" class="white-text">Description</label>
+                <textarea class="form-control" formControlName="description" rows="4" placeholder=""></textarea>
+              </div>
+
+              <div class="form-group col-12 col-md-8 mx-auto mt-4">
+                <label for="available-from" class="white-text">Available from</label>
+                <input type="text" class="form-control" formControlName="availableFrom" placeholder="" bsDatepicker />
+              </div>
+
+              <div class="form-group col-12 col-md-8 mx-auto mt-4">
+                <label for="image" class="white-text">Image</label>
+                <input type="file" class="form-control" />
+              </div>
+
+              <div class="form-group col-12 col-md-8 mx-auto mt-4">
+                <div class="d-grid gap-2">
+                  <button type="submit" class="btn btn-primary btn-block next-button">Submit</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

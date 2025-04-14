@@ -1,0 +1,13 @@
+<div class="full-background">
+  <div *ngIf="listing" class="card col-12 col-md-6 mx-auto">
+    <div class="card-body text-center">
+      <div class="image-container mb-4">
+        <img [src]="listing.imageUrl || 'assets/placeholder.png'" alt="No photo yet" class="listing-image">
+      </div>
+      <h1 class="mb-4">{{ listing.name }}</h1>
+      <h4 class="mb-3">{{ listing.category }}</h4>
+      <h5 *ngIf="listing.price" class="mb-3">£ {{ listing.price }}</h5>
+      <p class="mb-3">{{ listing.description }}</p>
+    </div>
+  </div>
+</div>

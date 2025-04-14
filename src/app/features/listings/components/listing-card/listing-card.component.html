@@ -1,0 +1,28 @@
+<div class="card">
+    <div class="card-img-wrapper">
+        <!-- <img *ngIf="product.image" class="card-img-top" src="" /> -->
+        <img class="card-img-top" src="" />
+        <ul class="list-inline text-center member-icons animate">
+        <li class="list-inline-item">
+              <button class="btn btn-primary red-button"><i class="fa-sharp fa-solid fa-pen-to-square"></i></button>
+        </li>
+        <li class="list-inline-item">
+            <button class="btn btn-primary red-button"><i class="fa-regular fa-address-book"></i></button>
+        </li>
+        </ul>
+    </div>
+
+    <div class="card-body p-1 mt-3" style="text-align: center">
+        <h2> {{listing.name}} </h2>
+        <h5> {{listing.category.name}} </h5>
+        <h5><span class="font-highlight">£{{listing.price}}</span></h5>
+        <p-rating 
+            value="4"
+            [readonly]="true" 
+            [cancel]="false" 
+            [iconOnStyle]="{'color':'white'}"
+            style="color: white;"
+        />
+        <!-- [(ngModel)]="listing.rating"  -->
+    </div>
+</div>

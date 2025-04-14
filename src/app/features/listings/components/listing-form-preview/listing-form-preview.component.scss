@@ -1,0 +1,31 @@
+.full-background {
+  background-color: var(--primary-bg-color);
+  min-height: calc(100vh - 200px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  background-color: var(--primary-bg-color);
+  color: white;
+}
+
+.card-header {
+  background-color: var(--primary-bg-color);
+}
+
+.card-body {
+  background-color: var(--primary-bg-color);
+  color: white;
+}
+
+.image-container {
+  text-align: center;
+}
+
+.product-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
