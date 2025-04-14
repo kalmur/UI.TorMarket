@@ -26,21 +26,6 @@ export class SearchedListingsComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.searchTerm = params['searchTerm'] || '';
-  
-      if (this.searchTerm) {
-        this.fetchListingsBySearchTerm(this.searchTerm);
-      }
-    });
-  }
-
-  private fetchListingsBySearchTerm(searchTerm: string): void {
-    this.searchService.getListingBySearchTerm(searchTerm).subscribe({
-      next: (listings) => {
-        this.listings = listings;
-      },
-      error: (error) => {
-        console.error('Error fetching search results:', error);
-      }
     });
   }
 }
