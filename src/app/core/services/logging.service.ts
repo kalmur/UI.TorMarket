@@ -7,14 +7,11 @@ import { interpretError } from './error-interpreter.function';
   providedIn: 'root'
 })
 export class LoggingService {
-  constructor(
-    private readonly toastr: ToastrService
-  ) {}
+  constructor(private readonly toastr: ToastrService) {}
 
-  log(serviceName: string, error: HttpErrorResponse): any {
+  log(serviceName: string, error: HttpErrorResponse): string {
     const compiledMessage =
-      `Failed to ${serviceName} ${interpretError(error)}`.trim() +
-      '\nPlease refresh your page to see the latest changes.';
+      `Failed to ${serviceName} ${interpretError(error)}`.trim()
     this.toastr.error(compiledMessage);
     return compiledMessage;
   }

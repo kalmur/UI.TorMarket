@@ -4,7 +4,6 @@ import { ListingListComponent } from '../../../features/listings/components/list
 import { ListingService } from '../../../features/listings/services/listing.service';
 import { IListing } from '../../../features/listings/models/listings';
 import { ListingCategoryService } from '../../../features/categories/services/listing-category.service';
-import { SearchService } from '../../services/search.service';
 
 @Component({
   selector: 'app-home',
@@ -22,8 +21,7 @@ export class HomeComponent implements OnInit, OnChanges{
 
   constructor(
     private readonly listingService: ListingService,
-    private readonly listingCategoryService: ListingCategoryService,
-    private readonly searchService: SearchService
+    private readonly listingCategoryService: ListingCategoryService
   ) {}
 
   ngOnInit(): void {
@@ -52,12 +50,9 @@ export class HomeComponent implements OnInit, OnChanges{
   }
 
   private fetchListingsBySearchTerm(searchTerm: string): void {
-    this.searchService.getListingBySearchTerm(searchTerm).subscribe({
+    this.listingService.getListingBySearchTerm(searchTerm).subscribe({
       next: (listings) => {
         this.listings = listings;
-      },
-      error: (error) => {
-        console.error('Error fetching search results:', error);
       }
     });
   }
@@ -66,9 +61,6 @@ export class HomeComponent implements OnInit, OnChanges{
     this.listingCategoryService.getListingsByCategoryId(category).subscribe({
       next: (listings: IListing[]) => {
         this.listings = listings;
-      },
-      error: (error) => {
-        console.error('Error fetching listings:', error);
       }
     });
   }
@@ -77,9 +69,6 @@ export class HomeComponent implements OnInit, OnChanges{
     this.listingService.getAllListings().subscribe({
       next: (response: IListing[]) => {
         this.listings = response;
-      },
-      error: (error) => {
-        console.error('Failed to fetch listings:', error);
       }
     });
   }
