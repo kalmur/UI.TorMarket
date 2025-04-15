@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class UrlProviderService {
+  // This is for local development only - to be replaced with a proper URL in production
   private readonly baseUrl = 'http://localhost:5261/api';
 
   private readonly userEndpoint = `${this.baseUrl}/users`;
