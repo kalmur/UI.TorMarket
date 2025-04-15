@@ -17,12 +17,13 @@ import { FormsModule } from '@angular/forms';
 
 export class NavBarComponent implements OnInit {
   @Input() searchTerm: string = '';
-  @Output() searchTermChange = new EventEmitter<string>();
 
-  categories: ICategory[] = []; 
+  @Output() searchTermChange = new EventEmitter<string>();
 
   isAuthenticated$: Observable<boolean> = this.authHelperService.isAuthenticated$;
   user$: Observable<any> = this.authHelperService.user$;
+
+  categories: ICategory[] = []; 
 
   constructor(
     private readonly authHelperService: AuthHelperService,
@@ -68,9 +69,6 @@ export class NavBarComponent implements OnInit {
     this.listingCategoryService.getAllProductCategories().subscribe({
       next: (response: ICategory[]) => {
         this.categories = response;
-      },
-      error: (error) => {
-        console.error('Failed to fetch categories:', error);
       }
     });
   }

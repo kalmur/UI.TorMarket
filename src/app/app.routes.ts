@@ -9,33 +9,23 @@ import { ClothingComponent } from './features/categories/components/clothing/clo
 import { VehiclesComponent } from './features/categories/components/vehicles/vehicles.component';
 import { PetsComponent } from './features/categories/components/pets/pets.component';
 import { OtherComponent } from './features/categories/components/other/other.component';
-import { ListingListComponent } from './features/listings/components/listing-list/listing-list.component';
 import { CreateListingComponent } from './features/listings/components/create-listing/create-listing.component';
 import { EditListingComponent } from './features/listings/components/edit-listing/edit-listing.component';
 import { SearchedListingsComponent } from './features/listings/components/searched-listings/searched-listings.component';
 
 export const routes: Routes = [
+    { path: '', component: HomeComponent },
+    { path: 'auth-prompt', component: AuthPromptComponent},
     { path: 'sell', component: CreateListingComponent },
     { path: 'edit', component: EditListingComponent },
     { path: 'search/:searchTerm', component: SearchedListingsComponent },
-    { path: 'auth-prompt', component: AuthPromptComponent},
+    { path: 'clothing', component: ClothingComponent },
     { path: 'electronics', component: ElectronicsComponent },
     { path: 'games', component: GamesComponent },
-    { path: 'toys', component: ToysComponent },
-    { path: 'clothing', component: ClothingComponent },
-    { path: 'vehicles', component: VehiclesComponent },
-    { path: 'pets', component: PetsComponent },
     { path: 'other', component: OtherComponent },
-    { path: 'profile', component: UserProfileDetailComponent},
-    { path: '**', redirectTo: '' },
-    {
-        path: '',
-        component: HomeComponent,
-        children: [
-            {
-                path: 'listings',
-                component: ListingListComponent
-            }
-        ]
-    }
+    { path: 'pets', component: PetsComponent },
+    { path: 'profile', component: UserProfileDetailComponent },
+    { path: 'toys', component: ToysComponent },
+    { path: 'vehicles', component: VehiclesComponent },
+    { path: '**', redirectTo: '' }
 ];

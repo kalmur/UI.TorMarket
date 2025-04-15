@@ -7,14 +7,17 @@ import { UrlProviderService } from './url-provider.service';
   providedIn: 'root'
 })
 export class UserService {
-  private readonly http = inject(HttpClient);
-  private readonly urlProvider = inject(UrlProviderService);
+  constructor(
+    private readonly httpClient: HttpClient,
+    private readonly urlProvider: UrlProviderService
+  ) {}
 
+  // Create return type for this
   createUserInDatabase(providerId: string): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const url = `${this.urlProvider.createUser}/${providerId}`;
 
-    return this.http.post(
+    return this.httpClient.post(
       url, 
       {}, 
       { headers }

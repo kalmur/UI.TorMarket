@@ -1,19 +1,19 @@
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '@auth0/auth0-angular';
+import { AuthService, User } from '@auth0/auth0-angular';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthHelperService {
-  private readonly auth = inject(AuthService);
-  private readonly router = inject(Router);
-
   isAuthenticated$: Observable<boolean> = this.auth.isAuthenticated$;
-  user$: Observable<any> = this.auth.user$;
+  user$: Observable<User | null | undefined> = this.auth.user$;
 
-  constructor() { }
+  constructor(
+    private readonly auth: AuthService,
+    private readonly router: Router
+  ) {}
 
   login(): void {
     this.auth.loginWithRedirect();
