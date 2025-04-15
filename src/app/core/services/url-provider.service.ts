@@ -20,11 +20,11 @@ export class UrlProviderService {
     return this.listingEndpoint;
   }
 
-  get getAllListings(): string {
+  get getListings(): string {
     return this.listingEndpoint + '/all';
   }
 
-  get getListingByCategory(): (category: string) => string {
+  get getListingsByCategoryName(): (categoryName: string) => string {
     return (category: string) => 
       `${this.listingEndpoint}?category=${encodeURIComponent(category)}`;
   }

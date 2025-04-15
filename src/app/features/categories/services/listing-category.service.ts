@@ -31,7 +31,7 @@ export class ListingCategoryService {
   }
 
   getListingsByCategoryId(categoryId: string): Observable<IListing[]> {
-    const endPoint = this.urlProvider.getListingByCategory(categoryId);
+    const endPoint = this.urlProvider.getListingsByCategoryName(categoryId);
 
     return this.httpClient
       .get<IListing[]>(endPoint)

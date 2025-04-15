@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { UrlProviderService } from '../../../core/services/url-provider.service';
 import { ToastrService } from 'ngx-toastr';
-import { ICreatedListing, ICreateListingRequest, IListing } from '../models/listings';
+import { ICreateListingResponse, ICreateListingRequest, IListing } from '../models/listings';
 import { LoggingService } from '../../../core/services/logging.service';
 
 @Injectable({
@@ -17,41 +17,39 @@ export class ListingService {
     private readonly logger: LoggingService
   ) {}
 
-  getAllListings(): Observable<IListing[]> {
-    const endPoint = this.urlProvider.getAllListings;
-
-    return this.httpClient
-      .get<IListing[]>(endPoint)
-      .pipe(
-        catchError(error => 
-          throwError(
-            this.logger.log('get all products request', error)
-          )
-        )
-    );
-  }
-
-  getListingBySearchTerm(searchTerm: string): Observable<IListing[]> {
-    const endPoint = this.urlProvider.getListingBySearchTerm(searchTerm);
-
-    console.log(endPoint);
+  getListings(): Observable<IListing[]> {
+    const endPoint = this.urlProvider.getListings;
   
     return this.httpClient
       .get<IListing[]>(endPoint)
       .pipe(
         catchError(error => 
-          throwError(
-            this.logger.log('get listing by search term request', error)
+          throwError(() => 
+            this.logger.log('get listings', error)
           )
         )
       );
   }
 
-  createListing(product: ICreateListingRequest): Observable<ICreatedListing> {
-    const endPoint = this.urlProvider.createListing;
-
+  getListingBySearchTerm(searchTerm: string): Observable<IListing[]> {
+    const endPoint = this.urlProvider.getListingBySearchTerm(searchTerm);
+  
     return this.httpClient
-      .post<ICreatedListing>(endPoint, product)
+      .get<IListing[]>(endPoint)
+      .pipe(
+        catchError(error => 
+          throwError(() => 
+            this.logger.log('get listings by search term', error)
+          )
+        )
+      );
+  }
+
+  createListing(listing: ICreateListingRequest): Observable<ICreateListingResponse> {
+    const endPoint = this.urlProvider.createListing;
+  
+    return this.httpClient
+      .post<ICreateListingResponse>(endPoint, listing)
       .pipe(
         map(response => {
           this.toastr.success('Listing created successfully');
@@ -59,11 +57,10 @@ export class ListingService {
         }),
         catchError(error => {
           this.toastr.error('Failed to create listing');
-          return throwError(
-            this.logger.log('create listing request', error)
+          return throwError(() => 
+            this.logger.log('create listing', error)
           );
-        }
-      )
-    );
+        })
+      );
   }
 }

@@ -34,7 +34,7 @@ export interface ICreateListingRequest {
     description: string;
 }
 
-export interface ICreatedListing {
+export interface ICreateListingResponse {
     productId: number;
     categoryId: number;
     name: string;

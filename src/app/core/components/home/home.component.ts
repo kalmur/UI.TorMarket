@@ -66,7 +66,7 @@ export class HomeComponent implements OnInit, OnChanges{
   }
 
   private fetchAllListings(): void {
-    this.listingService.getAllListings().subscribe({
+    this.listingService.getListings().subscribe({
       next: (response: IListing[]) => {
         this.listings = response;
       }
