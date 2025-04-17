@@ -1,9 +1,16 @@
 <div class="card">
     <div class="card-img-wrapper">
-        <img class="card-img-top" src="/images/msi.jpg" (click)="onViewDetails()"/>
+        <img 
+            class="card-img-top" 
+            src="/images/msi.jpg" 
+            (click)="onViewDetails()" 
+            (keydown.enter)="onViewDetails()" 
+            tabindex="0" 
+            alt="Image of {{ listing.name }}"
+        />
         <ul class="list-inline text-center member-icons animate">
         <li class="list-inline-item">
-              <button class="btn btn-primary red-button" (click)="onViewDetails()">
+              <button class="btn btn-primary red-button" (click)="onViewDetails()" (keydown.enter)="onViewDetails()">
                 <i class="bi bi-info-circle"></i>
             </button>
         </li>

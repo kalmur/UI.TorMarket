@@ -15,9 +15,9 @@ import { ListingFormPreviewComponent } from '../listing-form-preview/listing-for
   styleUrl: './edit-listing.component.scss'
 })
 export class EditListingComponent {
-  listing: any = {};
+  // listing: any = {};
 
-  onListingChanged(listing: any) {
-    this.listing = listing;
-  }
+  // onListingChanged(listing: any) {
+  //   this.listing = listing;
+  // }
 }

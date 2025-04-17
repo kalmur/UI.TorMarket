@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ListingCardComponent } from '../listing-card/listing-card.component';
 import { CommonModule } from '@angular/common';
 import { IListing } from '../../models/listings';

@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { HomeComponent } from '../../../../core/components/home/home.component';
-import { IListing } from '../../../listings/models/listings';
 
 @Component({
   selector: 'app-toys',
@@ -10,5 +9,5 @@ import { IListing } from '../../../listings/models/listings';
   styleUrl: './toys.component.scss'
 })
 export class ToysComponent {
-  categoryName: string = 'Toys';
+  categoryName = 'Toys';
 }

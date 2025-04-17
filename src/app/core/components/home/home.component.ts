@@ -13,10 +13,10 @@ import { AuthHelperService } from '../../auth/services/auth-helper.service';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit, OnChanges{
-  @Input() title: string = 'Best sellers';
+  @Input() title = 'Best sellers';
   @Input() listings: IListing[] = [];
-  @Input() categoryName: string = '';
-  @Input() searchTerm: string = '';
+  @Input() categoryName = '';
+  @Input() searchTerm = '';
 
   @Output() searchTermChange = new EventEmitter<string>();
 

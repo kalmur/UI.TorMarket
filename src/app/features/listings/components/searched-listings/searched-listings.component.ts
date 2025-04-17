@@ -12,8 +12,8 @@ import { HomeComponent } from '../../../../core/components/home/home.component';
   styleUrls: ['./searched-listings.component.scss']
 })
 export class SearchedListingsComponent implements OnInit {
-  title: string = 'Searched Listings';
-  searchTerm: string = '';
+  title = 'Searched Listings';
+  searchTerm = '';
 
   constructor(
     private readonly route: ActivatedRoute,

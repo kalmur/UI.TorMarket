@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavBarComponent } from '../../components/nav-bar/nav-bar.component';
 import { ActivatedRoute } from '@angular/router';
 
@@ -9,10 +9,10 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './auth-prompt.component.html',
   styleUrl: './auth-prompt.component.scss'
 })
-export class AuthPromptComponent {
-  private readonly route = inject(ActivatedRoute);
+export class AuthPromptComponent implements OnInit {
+  constructor(private readonly route: ActivatedRoute) {}
 
-  action: string = 'perform this action';
+  action = 'perform this action';
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {

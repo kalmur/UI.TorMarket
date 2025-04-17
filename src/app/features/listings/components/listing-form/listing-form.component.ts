@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Inject, OnDestroy, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -52,6 +52,10 @@ export class ListingFormComponent implements OnDestroy{
     } else {
       this.toastr.error('Please fill in all required fields');
     }
+  }
+
+  setCategory(categoryName: string): void {
+    this.listingFormGroup.controls['category'].setValue(categoryName);
   }
 
   private initializeForm(): FormGroup {

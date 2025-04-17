@@ -26,22 +26,80 @@
   </form>
   <div class="nav-items me-4">
     <li>
-      <a (click)="handleSell()">Sell</a>
+      <a 
+        (click)="handleSell()" 
+        (keydown.enter)="handleSell()" 
+        tabindex="0" 
+        role="button"
+      >
+        Sell
+      </a>
     </li>
-    <li *ngIf="!(isAuthenticated$ | async)">
-      <a (click)="handleLogin()">Login</a>
+    <li *ngIf="!isAuthenticated">
+      <a 
+        (click)="handleLogin()" 
+        (keydown.enter)="handleLogin()" 
+        tabindex="0" 
+        role="button"
+      >
+        Login
+      </a>
     </li>
-    <li *ngIf="!(isAuthenticated$ | async)">
-      <a (click)="handleSignUp()">Register</a>
+    <li *ngIf="!isAuthenticated">
+      <a 
+        (click)="handleSignUp()" 
+        (keydown.enter)="handleSignUp()" 
+        tabindex="0" 
+        role="button"
+      >
+        Register
+      </a>
     </li>
-    <li *ngIf="isAuthenticated$ | async" class="nav-item dropdown me-4">
-      <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <li *ngIf="isAuthenticated" class="nav-item dropdown me-4">
+      <a 
+        class="nav-link dropdown-toggle" 
+        href="#" 
+        id="userDropdown" 
+        role="button" 
+        data-bs-toggle="dropdown" 
+        aria-expanded="false"
+      >
         <i class="bi bi-person"></i>
       </a>
       <ul class="dropdown-menu custom-dropdown-menu" aria-labelledby="userDropdown">
-        <li><a class="dropdown-item mb-2" (click)="handleProfileNavigation()">Profile</a></li>
-        <li><a class="dropdown-item mb-2" (click)="handleUserListingsNavigation()">My listings</a></li>
-        <li><a class="dropdown-item" (click)="handleLogout()">Logout</a></li>
+        <li>
+          <a 
+            class="dropdown-item mb-2" 
+            (click)="handleProfileNavigation()" 
+            (keydown.enter)="handleProfileNavigation()" 
+            tabindex="0" 
+            role="button"
+          >
+            Profile
+          </a>
+        </li>
+        <li>
+          <a 
+            class="dropdown-item mb-2" 
+            (click)="handleUserListingsNavigation()" 
+            (keydown.enter)="handleUserListingsNavigation()" 
+            tabindex="0" 
+            role="button"
+          >
+            My listings
+          </a>
+        </li>
+        <li>
+          <a 
+            class="dropdown-item" 
+            (click)="handleLogout()" 
+            (keydown.enter)="handleLogout()" 
+            tabindex="0" 
+            role="button"
+          >
+            Logout
+          </a>
+        </li>
       </ul>
     </li>
   </div>

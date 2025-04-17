@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { ListingCategoryService } from '../../../features/categories/services/listing-category.service';
 import { ICategory } from '../../models/categories';
 import { FormsModule } from '@angular/forms';
+import { User } from '@auth0/auth0-angular';
 
 @Component({
   selector: 'app-nav-bar',
@@ -16,14 +17,15 @@ import { FormsModule } from '@angular/forms';
 })
 
 export class NavBarComponent implements OnInit {
-  @Input() searchTerm: string = '';
+  @Input() searchTerm = '';
 
   @Output() searchTermChange = new EventEmitter<string>();
   @Output() userListingsNavigation = new EventEmitter<void>();
 
+  user$: Observable<User | null | undefined> = this.authHelperService.user$;
   isAuthenticated$: Observable<boolean> = this.authHelperService.isAuthenticated$;
-  user$: Observable<any> = this.authHelperService.user$;
 
+  isAuthenticated = false;
   categories: ICategory[] = []; 
 
   constructor(
@@ -34,6 +36,10 @@ export class NavBarComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchAllCategories();
+
+    this.authHelperService.isAuthenticated$.subscribe((authStatus) => {
+      this.isAuthenticated = authStatus;
+    });
   }
 
   handleLogin(): void {

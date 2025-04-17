@@ -9,5 +9,5 @@ import { HomeComponent } from '../../../../core/components/home/home.component';
   styleUrl: './user-listings.component.scss'
 })
 export class UserListingsComponent {
-  title: string = 'My listings';
+  title = 'My listings';
 }
