@@ -13,6 +13,7 @@ import { EditListingComponent } from './features/listings/components/edit-listin
 import { SearchedListingsComponent } from './features/listings/components/searched-listings/searched-listings.component';
 import { UserProfileDetailComponent } from './features/user-profile/components/user-profile-detail/user-profile-detail.component';
 import { UserListingsComponent } from './features/user-profile/components/user-listings/user-listings.component';
+import { ListingDetailsComponent } from './features/listings/components/listing-details/listing-details.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -20,6 +21,7 @@ export const routes: Routes = [
     { path: 'profile', component: UserProfileDetailComponent },
     { path: 'profile/listings', component: UserListingsComponent },
     { path: 'search/:searchTerm', component: SearchedListingsComponent },
+    { path: 'listing/:id', component: ListingDetailsComponent },
     { path: 'sell', component: CreateListingComponent },
     { path: 'edit', component: EditListingComponent },
     { path: 'clothing', component: ClothingComponent },

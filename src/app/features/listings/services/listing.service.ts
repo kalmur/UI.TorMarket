@@ -31,6 +31,20 @@ export class ListingService {
       );
   }
 
+  getListingById(id: number): Observable<IListing> {
+    const endPoint = this.urlProvider.getListingById(id);
+  
+    return this.httpClient
+      .get<IListing>(endPoint)
+      .pipe(
+        catchError(error => 
+          throwError(() => 
+            this.logger.log('get listing by ID request', error)
+          )
+        )
+      );
+  }
+
   getListingBySearchTerm(searchTerm: string): Observable<IListing[]> {
     const endPoint = this.urlProvider.getListingBySearchTerm(searchTerm);
   

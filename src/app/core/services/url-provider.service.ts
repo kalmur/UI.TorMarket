@@ -25,6 +25,11 @@ export class UrlProviderService {
     return this.listingEndpoint;
   }
 
+  get getListingById(): (id: number) => string {
+    return (id: number) => 
+      `${this.listingEndpoint}/id/${id}`;
+  }
+
   get getListingsByCategoryName(): (categoryName: string) => string {
     return (category: string) => 
       `${this.listingEndpoint}/category/${encodeURIComponent(category)}`;
@@ -32,7 +37,7 @@ export class UrlProviderService {
 
   get getListingBySearchTerm(): (searchTerm: string) => string {
     return (searchTerm: string) => 
-      `${this.listingEndpoint}/${encodeURIComponent(searchTerm)}`;
+      `${this.listingEndpoint}/name/${encodeURIComponent(searchTerm)}`;
   }
 
   get getListingsByProviderId(): (providerId: string) => string {

@@ -1,0 +1,11 @@
+<app-nav-bar 
+></app-nav-bar> 
+
+<div class="background">
+    <div class="best-sellers">
+        <h4 style="color: white">Listing</h4>
+    </div>
+    <div class="extra-padding">
+        <app-listing-card *ngIf="listing" [listing]="listing"></app-listing-card>
+    </div>
+</div>
