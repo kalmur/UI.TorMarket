@@ -29,18 +29,4 @@ export class ListingCategoryService {
         )
     );
   }
-
-  getListingsByCategoryId(categoryId: string): Observable<IListing[]> {
-    const endPoint = this.urlProvider.getListingsByCategoryName(categoryId);
-
-    return this.httpClient
-      .get<IListing[]>(endPoint)
-      .pipe(
-        catchError(error => 
-          throwError(
-            this.logger.log('get listing by category request', error)
-          )
-        )
-    );
-  }
 }

@@ -22,12 +22,12 @@ export class UrlProviderService {
   }
 
   get getListings(): string {
-    return this.listingEndpoint + '/all';
+    return this.listingEndpoint;
   }
 
   get getListingsByCategoryName(): (categoryName: string) => string {
     return (category: string) => 
-      `${this.listingEndpoint}?category=${encodeURIComponent(category)}`;
+      `${this.listingEndpoint}/category/${encodeURIComponent(category)}`;
   }
 
   get getListingBySearchTerm(): (searchTerm: string) => string {
@@ -35,9 +35,14 @@ export class UrlProviderService {
       `${this.listingEndpoint}/${encodeURIComponent(searchTerm)}`;
   }
 
+  get getListingsByProviderId(): (providerId: string) => string {
+    return (providerId: string) => 
+      `${this.listingEndpoint}/user/${providerId}`;
+  }
+
   // Categories
   get getAllListingCategories(): string {
-    return this.listingCategoryEndpoint + '/all';
+    return this.listingCategoryEndpoint;
   }
 
   get getListingCategoryByName(): string {

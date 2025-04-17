@@ -16,6 +16,16 @@ export interface IListing {
     };
 }
 
+export interface IBasicListing {
+    listingId: number;
+    userId: number;
+    categoryId: number;
+    name: string;
+    price: number;
+    description?: string;
+    availableFrom?: string;
+}
+
 export interface IListingFormDetails {
     name: string;
     category: string;

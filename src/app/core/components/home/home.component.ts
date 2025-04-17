@@ -3,7 +3,7 @@ import { NavBarComponent } from '../nav-bar/nav-bar.component';
 import { ListingListComponent } from '../../../features/listings/components/listing-list/listing-list.component';
 import { ListingService } from '../../../features/listings/services/listing.service';
 import { IListing } from '../../../features/listings/models/listings';
-import { ListingCategoryService } from '../../../features/categories/services/listing-category.service';
+import { AuthHelperService } from '../../auth/services/auth-helper.service';
 
 @Component({
   selector: 'app-home',
@@ -17,11 +17,12 @@ export class HomeComponent implements OnInit, OnChanges{
   @Input() listings: IListing[] = [];
   @Input() categoryName: string = '';
   @Input() searchTerm: string = '';
+
   @Output() searchTermChange = new EventEmitter<string>();
 
   constructor(
     private readonly listingService: ListingService,
-    private readonly listingCategoryService: ListingCategoryService
+    private readonly authHelperService: AuthHelperService
   ) {}
 
   ngOnInit(): void {
@@ -37,6 +38,10 @@ export class HomeComponent implements OnInit, OnChanges{
   onSearchTermChange(searchTerm: string): void {
     this.searchTerm = searchTerm;
     this.searchTermChange.emit(searchTerm);
+  }
+
+  onUserListingsNavigation(): void {
+    this.fetchListingsByProviderId();
   }
 
   private loadListings(): void {
@@ -58,9 +63,23 @@ export class HomeComponent implements OnInit, OnChanges{
   }
 
   private fetchListingsByCategory(category: string): void {
-    this.listingCategoryService.getListingsByCategoryId(category).subscribe({
+    this.listingService.getListingsByCategoryName(category).subscribe({
       next: (listings: IListing[]) => {
         this.listings = listings;
+      }
+    });
+  }
+
+  private fetchListingsByProviderId(): void {
+    this.authHelperService.user$.subscribe({
+      next: (user) => {
+        if (user && user.sub) {
+          this.listingService.getListingsByProviderId(user.sub).subscribe({
+            next: (listings: IListing[]) => {
+              this.listings = listings;
+            }
+          });
+        }
       }
     });
   }

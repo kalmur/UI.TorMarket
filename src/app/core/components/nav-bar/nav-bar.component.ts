@@ -19,6 +19,7 @@ export class NavBarComponent implements OnInit {
   @Input() searchTerm: string = '';
 
   @Output() searchTermChange = new EventEmitter<string>();
+  @Output() userListingsNavigation = new EventEmitter<void>();
 
   isAuthenticated$: Observable<boolean> = this.authHelperService.isAuthenticated$;
   user$: Observable<any> = this.authHelperService.user$;
@@ -55,13 +56,17 @@ export class NavBarComponent implements OnInit {
     this.router.navigate(['/profile']);
   }
 
+  handleUserListingsNavigation(): void {
+    this.userListingsNavigation.emit();
+    this.router.navigate(['/profile/listings']);
+  }
+
   handleSearch(searchTerm: string): void {
     if (!searchTerm.trim()) {
       return;
     }
   
     this.searchTermChange.emit(searchTerm);
-  
     this.router.navigate(['/search', searchTerm]);
   }
 
