@@ -1,16 +1,16 @@
 <div class="card">
     <div class="card-img-wrapper">
         <!-- <img *ngIf="product.image" class="card-img-top" src="" /> -->
-        <img class="card-img-top" src="" />
+        <img class="card-img-top" src="" (click)="onViewDetails()"/>
         <ul class="list-inline text-center member-icons animate">
         <li class="list-inline-item">
               <button class="btn btn-primary red-button" (click)="onViewDetails()">
-                <i class="fa-sharp fa-solid fa-pen-to-square"></i>
+                <i class="bi bi-info-circle"></i>
             </button>
         </li>
         <li class="list-inline-item">
             <button class="btn btn-primary red-button">
-                <i class="fa-regular fa-address-book"></i>
+                <i class="bi bi-person-lines-fill"></i>
             </button>
         </li>
         </ul>
