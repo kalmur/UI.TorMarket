@@ -1,8 +1,8 @@
-import { Component, inject, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ListingCardComponent } from '../listing-card/listing-card.component';
 import { CommonModule } from '@angular/common';
 import { IListing } from '../../models/listings';
-import { ListingCategoryService } from '../../../categories/services/listing-category.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-listing-list',
@@ -16,4 +16,10 @@ import { ListingCategoryService } from '../../../categories/services/listing-cat
 })
 export class ListingListComponent {
   @Input() listings: IListing[] = [];
+
+  constructor(private readonly router: Router) {}
+
+  onViewDetails(listingId: number): void {
+    this.router.navigate(['/listing', listingId]);
+  }
 }

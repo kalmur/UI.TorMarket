@@ -1,10 +1,9 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UrlProviderService } from '../../../core/services/url-provider.service';
 import { catchError, Observable, throwError } from 'rxjs';
 import { LoggingService } from '../../../core/services/logging.service';
 import { ICategory } from '../../../core/models/categories';
-import { IListing } from '../../listings/models/listings';
 
 @Injectable({
   providedIn: 'root'
@@ -25,20 +24,6 @@ export class ListingCategoryService {
         catchError(error => 
           throwError(
             this.logger.log('get all product categories request', error)
-          )
-        )
-    );
-  }
-
-  getListingsByCategoryId(categoryId: string): Observable<IListing[]> {
-    const endPoint = this.urlProvider.getListingsByCategoryName(categoryId);
-
-    return this.httpClient
-      .get<IListing[]>(endPoint)
-      .pipe(
-        catchError(error => 
-          throwError(
-            this.logger.log('get listing by category request', error)
           )
         )
     );

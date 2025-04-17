@@ -1,8 +1,8 @@
-import { Component, inject } from '@angular/core';
-import { NavBarComponent } from '../../../core/components/nav-bar/nav-bar.component';
-import { AuthService } from '@auth0/auth0-angular';
+import { Component } from '@angular/core';
+import { AuthService, User } from '@auth0/auth0-angular';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { NavBarComponent } from '../../../../core/components/nav-bar/nav-bar.component';
 
 @Component({
   selector: 'app-user-profile-detail',
@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './user-profile-detail.component.scss'
 })
 export class UserProfileDetailComponent {
-  private readonly auth = inject(AuthService);
+  constructor(private readonly authService: AuthService) {}
 
-  user$: Observable<any> = this.auth.user$;
+  user$: Observable<User | null | undefined> = this.authService.user$;
 }

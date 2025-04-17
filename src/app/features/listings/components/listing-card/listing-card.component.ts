@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ListingListComponent } from '../listing-list/listing-list.component';
 import { RatingModule } from 'primeng/rating';
@@ -13,6 +13,11 @@ import { IListing } from '../../models/listings';
   styleUrl: './listing-card.component.scss'
 })
 export class ListingCardComponent {
-
   @Input() listing!: IListing;
+
+  @Output() viewDetails = new EventEmitter<number>();
+
+  onViewDetails(): void {
+    this.viewDetails.emit(this.listing.listingId);
+  }
 }

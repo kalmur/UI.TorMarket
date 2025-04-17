@@ -31,6 +31,20 @@ export class ListingService {
       );
   }
 
+  getListingById(id: number): Observable<IListing> {
+    const endPoint = this.urlProvider.getListingById(id);
+  
+    return this.httpClient
+      .get<IListing>(endPoint)
+      .pipe(
+        catchError(error => 
+          throwError(() => 
+            this.logger.log('get listing by ID request', error)
+          )
+        )
+      );
+  }
+
   getListingBySearchTerm(searchTerm: string): Observable<IListing[]> {
     const endPoint = this.urlProvider.getListingBySearchTerm(searchTerm);
   
@@ -43,6 +57,34 @@ export class ListingService {
           )
         )
       );
+  }
+
+  getListingsByCategoryName(categoryName: string): Observable<IListing[]> {
+    const endPoint = this.urlProvider.getListingsByCategoryName(categoryName);
+
+    return this.httpClient
+      .get<IListing[]>(endPoint)
+      .pipe(
+        catchError(error => 
+          throwError(
+            this.logger.log('get listing by category request', error)
+          )
+        )
+    );
+  }
+
+  getListingsByProviderId(providerId: string): Observable<IListing[]> {
+    const endPoint = this.urlProvider.getListingsByProviderId(providerId);
+
+    return this.httpClient
+      .get<IListing[]>(endPoint)
+      .pipe(
+        catchError(error => 
+          throwError(
+            this.logger.log('get listing by category request', error)
+          )
+        )
+    );
   }
 
   createListing(listing: ICreateListingRequest): Observable<ICreateListingResponse> {
