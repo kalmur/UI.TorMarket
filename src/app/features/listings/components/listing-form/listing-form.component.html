@@ -6,7 +6,7 @@
           <div class="card-body">
             <form (ngSubmit)="onSubmit()" [formGroup]="listingFormGroup">
               <div class="form-group col-12 col-md-8 mx-auto">
-                <label for="name" class="white-text">Listing name</label>
+                <label for="name" class="white-text mb-2">Name</label>
                 <input type="text" formControlName="name" placeholder="" class="form-control" />
               </div>
 
@@ -32,22 +32,22 @@
               </div>
 
               <div class="form-group col-12 col-md-8 mx-auto mt-4">
-                <label for="price" class="white-text">Price</label>
+                <label for="price" class="white-text mb-2">Price</label>
                 <input type="text" formControlName="price" placeholder="" class="form-control" />
               </div>
 
               <div class="form-group col-12 col-md-8 mx-auto mt-4">
-                <label for="description" class="white-text">Description</label>
+                <label for="description" class="white-text mb-2">Description</label>
                 <textarea class="form-control" formControlName="description" rows="4" placeholder=""></textarea>
               </div>
 
               <div class="form-group col-12 col-md-8 mx-auto mt-4">
-                <label for="available-from" class="white-text">Available from</label>
+                <label for="available-from" class="white-text mb-2">Available from</label>
                 <input type="text" class="form-control" formControlName="availableFrom" placeholder="" bsDatepicker />
               </div>
 
               <div class="form-group col-12 col-md-8 mx-auto mt-4">
-                <label for="image" class="white-text">Image</label>
+                <label for="image" class="white-text mb-2">Image</label>
                 <input type="file" class="form-control" />
               </div>
 
