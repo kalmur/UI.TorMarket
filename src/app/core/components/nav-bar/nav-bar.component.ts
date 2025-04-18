@@ -26,6 +26,8 @@ export class NavBarComponent implements OnInit {
   isAuthenticated = false;
   categories: ICategory[] = []; 
 
+  private static cachedCategories: ICategory[] = [];
+
   private readonly authHelperService: AuthHelperService = inject(AuthHelperService);
   private readonly userService: UserService = inject(UserService);
   private readonly listingCategoryService: ListingCategoryService = inject(ListingCategoryService);
@@ -35,8 +37,8 @@ export class NavBarComponent implements OnInit {
   isAuthenticated$: Observable<boolean> = this.authHelperService.isAuthenticated$;
 
   ngOnInit(): void {
-    this.fetchAllCategories();
-    this.checkAuthenticationStatus();
+    this.fetchOrReturnCachedCategories();
+    this.checkUsersAuthenticationStatus();
   }
 
   handleLogin(): void {
@@ -85,16 +87,22 @@ export class NavBarComponent implements OnInit {
     });
   }
 
-  private checkAuthenticationStatus(): void {
+  private checkUsersAuthenticationStatus(): void {
     this.authHelperService.isAuthenticated$.subscribe((authStatus) => {
       this.isAuthenticated = authStatus;
     });
   }
 
-  private fetchAllCategories(): void {
+  private fetchOrReturnCachedCategories(): void {
+    if (NavBarComponent.cachedCategories.length > 0) {
+      this.categories = NavBarComponent.cachedCategories;
+      return;
+    }
+  
     this.listingCategoryService.getAllProductCategories().subscribe({
       next: (response: ICategory[]) => {
         this.categories = response;
+        NavBarComponent.cachedCategories = response;
       }
     });
   }
