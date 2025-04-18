@@ -27,13 +27,13 @@
   text-align: center;
 }
 
-.next-button {
-  background-color: var(--primary-button-color) !important;
+.submit-button {
+  background-color: #0d6efd;
   outline: none !important;
   border: none;
 }
 
-.next-button:focus {
+.submit-button:focus {
   outline: none !important;
   box-shadow: none;
 }
