@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AuthService, User } from '@auth0/auth0-angular';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
@@ -12,7 +12,7 @@ import { NavBarComponent } from '../../../../core/components/nav-bar/nav-bar.com
   styleUrl: './user-profile-detail.component.scss'
 })
 export class UserProfileDetailComponent {
-  constructor(private readonly authService: AuthService) {}
+  private readonly authService: AuthService = inject(AuthService);
 
   user$: Observable<User | null | undefined> = this.authService.user$;
 }

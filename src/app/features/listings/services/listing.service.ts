@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { UrlProviderService } from '../../../core/services/url-provider.service';
 import { ToastrService } from 'ngx-toastr';
@@ -10,12 +10,10 @@ import { LoggingService } from '../../../core/services/logging.service';
   providedIn: 'root'
 })
 export class ListingService {
-  constructor(
-    private readonly httpClient: HttpClient,
-    private readonly urlProvider: UrlProviderService,
-    private readonly toastr: ToastrService,
-    private readonly logger: LoggingService
-  ) {}
+  private readonly httpClient: HttpClient = inject(HttpClient);
+  private readonly urlProvider: UrlProviderService = inject(UrlProviderService);
+  private readonly toastr: ToastrService = inject(ToastrService);
+  private readonly logger: LoggingService = inject(LoggingService);
 
   getListings(): Observable<IListing[]> {
     const endPoint = this.urlProvider.getListings;
