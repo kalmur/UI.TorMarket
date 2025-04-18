@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { NavBarComponent } from '../nav-bar/nav-bar.component';
 import { ListingListComponent } from '../../../features/listings/components/listing-list/listing-list.component';
 import { ListingService } from '../../../features/listings/services/listing.service';
@@ -20,10 +20,8 @@ export class HomeComponent implements OnInit, OnChanges{
 
   @Output() searchTermChange = new EventEmitter<string>();
 
-  constructor(
-    private readonly listingService: ListingService,
-    private readonly authHelperService: AuthHelperService
-  ) {}
+  private readonly listingService: ListingService = inject(ListingService);
+  private readonly authHelperService: AuthHelperService = inject(AuthHelperService);
 
   ngOnInit(): void {
     this.loadListings();

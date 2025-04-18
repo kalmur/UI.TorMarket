@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { NavBarComponent } from '../../../../core/components/nav-bar/nav-bar.component';
 import { IListing } from '../../models/listings';
 import { ActivatedRoute } from '@angular/router';
@@ -16,15 +16,13 @@ import { CommonModule } from '@angular/common';
 export class ListingDetailsComponent implements OnInit {
   listing: IListing | null = null;
 
-  constructor(
-    private readonly route: ActivatedRoute,
-    private readonly listingService: ListingService
-  ) {}
+  private readonly route = inject(ActivatedRoute);
+  private readonly listingService = inject(ListingService);
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.fetchListingDetails(+id);
+    const listingIdFromUrl = this.route.snapshot.paramMap.get('id');
+    if (listingIdFromUrl) {
+      this.fetchListingDetails(+listingIdFromUrl);
     }
   }
 
