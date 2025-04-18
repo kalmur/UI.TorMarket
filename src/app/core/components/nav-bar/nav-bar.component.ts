@@ -53,7 +53,7 @@ export class NavBarComponent implements OnInit {
     this.authHelperService.logout();
   }
 
-  handleSell(): void {
+  handleSellNavigation(): void {
     this.authHelperService.navigateToSellPage();
   }
 
@@ -66,7 +66,7 @@ export class NavBarComponent implements OnInit {
     this.router.navigate(['/profile/listings']);
   }
 
-  handleSearch(searchTerm: string): void {
+  handleSearchEvent(searchTerm: string): void {
     if (!searchTerm.trim()) {
       return;
     }

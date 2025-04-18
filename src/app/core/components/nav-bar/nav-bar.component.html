@@ -7,7 +7,7 @@
       Tor Market
     </a>
   </div>
-  <form (submit)="handleSearch(searchInput.value)">
+  <form (submit)="handleSearchEvent(searchInput.value)">
     <input 
       #searchInput
       type="search" 
@@ -27,8 +27,8 @@
   <div class="nav-items me-4">
     <li>
       <a 
-        (click)="handleSell()" 
-        (keydown.enter)="handleSell()" 
+        (click)="handleSellNavigation()" 
+        (keydown.enter)="handleSellNavigation()" 
         tabindex="0" 
         role="button"
       >
