@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UrlProviderService } from './url-provider.service';
 import { IListing } from '../../features/listings/models/listings';
@@ -9,12 +9,10 @@ import { IDatabaseUser } from '../models/user';
   providedIn: 'root'
 })
 export class UserService {
-  constructor(
-    private readonly httpClient: HttpClient,
-    private readonly urlProvider: UrlProviderService
-  ) {}
+  private readonly urlProvider: UrlProviderService = inject(UrlProviderService);
+  private readonly httpClient: HttpClient = inject(HttpClient);
 
-  createUserInDatabase(providerId: string): Observable<IListing> {
+  createUserInDatabase(providerId: string | undefined): Observable<IListing> {
     const url = `${this.urlProvider.createUser}/${providerId}`;
 
     return this.httpClient.post<IListing>(url, {});

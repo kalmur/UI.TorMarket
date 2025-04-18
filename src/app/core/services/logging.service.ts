@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { interpretError } from './error-interpreter.function';
 
@@ -7,7 +7,7 @@ import { interpretError } from './error-interpreter.function';
   providedIn: 'root'
 })
 export class LoggingService {
-  constructor(private readonly toastr: ToastrService) {}
+  private readonly toastr: ToastrService = inject(ToastrService);
 
   log(serviceName: string, error: HttpErrorResponse): string {
     const compiledMessage =

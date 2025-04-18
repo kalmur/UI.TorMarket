@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthHelperService } from '../../auth/services/auth-helper.service';
 import { Observable } from 'rxjs';
@@ -7,6 +7,7 @@ import { ListingCategoryService } from '../../../features/categories/services/li
 import { ICategory } from '../../models/categories';
 import { FormsModule } from '@angular/forms';
 import { User } from '@auth0/auth0-angular';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -22,24 +23,20 @@ export class NavBarComponent implements OnInit {
   @Output() searchTermChange = new EventEmitter<string>();
   @Output() userListingsNavigation = new EventEmitter<void>();
 
-  user$: Observable<User | null | undefined> = this.authHelperService.user$;
-  isAuthenticated$: Observable<boolean> = this.authHelperService.isAuthenticated$;
-
   isAuthenticated = false;
   categories: ICategory[] = []; 
 
-  constructor(
-    private readonly authHelperService: AuthHelperService,
-    private readonly listingCategoryService: ListingCategoryService,
-    private readonly router: Router
-  ) {}
+  private readonly authHelperService: AuthHelperService = inject(AuthHelperService);
+  private readonly userService: UserService = inject(UserService);
+  private readonly listingCategoryService: ListingCategoryService = inject(ListingCategoryService);
+  private readonly router: Router = inject(Router);
+
+  user$: Observable<User | null | undefined> = this.authHelperService.user$;
+  isAuthenticated$: Observable<boolean> = this.authHelperService.isAuthenticated$;
 
   ngOnInit(): void {
     this.fetchAllCategories();
-
-    this.authHelperService.isAuthenticated$.subscribe((authStatus) => {
-      this.isAuthenticated = authStatus;
-    });
+    this.checkAuthenticationStatus();
   }
 
   handleLogin(): void {
@@ -74,6 +71,24 @@ export class NavBarComponent implements OnInit {
   
     this.searchTermChange.emit(searchTerm);
     this.router.navigate(['/search', searchTerm]);
+  }
+
+  createUserInDatabase(): void {
+    this.user$.subscribe((user) => {
+      if (user && user.email) {
+        this.userService.createUserInDatabase(user.sub).subscribe({
+          next: (response) => {
+            console.log('User created in database:', response);
+          }
+        });
+      }
+    });
+  }
+
+  private checkAuthenticationStatus(): void {
+    this.authHelperService.isAuthenticated$.subscribe((authStatus) => {
+      this.isAuthenticated = authStatus;
+    });
   }
 
   private fetchAllCategories(): void {

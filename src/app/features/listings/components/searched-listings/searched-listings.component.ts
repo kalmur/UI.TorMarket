@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HomeComponent } from '../../../../core/components/home/home.component';
 
@@ -15,9 +15,7 @@ export class SearchedListingsComponent implements OnInit {
   title = 'Searched Listings';
   searchTerm = '';
 
-  constructor(
-    private readonly route: ActivatedRoute,
-  ) {}
+  private readonly route: ActivatedRoute = inject(ActivatedRoute);
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {

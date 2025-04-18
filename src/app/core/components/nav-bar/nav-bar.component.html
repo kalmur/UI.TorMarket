@@ -70,6 +70,15 @@
         <li>
           <a 
             class="dropdown-item mb-2" 
+            (click)="createUserInDatabase()" 
+            (keydown.enter)="createUserInDatabase()" 
+            tabindex="0" 
+            role="button"
+          >
+            Post registration DB call
+          </a>
+          <a 
+            class="dropdown-item mb-2" 
             (click)="handleProfileNavigation()" 
             (keydown.enter)="handleProfileNavigation()" 
             tabindex="0" 

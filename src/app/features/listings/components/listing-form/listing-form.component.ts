@@ -12,6 +12,7 @@ import { ICategory } from '../../../../core/models/categories';
 import { AuthHelperService } from '../../../../core/auth/services/auth-helper.service';
 import { UserService } from '../../../../core/services/user.service';
 import { IDatabaseUser } from '../../../../core/models/user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-listing-form',
@@ -38,6 +39,7 @@ export class ListingFormComponent implements OnInit, OnDestroy{
   private readonly userService: UserService = inject(UserService);
   private readonly productService: ListingService = inject(ListingService);
   private readonly listingCategoryService: ListingCategoryService = inject(ListingCategoryService);
+  private readonly router: Router = inject(Router);
   private readonly toastr: ToastrService = inject(ToastrService);
 
   constructor() {
@@ -87,9 +89,6 @@ export class ListingFormComponent implements OnInit, OnDestroy{
       this.listingCategoryService.getAllProductCategories().subscribe({
         next: (response: ICategory[]) => {
           this.categories = response;
-        },
-        error: (error) => {
-          console.error('Failed to fetch categories:', error);
         }
       }
     );
@@ -107,11 +106,10 @@ export class ListingFormComponent implements OnInit, OnDestroy{
           availableFrom: this.listingFormGroup.value.availableFrom
         };
 
-        console.log(listing);
-  
         this.productService.createListing(listing).subscribe({
           next: () => {
             this.toastr.success('Product created successfully');
+            this.router.navigate(['/']);
           },
           error: () => {
             this.toastr.error('Failed to create product');

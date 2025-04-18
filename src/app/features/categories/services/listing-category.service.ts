@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { UrlProviderService } from '../../../core/services/url-provider.service';
 import { catchError, Observable, throwError } from 'rxjs';
 import { LoggingService } from '../../../core/services/logging.service';
@@ -9,11 +9,9 @@ import { ICategory } from '../../../core/models/categories';
   providedIn: 'root'
 })
 export class ListingCategoryService {
-  constructor(
-    private readonly httpClient: HttpClient,
-    private readonly urlProvider: UrlProviderService,
-    private readonly logger: LoggingService
-  ) {}
+  private readonly httpClient: HttpClient = inject(HttpClient);
+  private readonly urlProvider: UrlProviderService = inject(UrlProviderService);
+  private readonly logger: LoggingService = inject(LoggingService);
 
   getAllProductCategories(): Observable<ICategory[]> {
     const endPoint = this.urlProvider.getAllListingCategories;

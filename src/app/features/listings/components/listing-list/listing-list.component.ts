@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { ListingCardComponent } from '../listing-card/listing-card.component';
 import { CommonModule } from '@angular/common';
 import { IListing } from '../../models/listings';
@@ -17,7 +17,7 @@ import { Router } from '@angular/router';
 export class ListingListComponent {
   @Input() listings: IListing[] = [];
 
-  constructor(private readonly router: Router) {}
+  private readonly router: Router = inject(Router);
 
   onViewDetails(listingId: number): void {
     this.router.navigate(['/listing', listingId]);
