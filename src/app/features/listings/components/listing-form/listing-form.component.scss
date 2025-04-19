@@ -41,3 +41,13 @@
 .dropdown-item.text-center {
   text-align: center;
 }
+
+.dropdown-item.text-center:hover {
+  font-size: 1.2rem;
+  color: var(--primary-tor-red) !important;
+  transition: font-size 0.2s ease-in-out;
+}
+
+.dropdown-item.text-center.active {
+  background-color: white !important;
+}
