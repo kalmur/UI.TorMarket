@@ -5,11 +5,18 @@ import { ActivatedRoute } from '@angular/router';
 import { ListingService } from '../../services/listing.service';
 import { ListingCardComponent } from '../listing-card/listing-card.component';
 import { CommonModule } from '@angular/common';
+import { ListingReviewListComponent } from '../../../reviews/components/listing-review-list/listing-review-list.component';
+import { IReview } from '../../../reviews/models/reviews';
 
 @Component({
   selector: 'app-listing-details',
   standalone: true,
-  imports: [CommonModule, NavBarComponent, ListingCardComponent],
+  imports: [
+    CommonModule, 
+    NavBarComponent, 
+    ListingCardComponent, 
+    ListingReviewListComponent
+],
   templateUrl: './listing-details.component.html',
   styleUrl: './listing-details.component.scss'
 })

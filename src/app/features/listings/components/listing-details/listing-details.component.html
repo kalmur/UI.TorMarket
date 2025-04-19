@@ -1,8 +1,13 @@
-<app-nav-bar 
-></app-nav-bar> 
+<app-nav-bar></app-nav-bar>
 
 <div class="background">
-    <div class="extra-padding mt-3">
-        <app-listing-card *ngIf="listing" [listing]="listing"></app-listing-card>
+  <div class="details-container d-flex">
+    <div class="listing-card-container flex-grow-1 me-3">
+      <app-listing-card *ngIf="listing" [listing]="listing"></app-listing-card>
     </div>
+
+    <div class="reviews-container flex-grow-2">
+      <app-listing-review-list></app-listing-review-list>
+    </div>
+  </div>
 </div>
