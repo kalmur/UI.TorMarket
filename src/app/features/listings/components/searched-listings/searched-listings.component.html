@@ -1,5 +1,5 @@
 <app-home 
     [title]="title" 
-    [searchTerm]="searchTerm"
-    (searchTermChange)="onSearchTermChange($event)"
+    [(searchTerm)]="searchTerm"
+    [listings]="listings()"
 ></app-home>

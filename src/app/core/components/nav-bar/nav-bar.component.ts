@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, model, OnInit, Output } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthHelperService } from '../../auth/services/auth-helper.service';
 import { Observable } from 'rxjs';
@@ -18,9 +18,8 @@ import { UserService } from '../../services/user.service';
 })
 
 export class NavBarComponent implements OnInit {
-  @Input() searchTerm = '';
+  searchTerm = model<string>('');
 
-  @Output() searchTermChange = new EventEmitter<string>();
   @Output() userListingsNavigation = new EventEmitter<void>();
 
   isAuthenticated = false;
@@ -66,12 +65,12 @@ export class NavBarComponent implements OnInit {
     this.router.navigate(['/profile/listings']);
   }
 
-  handleSearchEvent(searchTerm: string): void {
+  handleSearchEvent(): void {
+    const searchTerm = this.searchTerm();
     if (!searchTerm.trim()) {
       return;
     }
-  
-    this.searchTermChange.emit(searchTerm);
+
     this.router.navigate(['/search', searchTerm]);
   }
 

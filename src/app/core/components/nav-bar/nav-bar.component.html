@@ -7,14 +7,13 @@
       Tor Market
     </a>
   </div>
-  <form (submit)="handleSearchEvent(searchInput.value)">
+  <form (submit)="handleSearchEvent()">
     <input 
-      #searchInput
       type="search" 
       class="search-data" 
       placeholder="Search" 
-      [(ngModel)]="searchTerm" 
-      name="searchTerm"
+      [(ngModel)]="searchTerm"
+      name="searchInput"
       required
     >
     <button 

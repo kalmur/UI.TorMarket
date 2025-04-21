@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, computed, inject, input, Input, model, OnInit } from '@angular/core';
 import { NavBarComponent } from '../nav-bar/nav-bar.component';
 import { ListingListComponent } from '../../../features/listings/components/listing-list/listing-list.component';
 import { ListingService } from '../../../features/listings/services/listing.service';
@@ -12,13 +12,12 @@ import { AuthHelperService } from '../../auth/services/auth-helper.service';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent implements OnInit, OnChanges{
-  @Input() title = 'Best sellers';
-  @Input() listings: IListing[] = [];
-  @Input() categoryName = '';
-  @Input() searchTerm = '';
+export class HomeComponent implements OnInit {
+  title = input<string>('Best sellers');
 
-  @Output() searchTermChange = new EventEmitter<string>();
+  listings = model<IListing[]>([]);
+  categoryName = model<string>('');
+  searchTerm = model<string>('');
 
   private readonly listingService: ListingService = inject(ListingService);
   private readonly authHelperService: AuthHelperService = inject(AuthHelperService);
@@ -27,43 +26,34 @@ export class HomeComponent implements OnInit, OnChanges{
     this.loadListings();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['searchTerm'] && !changes['searchTerm'].firstChange) {
-      this.fetchListingsBySearchTerm(this.searchTerm);
-    }
-  }
-
-  onSearchTermChange(searchTerm: string): void {
-    this.searchTerm = searchTerm;
-    this.searchTermChange.emit(searchTerm);
-  }
-
   onUserListingsNavigation(): void {
     this.fetchListingsByProviderId();
   }
 
   private loadListings(): void {
-    if (this.searchTerm) {
-      this.fetchListingsBySearchTerm(this.searchTerm);
-    } else if (this.categoryName) {
-      this.fetchListingsByCategory(this.categoryName);
-    } else {
+    if (this.searchTerm()) {
+      return;
+    }
+    else if (this.categoryName()) {
+      this.fetchListingsByCategory(this.categoryName());
+    }
+    else {
       this.fetchAllListings();
     }
   }
 
   private fetchListingsBySearchTerm(searchTerm: string): void {
     this.listingService.getListingBySearchTerm(searchTerm).subscribe({
-      next: (listings) => {
-        this.listings = listings;
+      next: (response: IListing[]) => {
+        this.listings.set(response);
       }
     });
   }
 
-  private fetchListingsByCategory(category: string): void {
-    this.listingService.getListingsByCategoryName(category).subscribe({
-      next: (listings: IListing[]) => {
-        this.listings = listings;
+  private fetchListingsByCategory(categoryName: string): void {
+    this.listingService.getListingsByCategoryName(categoryName).subscribe({
+      next: (response: IListing[]) => {
+        this.listings.set(response);
       }
     });
   }
@@ -73,8 +63,8 @@ export class HomeComponent implements OnInit, OnChanges{
       next: (user) => {
         if (user && user.sub) {
           this.listingService.getListingsByProviderId(user.sub).subscribe({
-            next: (listings: IListing[]) => {
-              this.listings = listings;
+            next: (response: IListing[]) => {
+              this.listings.set(response);
             }
           });
         }
@@ -85,7 +75,7 @@ export class HomeComponent implements OnInit, OnChanges{
   private fetchAllListings(): void {
     this.listingService.getListings().subscribe({
       next: (response: IListing[]) => {
-        this.listings = response;
+        this.listings.set(response);
       }
     });
   }

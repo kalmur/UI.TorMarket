@@ -1,6 +1,8 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, model, OnInit, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HomeComponent } from '../../../../core/components/home/home.component';
+import { IListing } from '../../models/listings';
+import { ListingService } from '../../services/listing.service';
 
 @Component({
   selector: 'app-searched-listings',
@@ -11,20 +13,32 @@ import { HomeComponent } from '../../../../core/components/home/home.component';
   templateUrl: './searched-listings.component.html',
   styleUrls: ['./searched-listings.component.scss']
 })
-export class SearchedListingsComponent implements OnInit {
+export class SearchedListingsComponent {
   title = 'Searched Listings';
-  searchTerm = '';
+
+  searchTerm = signal<string>('');
+  listings = signal<IListing[]>([]); 
 
   private readonly route: ActivatedRoute = inject(ActivatedRoute);
+  private readonly listingService: ListingService = inject(ListingService);
 
-  ngOnInit(): void {
+  constructor() {
     this.route.params.subscribe(params => {
-      this.searchTerm = params['searchTerm'];
+      if (params['searchTerm']) {
+        this.searchTerm.set(params['searchTerm']);
+        this.fetchListings();
+      }
     });
   }
 
-  onSearchTermChange(searchTerm: string): void {
-    this.searchTerm = searchTerm;
-    console.log('Search term updated in ClothingComponent:', this.searchTerm);
+  private fetchListings(): void {
+    const searchTerm = this.searchTerm();
+    if (searchTerm) {
+      this.listingService.getListingBySearchTerm(searchTerm).subscribe({
+        next: (response: IListing[]) => {
+          this.listings.set(response); 
+        }
+      });
+    }
   }
 }
