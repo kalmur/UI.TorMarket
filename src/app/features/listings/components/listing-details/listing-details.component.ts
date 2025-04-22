@@ -6,7 +6,6 @@ import { ListingService } from '../../services/listing.service';
 import { ListingCardComponent } from '../listing-card/listing-card.component';
 import { CommonModule } from '@angular/common';
 import { ListingReviewListComponent } from '../../../reviews/components/listing-review-list/listing-review-list.component';
-import { IReview } from '../../../reviews/models/reviews';
 
 @Component({
   selector: 'app-listing-details',

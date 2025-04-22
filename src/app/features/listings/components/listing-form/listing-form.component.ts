@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, inject, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, effect, EventEmitter, inject, OnDestroy, OnInit, Output, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -26,13 +26,11 @@ import { Router } from '@angular/router';
   templateUrl: './listing-form.component.html',
   styleUrl: './listing-form.component.scss'
 })
-export class ListingFormComponent implements OnInit, OnDestroy{
-  private destroy$ = new Subject<void>();
-
-  @Output() listingChange = new EventEmitter<IListingFormDetails>();
+export class ListingFormComponent implements OnInit {
+  userId = signal<number | null>(null);
+  categories = signal<ICategory[]>([]);
 
   listingFormGroup: FormGroup;
-  categories: ICategory[] = [];
 
   private readonly fb: FormBuilder = inject(FormBuilder);
   private readonly authHelperService: AuthHelperService = inject(AuthHelperService);
@@ -44,6 +42,20 @@ export class ListingFormComponent implements OnInit, OnDestroy{
 
   constructor() {
     this.listingFormGroup = this.initializeForm();
+
+    effect(() => {
+      const user = this.authHelperService.user$;
+      if (user && user.sub) {
+        this.userService.getUserByProviderId(user.sub).subscribe({
+          next: (dbUser: IDatabaseUser) => {
+            this.userId.set(dbUser.userId); // Update the userId signal
+          },
+          error: () => {
+            this.toastr.error('Failed to fetch user information');
+          }
+        });
+      }
+    });
   }
 
   ngOnInit(): void {
