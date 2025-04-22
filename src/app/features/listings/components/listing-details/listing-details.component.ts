@@ -33,8 +33,8 @@ export class ListingDetailsComponent implements OnInit {
     }
   }
 
-  private fetchListingDetails(id: number): void {
-    this.listingService.getListingById(id).subscribe({
+  private fetchListingDetails(listingId: number): void {
+    this.listingService.getListingById(listingId).subscribe({
       next: (listing) => {
         this.listing = listing;
       }

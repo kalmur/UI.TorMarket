@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { IReview } from '../../models/reviews';
 import { RatingModule } from 'primeng/rating';
 
@@ -10,8 +10,5 @@ import { RatingModule } from 'primeng/rating';
   styleUrl: './listing-review-card.component.scss'
 })
 export class ListingReviewCardComponent {
-  @Input() review: IReview = {
-    value: 0,
-    comment: 'TestCommentByLad'
-  };
+  review = input<IReview>();
 }

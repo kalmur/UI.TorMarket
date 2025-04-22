@@ -1,4 +1,4 @@
-import { Component, inject, model, OnInit, signal } from '@angular/core';
+import { Component, inject, model, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HomeComponent } from '../../../../core/components/home/home.component';
 import { IListing } from '../../models/listings';
@@ -13,26 +13,25 @@ import { ListingService } from '../../services/listing.service';
   templateUrl: './searched-listings.component.html',
   styleUrls: ['./searched-listings.component.scss']
 })
-export class SearchedListingsComponent {
+export class SearchedListingsComponent implements OnInit {
   title = 'Searched Listings';
 
-  searchTerm = signal<string>('');
-  listings = signal<IListing[]>([]); 
+  searchTerm = model<string>('');
+  listings = model<IListing[]>([]); 
 
   private readonly route: ActivatedRoute = inject(ActivatedRoute);
   private readonly listingService: ListingService = inject(ListingService);
 
-  constructor() {
+  ngOnInit(): void {
     this.route.params.subscribe(params => {
       if (params['searchTerm']) {
         this.searchTerm.set(params['searchTerm']);
-        this.fetchListings();
+        this.fetchListingsBySearchTerm(this.searchTerm());
       }
     });
   }
 
-  private fetchListings(): void {
-    const searchTerm = this.searchTerm();
+  private fetchListingsBySearchTerm(searchTerm: string): void {
     if (searchTerm) {
       this.listingService.getListingBySearchTerm(searchTerm).subscribe({
         next: (response: IListing[]) => {

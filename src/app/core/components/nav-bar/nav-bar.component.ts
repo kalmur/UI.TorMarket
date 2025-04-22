@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, inject, Input, model, OnInit, Output } from '@angular/core';
+import { Component, inject, model, OnInit, output } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthHelperService } from '../../auth/services/auth-helper.service';
 import { Observable } from 'rxjs';
@@ -19,8 +19,7 @@ import { UserService } from '../../services/user.service';
 
 export class NavBarComponent implements OnInit {
   searchTerm = model<string>('');
-
-  @Output() userListingsNavigation = new EventEmitter<void>();
+  userListingsNavigation = output<void>();
 
   isAuthenticated = false;
   categories: ICategory[] = []; 

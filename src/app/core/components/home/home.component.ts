@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, Input, model, OnInit } from '@angular/core';
+import { Component, inject, model, OnInit } from '@angular/core';
 import { NavBarComponent } from '../nav-bar/nav-bar.component';
 import { ListingListComponent } from '../../../features/listings/components/listing-list/listing-list.component';
 import { ListingService } from '../../../features/listings/services/listing.service';
@@ -13,8 +13,7 @@ import { AuthHelperService } from '../../auth/services/auth-helper.service';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit {
-  title = input<string>('Best sellers');
-
+  title = model<string>('Best sellers');
   listings = model<IListing[]>([]);
   categoryName = model<string>('');
   searchTerm = model<string>('');
@@ -35,22 +34,14 @@ export class HomeComponent implements OnInit {
       return;
     }
     else if (this.categoryName()) {
-      this.fetchListingsByCategory(this.categoryName());
+      this.fetchListingsByCategoryName(this.categoryName());
     }
     else {
       this.fetchAllListings();
     }
   }
 
-  private fetchListingsBySearchTerm(searchTerm: string): void {
-    this.listingService.getListingBySearchTerm(searchTerm).subscribe({
-      next: (response: IListing[]) => {
-        this.listings.set(response);
-      }
-    });
-  }
-
-  private fetchListingsByCategory(categoryName: string): void {
+  private fetchListingsByCategoryName(categoryName: string): void {
     this.listingService.getListingsByCategoryName(categoryName).subscribe({
       next: (response: IListing[]) => {
         this.listings.set(response);
@@ -62,7 +53,8 @@ export class HomeComponent implements OnInit {
     this.authHelperService.user$.subscribe({
       next: (user) => {
         if (user && user.sub) {
-          this.listingService.getListingsByProviderId(user.sub).subscribe({
+          const providerId = user.sub;
+          this.listingService.getListingsByProviderId(providerId).subscribe({
             next: (response: IListing[]) => {
               this.listings.set(response);
             }

@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { ListingCardComponent } from '../listing-card/listing-card.component';
 import { CommonModule } from '@angular/common';
 import { IListing } from '../../models/listings';
@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
   styleUrl: './listing-list.component.scss'
 })
 export class ListingListComponent {
-  @Input() listings: IListing[] = [];
+  listings = input<IListing[]>([]);
 
   private readonly router: Router = inject(Router);
 
