@@ -2,11 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, model, OnInit, output } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthHelperService } from '../../auth/services/auth-helper.service';
-import { Observable } from 'rxjs';
 import { ListingCategoryService } from '../../../features/categories/services/listing-category.service';
 import { ICategory } from '../../models/categories';
 import { FormsModule } from '@angular/forms';
-import { User } from '@auth0/auth0-angular';
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -18,7 +16,7 @@ import { UserService } from '../../services/user.service';
 })
 
 export class NavBarComponent implements OnInit {
-  private readonly authHelperService = inject(AuthHelperService);
+  readonly authHelperService = inject(AuthHelperService);
   private readonly userService = inject(UserService);
   private readonly listingCategoryService = inject(ListingCategoryService);
   private readonly router = inject(Router);
@@ -27,16 +25,10 @@ export class NavBarComponent implements OnInit {
   categories = model<ICategory[]>([]);
   userListingsNavigation = output<void>();
 
-  isAuthenticated = false;
-
-  user$: Observable<User | null | undefined> = this.authHelperService.user$;
-  isAuthenticated$: Observable<boolean> = this.authHelperService.isAuthenticated$;
-
   private static cachedCategories: ICategory[] = [];
 
   ngOnInit(): void {
     this.fetchOrReturnCachedCategories();
-    this.checkUsersAuthenticationStatus();
   }
 
   handleLogin(): void {
@@ -74,21 +66,15 @@ export class NavBarComponent implements OnInit {
   }
 
   createUserInDatabase(): void {
-    this.user$.subscribe((user) => {
-      if (user && user.email) {
-        this.userService.createUserInDatabase(user.sub).subscribe({
-          next: (response) => {
-            console.log('User created in database:', response);
-          }
-        });
-      }
-    });
-  }
+    const user = this.authHelperService.user();
 
-  private checkUsersAuthenticationStatus(): void {
-    this.authHelperService.isAuthenticated$.subscribe((authStatus) => {
-      this.isAuthenticated = authStatus;
-    });
+    if (user && user.sub) {
+      this.userService.createUserInDatabase(user.sub).subscribe({
+        next: (response) => {
+          console.log('User created in database:', response);
+        }
+      });
+    }
   }
 
   private fetchOrReturnCachedCategories(): void {

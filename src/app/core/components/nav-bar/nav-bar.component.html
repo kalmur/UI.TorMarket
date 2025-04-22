@@ -34,7 +34,7 @@
         Sell
       </a>
     </li>
-    <li *ngIf="!isAuthenticated">
+    <li *ngIf="!authHelperService.isAuthenticated()">
       <a 
         (click)="handleLogin()" 
         (keydown.enter)="handleLogin()" 
@@ -44,7 +44,7 @@
         Login
       </a>
     </li>
-    <li *ngIf="!isAuthenticated">
+    <li *ngIf="!authHelperService.isAuthenticated()">
       <a 
         (click)="handleSignUp()" 
         (keydown.enter)="handleSignUp()" 
@@ -54,7 +54,7 @@
         Register
       </a>
     </li>
-    <li *ngIf="isAuthenticated" class="nav-item dropdown me-4">
+    <li *ngIf="authHelperService.isAuthenticated()" class="nav-item dropdown me-4">
       <a 
         class="nav-link dropdown-toggle" 
         href="#" 

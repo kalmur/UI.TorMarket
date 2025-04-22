@@ -6,7 +6,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ICreateListingRequest, IListingFormDetails } from '../../models/listings';
 import { ListingService } from '../../services/listing.service';
 import { ToastrService } from 'ngx-toastr';
-import { first, Observable } from 'rxjs';
+import { first } from 'rxjs';
 import { ListingCategoryService } from '../../../categories/services/listing-category.service';
 import { ICategory } from '../../../../core/models/categories';
 import { AuthHelperService } from '../../../../core/auth/services/auth-helper.service';
@@ -88,55 +88,40 @@ export class ListingFormComponent implements OnInit {
   }
 
   private createListing(): void {
-    this.fetchUserId().subscribe({
-      next: (userId) => {
-        const listing: ICreateListingRequest = {
-          userId: userId,
-          name: this.listingFormGroup.value.name,
-          categoryId: 1,
-          price: this.listingFormGroup.value.price,
-          description: this.listingFormGroup.value.description,
-          availableFrom: this.listingFormGroup.value.availableFrom
-        };
+    const userId = this.fetchUserId();
 
-        this.productService.createListing(listing).subscribe({
-          next: () => {
-            this.toastr.success('Product created successfully');
-            this.router.navigate(['/']);
-          },
-          error: () => {
-            this.toastr.error('Failed to create product');
-          }
-        });
+    const listing: ICreateListingRequest = {
+      userId: userId,
+      name: this.listingFormGroup.value.name,
+      categoryId: 1,
+      price: this.listingFormGroup.value.price,
+      description: this.listingFormGroup.value.description,
+      availableFrom: this.listingFormGroup.value.availableFrom
+    };
+
+    this.productService.createListing(listing).subscribe({
+      next: () => {
+        this.toastr.success('Product created successfully');
+        this.router.navigate(['/']);
       },
       error: () => {
-        this.toastr.error('Failed to fetch user information');
+        this.toastr.error('Failed to create product');
       }
     });
   }
 
-  private fetchUserId(): Observable<number> {
-    return new Observable<number>((observer) => {
-      this.authHelperService.user$.pipe(first()).subscribe({
-        next: (user) => {
-          if (user && user.sub) {
-            this.userService.getUserByProviderId(user.sub).pipe(first()).subscribe({
-              next: (dbUser: IDatabaseUser) => {
-                observer.next(dbUser.userId);
-                observer.complete();
-              },
-              error: (err) => {
-                observer.error(err);
-              }
-            });
-          } else {
-            observer.error('User not found or invalid');
-          }
-        },
-        error: (err) => {
-          observer.error(err);
+  private fetchUserId(): number {
+    const user = this.authHelperService.user();
+    if (user && user.sub) {
+      let dbUserId: number | null = null;
+      this.userService.getUserByProviderId(user.sub)
+        .pipe(first())
+        .subscribe((dbUser: IDatabaseUser) => {
+          dbUserId = dbUser.userId;
         }
-      });
-    });
+      );
+      return dbUserId!;
+    }
+    return 0;
   }
 }

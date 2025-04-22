@@ -1,8 +1,7 @@
-import { Component, inject, model } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavBarComponent } from '../../../../core/components/nav-bar/nav-bar.component';
 import { AuthHelperService } from '../../../../core/auth/services/auth-helper.service';
-import { User } from '@auth0/auth0-angular';
 
 @Component({
   selector: 'app-user-profile-detail',
@@ -14,11 +13,5 @@ import { User } from '@auth0/auth0-angular';
 export class UserProfileDetailComponent {
   private readonly authHelperService = inject(AuthHelperService);
 
-  user = model<User | null | undefined>(null);
-
-  constructor() {
-    this.authHelperService.user$.subscribe((user) => {
-      this.user.set(user);
-    });
-  }
+  user = this.authHelperService.user;
 }
