@@ -27,11 +27,6 @@ import { Router } from '@angular/router';
   styleUrl: './listing-form.component.scss'
 })
 export class ListingFormComponent implements OnInit {
-  categories = model<ICategory[]>([]);
-  listingChange = output<IListingFormDetails>();
-
-  listingFormGroup: FormGroup;
-
   private readonly fb: FormBuilder = inject(FormBuilder);
   private readonly authHelperService: AuthHelperService = inject(AuthHelperService);
   private readonly userService: UserService = inject(UserService);
@@ -39,6 +34,11 @@ export class ListingFormComponent implements OnInit {
   private readonly listingCategoryService: ListingCategoryService = inject(ListingCategoryService);
   private readonly router: Router = inject(Router);
   private readonly toastr: ToastrService = inject(ToastrService);
+
+  categories = model<ICategory[]>([]);
+  listingChange = output<IListingFormDetails>();
+
+  listingFormGroup: FormGroup;
 
   constructor() {
     this.listingFormGroup = this.initializeForm();

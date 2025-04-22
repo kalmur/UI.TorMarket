@@ -12,7 +12,7 @@ import { User } from '@auth0/auth0-angular';
   styleUrl: './user-profile-detail.component.scss'
 })
 export class UserProfileDetailComponent {
-  private readonly authHelperService: AuthHelperService = inject(AuthHelperService);
+  private readonly authHelperService = inject(AuthHelperService);
 
   user = model<User | null | undefined>(null);
 

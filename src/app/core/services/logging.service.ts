@@ -7,7 +7,7 @@ import { interpretError } from './error-interpreter.function';
   providedIn: 'root'
 })
 export class LoggingService {
-  private readonly toastr: ToastrService = inject(ToastrService);
+  private readonly toastr = inject(ToastrService);
 
   log(serviceName: string, error: HttpErrorResponse): string {
     const compiledMessage =

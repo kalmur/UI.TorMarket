@@ -15,9 +15,9 @@ import { Router } from '@angular/router';
   styleUrl: './listing-list.component.scss'
 })
 export class ListingListComponent {
-  listings = input<IListing[]>([]);
-
   private readonly router: Router = inject(Router);
+
+  listings = input<IListing[]>([]);
 
   onViewDetails(listingId: number): void {
     this.router.navigate(['/listing', listingId]);

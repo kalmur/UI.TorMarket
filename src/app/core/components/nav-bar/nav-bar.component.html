@@ -120,7 +120,7 @@
 </nav>
 <div class="container-fluid px-0">
   <div class="row justify-content-center bg-dark text-white py-2">
-    <div class="col-auto" *ngFor="let category of categories">
+    <div class="col-auto" *ngFor="let category of categories()">
       <a class="category px-3 py-1" [routerLink]="['/', category.name | lowercase]">
         {{ category.name }}
       </a>

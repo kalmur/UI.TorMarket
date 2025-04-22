@@ -13,7 +13,6 @@ import { IListing } from '../../models/listings';
 })
 export class ListingCardComponent {
   listing = input<IListing>();
-
   listingDetailsRequested = output<number>();
 
   onViewDetails(): void {

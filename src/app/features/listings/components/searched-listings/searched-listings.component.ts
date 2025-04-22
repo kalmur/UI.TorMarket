@@ -14,13 +14,13 @@ import { ListingService } from '../../services/listing.service';
   styleUrls: ['./searched-listings.component.scss']
 })
 export class SearchedListingsComponent implements OnInit {
-  title = 'Searched Listings';
+  private readonly route: ActivatedRoute = inject(ActivatedRoute);
+  private readonly listingService: ListingService = inject(ListingService);
 
   searchTerm = model<string>('');
   listings = model<IListing[]>([]); 
 
-  private readonly route: ActivatedRoute = inject(ActivatedRoute);
-  private readonly listingService: ListingService = inject(ListingService);
+  title = 'Searched Listings';
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {

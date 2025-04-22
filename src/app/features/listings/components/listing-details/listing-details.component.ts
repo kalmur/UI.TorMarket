@@ -20,10 +20,10 @@ import { ListingReviewListComponent } from '../../../reviews/components/listing-
   styleUrl: './listing-details.component.scss'
 })
 export class ListingDetailsComponent implements OnInit {
-  listing: IListing | null = null;
-
   private readonly route = inject(ActivatedRoute);
   private readonly listingService = inject(ListingService);
+
+  listing: IListing | null = null;
 
   ngOnInit(): void {
     const listingIdFromUrl = this.route.snapshot.paramMap.get('id');

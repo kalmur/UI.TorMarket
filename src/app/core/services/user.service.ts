@@ -9,8 +9,8 @@ import { IDatabaseUser } from '../models/user';
   providedIn: 'root'
 })
 export class UserService {
-  private readonly urlProvider: UrlProviderService = inject(UrlProviderService);
-  private readonly httpClient: HttpClient = inject(HttpClient);
+  private readonly urlProvider = inject(UrlProviderService);
+  private readonly httpClient = inject(HttpClient);
 
   createUserInDatabase(providerId: string | undefined): Observable<IListing> {
     const url = `${this.urlProvider.createUser}/${providerId}`;

@@ -10,10 +10,10 @@ import { LoggingService } from '../../../core/services/logging.service';
   providedIn: 'root'
 })
 export class ListingService {
-  private readonly httpClient: HttpClient = inject(HttpClient);
-  private readonly urlProvider: UrlProviderService = inject(UrlProviderService);
-  private readonly toastr: ToastrService = inject(ToastrService);
-  private readonly logger: LoggingService = inject(LoggingService);
+  private readonly httpClient = inject(HttpClient);
+  private readonly urlProvider = inject(UrlProviderService);
+  private readonly toastr = inject(ToastrService);
+  private readonly logger = inject(LoggingService);
 
   getListings(): Observable<IListing[]> {
     const endPoint = this.urlProvider.getListings;

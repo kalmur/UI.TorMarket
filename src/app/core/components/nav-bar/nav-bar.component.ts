@@ -18,21 +18,21 @@ import { UserService } from '../../services/user.service';
 })
 
 export class NavBarComponent implements OnInit {
+  private readonly authHelperService = inject(AuthHelperService);
+  private readonly userService = inject(UserService);
+  private readonly listingCategoryService = inject(ListingCategoryService);
+  private readonly router = inject(Router);
+
   searchTerm = model<string>('');
+  categories = model<ICategory[]>([]);
   userListingsNavigation = output<void>();
 
   isAuthenticated = false;
-  categories: ICategory[] = []; 
-
-  private static cachedCategories: ICategory[] = [];
-
-  private readonly authHelperService: AuthHelperService = inject(AuthHelperService);
-  private readonly userService: UserService = inject(UserService);
-  private readonly listingCategoryService: ListingCategoryService = inject(ListingCategoryService);
-  private readonly router: Router = inject(Router);
 
   user$: Observable<User | null | undefined> = this.authHelperService.user$;
   isAuthenticated$: Observable<boolean> = this.authHelperService.isAuthenticated$;
+
+  private static cachedCategories: ICategory[] = [];
 
   ngOnInit(): void {
     this.fetchOrReturnCachedCategories();
@@ -93,13 +93,13 @@ export class NavBarComponent implements OnInit {
 
   private fetchOrReturnCachedCategories(): void {
     if (NavBarComponent.cachedCategories.length > 0) {
-      this.categories = NavBarComponent.cachedCategories;
+      this.categories.set(NavBarComponent.cachedCategories);
       return;
     }
   
     this.listingCategoryService.getAllProductCategories().subscribe({
       next: (response: ICategory[]) => {
-        this.categories = response;
+        this.categories.set(response);
         NavBarComponent.cachedCategories = response;
       }
     });

@@ -13,13 +13,13 @@ import { AuthHelperService } from '../../auth/services/auth-helper.service';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit {
+  private readonly listingService = inject(ListingService);
+  private readonly authHelperService = inject(AuthHelperService);
+
   title = model<string>('Best sellers');
   listings = model<IListing[]>([]);
   categoryName = model<string>('');
   searchTerm = model<string>('');
-
-  private readonly listingService: ListingService = inject(ListingService);
-  private readonly authHelperService: AuthHelperService = inject(AuthHelperService);
 
   ngOnInit(): void {
     this.loadListings();
