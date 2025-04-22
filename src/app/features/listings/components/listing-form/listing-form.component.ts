@@ -73,11 +73,9 @@ export class ListingFormComponent implements OnInit {
   }
   
   private subscribeToFormChanges(): void {
-    this.listingFormGroup.valueChanges
-      .pipe(first())
-      .subscribe(value => {
-        this.listingChange.emit(value);
-      });
+    this.listingFormGroup.valueChanges.subscribe(value => {
+      this.listingChange.emit(value);
+    });
   }
 
   private fetchAllCategories(): void {
