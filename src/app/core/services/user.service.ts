@@ -14,7 +14,7 @@ export class UserService {
 
   createUserInDatabase(providerId: string | undefined): Observable<IListing> {
     const url = `${this.urlProvider.createUser}/${providerId}`;
-
+    
     return this.httpClient.post<IListing>(url, {});
   }
 

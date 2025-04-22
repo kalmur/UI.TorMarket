@@ -67,7 +67,6 @@ export class NavBarComponent implements OnInit {
 
   createUserInDatabase(): void {
     const user = this.authHelperService.user();
-
     if (user && user.sub) {
       this.userService.createUserInDatabase(user.sub).subscribe({
         next: (response) => {

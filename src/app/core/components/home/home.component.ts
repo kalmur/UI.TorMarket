@@ -51,7 +51,6 @@ export class HomeComponent implements OnInit {
 
   private fetchListingsByProviderId(): void {
     const user = this.authHelperService.user();
-
     if (user && user.sub) {
       const providerId = user.sub;
       this.listingService.getListingsByProviderId(providerId).subscribe({
