@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, input, Input } from '@angular/core';
 import { IListingFormDetails } from '../../models/listings';
 
 @Component({
@@ -10,5 +10,5 @@ import { IListingFormDetails } from '../../models/listings';
   styleUrl: './listing-form-preview.component.scss'
 })
 export class ListingFormPreviewComponent {
-  @Input() listing?: IListingFormDetails;
+  listing = input<IListingFormDetails>();
 }

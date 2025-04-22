@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, EventEmitter, inject, OnDestroy, OnInit, Output, signal } from '@angular/core';
+import { Component, inject, model, OnInit, output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ICreateListingRequest, IListingFormDetails } from '../../models/listings';
 import { ListingService } from '../../services/listing.service';
 import { ToastrService } from 'ngx-toastr';
-import { Observable, Subject, takeUntil } from 'rxjs';
+import { first, Observable } from 'rxjs';
 import { ListingCategoryService } from '../../../categories/services/listing-category.service';
 import { ICategory } from '../../../../core/models/categories';
 import { AuthHelperService } from '../../../../core/auth/services/auth-helper.service';
@@ -27,8 +27,8 @@ import { Router } from '@angular/router';
   styleUrl: './listing-form.component.scss'
 })
 export class ListingFormComponent implements OnInit {
-  userId = signal<number | null>(null);
-  categories = signal<ICategory[]>([]);
+  categories = model<ICategory[]>([]);
+  listingChange = output<IListingFormDetails>();
 
   listingFormGroup: FormGroup;
 
@@ -42,30 +42,11 @@ export class ListingFormComponent implements OnInit {
 
   constructor() {
     this.listingFormGroup = this.initializeForm();
-
-    effect(() => {
-      const user = this.authHelperService.user$;
-      if (user && user.sub) {
-        this.userService.getUserByProviderId(user.sub).subscribe({
-          next: (dbUser: IDatabaseUser) => {
-            this.userId.set(dbUser.userId); // Update the userId signal
-          },
-          error: () => {
-            this.toastr.error('Failed to fetch user information');
-          }
-        });
-      }
-    });
   }
 
   ngOnInit(): void {
     this.subscribeToFormChanges();
     this.fetchAllCategories();
-  }
-
-  ngOnDestroy() {
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 
   onSubmit(): void {
@@ -85,22 +66,24 @@ export class ListingFormComponent implements OnInit {
       name: ['', Validators.required],
       category: ['', Validators.required],
       price: ['', Validators.required],
-      availableFrom: [''],
+      availableFrom: ['', Validators.required],
       description: [''],
       imageUrl: ['']
     });
   }
   
   private subscribeToFormChanges(): void {
-    this.listingFormGroup.valueChanges.subscribe(value => {
-      this.listingChange.emit(value);
-    });
+    this.listingFormGroup.valueChanges
+      .pipe(first())
+      .subscribe(value => {
+        this.listingChange.emit(value);
+      });
   }
 
   private fetchAllCategories(): void {
       this.listingCategoryService.getAllProductCategories().subscribe({
         next: (response: ICategory[]) => {
-          this.categories = response;
+          this.categories.set(response);
         }
       }
     );
@@ -136,16 +119,24 @@ export class ListingFormComponent implements OnInit {
 
   private fetchUserId(): Observable<number> {
     return new Observable<number>((observer) => {
-      this.authHelperService.user$.pipe(takeUntil(this.destroy$)).subscribe({
+      this.authHelperService.user$.pipe(first()).subscribe({
         next: (user) => {
           if (user && user.sub) {
-            this.userService.getUserByProviderId(user.sub).subscribe({
+            this.userService.getUserByProviderId(user.sub).pipe(first()).subscribe({
               next: (dbUser: IDatabaseUser) => {
                 observer.next(dbUser.userId);
                 observer.complete();
+              },
+              error: (err) => {
+                observer.error(err);
               }
             });
+          } else {
+            observer.error('User not found or invalid');
           }
+        },
+        error: (err) => {
+          observer.error(err);
         }
       });
     });

@@ -16,7 +16,7 @@
                     {{ listingFormGroup.controls['category'].value || 'Select Category' }} <span class="caret"></span>
                   </button>
                   <ul id="dropdown-category" *dropdownMenu class="dropdown-menu w-100" role="menu" aria-labelledby="button-category">
-                    <li role="menuitem" *ngFor="let category of categories">
+                    <li role="menuitem" *ngFor="let category of categories()">
                       <a 
                         class="dropdown-item text-center" 
                         (click)="setCategory(category.name)" 
