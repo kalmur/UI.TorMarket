@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { catchError, map, Observable, throwError } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 import { UrlProviderService } from '../../../core/services/url-provider.service';
 import { ToastrService } from 'ngx-toastr';
 import { ICreateListingResponse, ICreateListingRequest, IListing } from '../models/listings';
@@ -15,92 +15,71 @@ export class ListingService {
   private readonly toastr = inject(ToastrService);
   private readonly logger = inject(LoggingService);
 
-  getListings(): Observable<IListing[]> {
+  async getListings(): Promise<IListing[]> {
     const endPoint = this.urlProvider.getListings;
-  
-    return this.httpClient
-      .get<IListing[]>(endPoint)
-      .pipe(
-        catchError(error => 
-          throwError(() => 
-            this.logger.log('get listings', error)
-          )
-        )
-      );
+
+    try {
+      return await firstValueFrom(this.httpClient.get<IListing[]>(endPoint));
+    } catch (error) {
+      this.toastr.error('Failed to get listings');
+      throw error;
+    }
   }
 
-  getListingById(id: number): Observable<IListing> {
+  async getListingById(id: number): Promise<IListing> {
     const endPoint = this.urlProvider.getListingById(id);
   
-    return this.httpClient
-      .get<IListing>(endPoint)
-      .pipe(
-        catchError(error => 
-          throwError(() => 
-            this.logger.log('get listing by ID request', error)
-          )
-        )
-      );
+    try {
+      return await firstValueFrom(this.httpClient.get<IListing>(endPoint));
+    } catch (error) {
+      this.toastr.error('Failed to get listing by ID');
+      throw error;
+    }
   }
 
-  getListingBySearchTerm(searchTerm: string): Observable<IListing[]> {
+  async getListingBySearchTerm(searchTerm: string): Promise<IListing[]> {
     const endPoint = this.urlProvider.getListingBySearchTerm(searchTerm);
   
-    return this.httpClient
-      .get<IListing[]>(endPoint)
-      .pipe(
-        catchError(error => 
-          throwError(() => 
-            this.logger.log('get listings by search term', error)
-          )
-        )
-      );
+    try {
+      return await firstValueFrom(this.httpClient.get<IListing[]>(endPoint));
+    } catch (error) {
+      this.toastr.error('Failed to get listings by search term');
+      throw error;
+    }
   }
 
-  getListingsByCategoryName(categoryName: string): Observable<IListing[]> {
+  async getListingsByCategoryName(categoryName: string): Promise<IListing[]> {
     const endPoint = this.urlProvider.getListingsByCategoryName(categoryName);
-
-    return this.httpClient
-      .get<IListing[]>(endPoint)
-      .pipe(
-        catchError(error => 
-          throwError(
-            this.logger.log('get listing by category request', error)
-          )
-        )
-    );
+  
+    try {
+      return await firstValueFrom(this.httpClient.get<IListing[]>(endPoint));
+    } catch (error) {
+      this.toastr.error('Failed to get listings by category name');
+      throw error;
+    }
   }
 
-  getListingsByProviderId(providerId: string): Observable<IListing[]> {
+  async getListingsByProviderId(providerId: string): Promise<IListing[]> {
     const endPoint = this.urlProvider.getListingsByProviderId(providerId);
-
-    return this.httpClient
-      .get<IListing[]>(endPoint)
-      .pipe(
-        catchError(error => 
-          throwError(
-            this.logger.log('get listing by category request', error)
-          )
-        )
-    );
+  
+    try {
+      return await firstValueFrom(this.httpClient.get<IListing[]>(endPoint));
+    } catch (error) {
+      this.toastr.error('Failed to get listings by ProviderId');
+      throw error;
+    }
   }
 
-  createListing(listing: ICreateListingRequest): Observable<ICreateListingResponse> {
+  async createListing(listing: ICreateListingRequest): Promise<ICreateListingResponse> {
     const endPoint = this.urlProvider.createListing;
   
-    return this.httpClient
-      .post<ICreateListingResponse>(endPoint, listing)
-      .pipe(
-        map(response => {
-          this.toastr.success('Listing created successfully');
-          return response;
-        }),
-        catchError(error => {
-          this.toastr.error('Failed to create listing');
-          return throwError(() => 
-            this.logger.log('create listing', error)
-          );
-        })
-      );
+    try {
+      const response = await firstValueFrom(this.httpClient.post<ICreateListingResponse>(endPoint, listing));
+      this.toastr.success('Listing created successfully');
+      return response;
+    } catch (error) {
+      this.toastr.error('Failed to create listing');
+      throw error;
+    }
   }
 }

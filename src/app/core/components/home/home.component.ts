@@ -41,31 +41,21 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  private fetchListingsByCategoryName(categoryName: string): void {
-    this.listingService.getListingsByCategoryName(categoryName).subscribe({
-      next: (response: IListing[]) => {
-        this.listings.set(response);
-      }
-    });
+  private async fetchListingsByCategoryName(categoryName: string): Promise<void> {
+    const response = await this.listingService.getListingsByCategoryName(categoryName);
+    this.listings.set(response);
   }
 
-  private fetchListingsByProviderId(): void {
+  private async fetchListingsByProviderId(): Promise<void> {
     const user = this.authHelperService.user();
     if (user && user.sub) {
-      const providerId = user.sub;
-      this.listingService.getListingsByProviderId(providerId).subscribe({
-        next: (response: IListing[]) => {
-          this.listings.set(response);
-        }
-      });
+      const response = await this.listingService.getListingsByProviderId(user.sub);
+      this.listings.set(response);
     }
   }
 
-  private fetchAllListings(): void {
-    this.listingService.getListings().subscribe({
-      next: (response: IListing[]) => {
-        this.listings.set(response);
-      }
-    });
+  private async fetchAllListings(): Promise<void> {
+    const response = await this.listingService.getListings();
+    this.listings.set(response);
   }
 }

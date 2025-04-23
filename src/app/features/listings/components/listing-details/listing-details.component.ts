@@ -32,11 +32,8 @@ export class ListingDetailsComponent implements OnInit {
     }
   }
 
-  private fetchListingDetails(listingId: number): void {
-    this.listingService.getListingById(listingId).subscribe({
-      next: (listing) => {
-        this.listing = listing;
-      }
-    });
+  private async fetchListingDetails(listingId: number): Promise<void> {
+    const listing = await this.listingService.getListingById(listingId);
+    this.listing = listing;
   }
 }

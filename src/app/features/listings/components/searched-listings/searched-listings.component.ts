@@ -31,13 +31,10 @@ export class SearchedListingsComponent implements OnInit {
     });
   }
 
-  private fetchListingsBySearchTerm(searchTerm: string): void {
+  private async fetchListingsBySearchTerm(searchTerm: string): Promise<void> {
     if (searchTerm) {
-      this.listingService.getListingBySearchTerm(searchTerm).subscribe({
-        next: (response: IListing[]) => {
-          this.listings.set(response); 
-        }
-      });
+      const response = await this.listingService.getListingBySearchTerm(searchTerm);
+      this.listings.set(response);
     }
   }
 }

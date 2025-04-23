@@ -65,28 +65,20 @@ export class NavBarComponent implements OnInit {
     this.router.navigate(['/search', searchTerm]);
   }
 
-  createUserInDatabase(): void {
+  async createUserInDatabase(): Promise<void> {
     const user = this.authHelperService.user();
     if (user && user.sub) {
-      this.userService.createUserInDatabase(user.sub).subscribe({
-        next: (response) => {
-          console.log('User created in database:', response);
-        }
-      });
+      await this.userService.createUserInDatabase(user.sub);
     }
   }
 
-  private fetchOrReturnCachedCategories(): void {
+  private async fetchOrReturnCachedCategories(): Promise<void> {
     if (NavBarComponent.cachedCategories.length > 0) {
       this.categories.set(NavBarComponent.cachedCategories);
       return;
     }
-  
-    this.listingCategoryService.getAllProductCategories().subscribe({
-      next: (response: ICategory[]) => {
-        this.categories.set(response);
-        NavBarComponent.cachedCategories = response;
-      }
-    });
+
+    const response = await this.listingCategoryService.getAllListingCategories();
+    this.categories.set(response);
   }
 }

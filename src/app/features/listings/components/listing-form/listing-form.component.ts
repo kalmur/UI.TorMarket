@@ -6,12 +6,10 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ICreateListingRequest, IListingFormDetails } from '../../models/listings';
 import { ListingService } from '../../services/listing.service';
 import { ToastrService } from 'ngx-toastr';
-import { Observable } from 'rxjs';
 import { ListingCategoryService } from '../../../categories/services/listing-category.service';
 import { ICategory } from '../../../../core/models/categories';
 import { AuthHelperService } from '../../../../core/auth/services/auth-helper.service';
 import { UserService } from '../../../../core/services/user.service';
-import { IDatabaseUser } from '../../../../core/models/user';
 import { Router } from '@angular/router';
 
 @Component({
@@ -78,55 +76,35 @@ export class ListingFormComponent implements OnInit {
     });
   }
 
-  private fetchAllCategories(): void {
-      this.listingCategoryService.getAllProductCategories().subscribe({
-        next: (response: ICategory[]) => {
-          this.categories.set(response);
-        }
-      }
-    );
+  private async fetchAllCategories(): Promise<void> {
+    const categories = await this.listingCategoryService.getAllListingCategories();
+    this.categories.set(categories);
   }
 
-  private createListing(): void {
-    this.fetchUserId().subscribe({
-      next: (userId) => {
-        const listing: ICreateListingRequest = {
-          userId: userId,
-          name: this.listingFormGroup.value.name,
-          categoryId: this.listingFormGroup.value.category,
-          price: this.listingFormGroup.value.price,
-          description: this.listingFormGroup.value.description,
-          availableFrom: this.listingFormGroup.value.availableFrom
-        };
-  
-        this.productService.createListing(listing).subscribe({
-          next: () => {
-            this.toastr.success('Product created successfully');
-            this.router.navigate(['/']);
-          }
-        });
-      }
-    });
+  private async createListing(): Promise<void> {
+    const userId = await this.fetchUserId();
+
+    const listing: ICreateListingRequest = {
+      userId: userId,
+      name: this.listingFormGroup.value.name,
+      categoryId: this.listingFormGroup.value.category,
+      price: this.listingFormGroup.value.price,
+      description: this.listingFormGroup.value.description,
+      availableFrom: this.listingFormGroup.value.availableFrom
+    };
+
+    await this.productService.createListing(listing);
+    this.toastr.success('Product created successfully');
+    this.router.navigate(['/']);
   }
 
-  private fetchUserId(): Observable<number> {
+  private async fetchUserId(): Promise<number> {
     const user = this.authHelperService.user();
     if (user && user.sub) {
-      return new Observable<number>((observer) => {
-        this.userService.getUserByProviderId(user.sub!).subscribe({
-          next: (dbUser: IDatabaseUser) => {
-            observer.next(dbUser.userId); 
-            observer.complete(); 
-          },
-          error: (err) => {
-            observer.error(err);
-          }
-        });
-      });
+        const dbUser = await this.userService.getUserByProviderId(user.sub);
+        return dbUser.userId;
+    } else {
+      throw new Error('User not found or invalid');
     }
-  
-    return new Observable<number>((observer) => {
-      observer.error(new Error('User not found or invalid'));
-    });
   }
 }
