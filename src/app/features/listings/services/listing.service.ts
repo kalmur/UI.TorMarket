@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { UrlProviderService } from '../../../core/services/url-provider.service';
 import { ToastrService } from 'ngx-toastr';
-import { ICreateListingResponse, ICreateListingRequest, IListing } from '../models/listings';
+import { ICreateListingResponse, ICreateListingRequest, IListingWithDetails } from '../models/listings';
 
 @Injectable({
   providedIn: 'root'
@@ -13,55 +13,55 @@ export class ListingService {
   private readonly urlProvider = inject(UrlProviderService);
   private readonly toastr = inject(ToastrService);
 
-  async getListings(): Promise<IListing[]> {
+  async getListings(): Promise<IListingWithDetails[]> {
     const endPoint = this.urlProvider.getListings;
 
     try {
-      return await firstValueFrom(this.httpClient.get<IListing[]>(endPoint));
+      return await firstValueFrom(this.httpClient.get<IListingWithDetails[]>(endPoint));
     } catch (error) {
       this.toastr.error('Failed to get listings');
       throw error;
     }
   }
 
-  async getListingById(id: number): Promise<IListing> {
+  async getListingById(id: number): Promise<IListingWithDetails> {
     const endPoint = this.urlProvider.getListingById(id);
   
     try {
-      return await firstValueFrom(this.httpClient.get<IListing>(endPoint));
+      return await firstValueFrom(this.httpClient.get<IListingWithDetails>(endPoint));
     } catch (error) {
       this.toastr.error('Failed to get listing by ID');
       throw error;
     }
   }
 
-  async getListingBySearchTerm(searchTerm: string): Promise<IListing[]> {
+  async getListingBySearchTerm(searchTerm: string): Promise<IListingWithDetails[]> {
     const endPoint = this.urlProvider.getListingBySearchTerm(searchTerm);
   
     try {
-      return await firstValueFrom(this.httpClient.get<IListing[]>(endPoint));
+      return await firstValueFrom(this.httpClient.get<IListingWithDetails[]>(endPoint));
     } catch (error) {
       this.toastr.error('Failed to get listings by search term');
       throw error;
     }
   }
 
-  async getListingsByCategoryName(categoryName: string): Promise<IListing[]> {
+  async getListingsByCategoryName(categoryName: string): Promise<IListingWithDetails[]> {
     const endPoint = this.urlProvider.getListingsByCategoryName(categoryName);
   
     try {
-      return await firstValueFrom(this.httpClient.get<IListing[]>(endPoint));
+      return await firstValueFrom(this.httpClient.get<IListingWithDetails[]>(endPoint));
     } catch (error) {
       this.toastr.error('Failed to get listings by category name');
       throw error;
     }
   }
 
-  async getListingsByProviderId(providerId: string): Promise<IListing[]> {
+  async getListingsByProviderId(providerId: string): Promise<IListingWithDetails[]> {
     const endPoint = this.urlProvider.getListingsByProviderId(providerId);
   
     try {
-      return await firstValueFrom(this.httpClient.get<IListing[]>(endPoint));
+      return await firstValueFrom(this.httpClient.get<IListingWithDetails[]>(endPoint));
     } catch (error) {
       this.toastr.error('Failed to get listings by ProviderId');
       throw error;

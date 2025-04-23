@@ -3,7 +3,7 @@ import { Component, inject, model, OnInit, output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { ICreateListingRequest, IListingFormDetails } from '../../models/listings';
+import { ICreateListingRequest, ICreateListingFormDetails } from '../../models/listings';
 import { ListingService } from '../../services/listing.service';
 import { ToastrService } from 'ngx-toastr';
 import { ListingCategoryService } from '../../../categories/services/listing-category.service';
@@ -34,7 +34,7 @@ export class ListingFormComponent implements OnInit {
   private readonly toastr: ToastrService = inject(ToastrService);
 
   categories = model<ICategory[]>([]);
-  listingChange = output<IListingFormDetails>();
+  listingChange = output<ICreateListingFormDetails>();
 
   listingFormGroup: FormGroup;
 
@@ -70,6 +70,7 @@ export class ListingFormComponent implements OnInit {
     });
   }
   
+  // Continously listening to form changes would not work with Promises
   private subscribeToFormChanges(): void {
     this.listingFormGroup.valueChanges.subscribe(value => {
       this.listingChange.emit(value);
@@ -84,17 +85,20 @@ export class ListingFormComponent implements OnInit {
   private async createListing(): Promise<void> {
     const userId = await this.fetchUserId();
 
+    const selectedCategoryId = this.categories().find(category => 
+      category.name === this.listingFormGroup.value.category
+    )!.categoryId;
+
     const listing: ICreateListingRequest = {
       userId: userId,
       name: this.listingFormGroup.value.name,
-      categoryId: this.listingFormGroup.value.category,
+      categoryId: selectedCategoryId,
       price: this.listingFormGroup.value.price,
       description: this.listingFormGroup.value.description,
       availableFrom: this.listingFormGroup.value.availableFrom
     };
 
     await this.productService.createListing(listing);
-    this.toastr.success('Product created successfully');
     this.router.navigate(['/']);
   }
 

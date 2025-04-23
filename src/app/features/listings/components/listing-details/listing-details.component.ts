@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { NavBarComponent } from '../../../../core/components/nav-bar/nav-bar.component';
-import { IListing } from '../../models/listings';
+import { IListingWithDetails } from '../../models/listings';
 import { ActivatedRoute } from '@angular/router';
 import { ListingService } from '../../services/listing.service';
 import { ListingCardComponent } from '../listing-card/listing-card.component';
@@ -23,7 +23,7 @@ export class ListingDetailsComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly listingService = inject(ListingService);
 
-  listing: IListing | null = null;
+  listing: IListingWithDetails | null = null;
 
   ngOnInit(): void {
     const listingIdFromUrl = this.route.snapshot.paramMap.get('id');

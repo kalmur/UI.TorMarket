@@ -2,7 +2,7 @@ import { Component, model } from '@angular/core';
 import { ListingFormComponent } from '../listing-form/listing-form.component';
 import { NavBarComponent } from '../../../../core/components/nav-bar/nav-bar.component';
 import { ListingFormPreviewComponent } from '../listing-form-preview/listing-form-preview.component';
-import { IListingFormDetails } from '../../models/listings';
+import { ICreateListingFormDetails } from '../../models/listings';
 
 @Component({
   selector: 'app-create-listing',
@@ -16,16 +16,16 @@ import { IListingFormDetails } from '../../models/listings';
   styleUrl: './create-listing.component.scss'
 })
 export class CreateListingComponent {
-  listing = model<IListingFormDetails>({
+  listing = model<ICreateListingFormDetails>({
     name: '',
     description: '',
     price: 0,
-    category: '',
+    category: 0,
     availableFrom: new Date(),
     imageUrl: ''
   });
 
-  onListingChanged(listing: IListingFormDetails): void {
+  onListingChanged(listing: ICreateListingFormDetails): void {
     this.listing.set(listing);
   }
 }
