@@ -4,7 +4,6 @@ import { firstValueFrom } from 'rxjs';
 import { UrlProviderService } from '../../../core/services/url-provider.service';
 import { ToastrService } from 'ngx-toastr';
 import { ICreateListingResponse, ICreateListingRequest, IListing } from '../models/listings';
-import { LoggingService } from '../../../core/services/logging.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +12,6 @@ export class ListingService {
   private readonly httpClient = inject(HttpClient);
   private readonly urlProvider = inject(UrlProviderService);
   private readonly toastr = inject(ToastrService);
-  private readonly logger = inject(LoggingService);
 
   async getListings(): Promise<IListing[]> {
     const endPoint = this.urlProvider.getListings;
