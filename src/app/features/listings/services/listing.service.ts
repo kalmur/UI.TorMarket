@@ -22,6 +22,11 @@ export class ListingService {
       this.toastr.error('Failed to get listings');
       throw error;
     }
+
+    return await firstValueFrom(this.httpClient.get<IListingWithDetails[]>(endPoint)).catch((error) => {
+      this.toastr.error('Failed to get listings');
+      throw error;
+    });
   }
 
   async getListingById(id: number): Promise<IListingWithDetails> {
@@ -73,7 +78,6 @@ export class ListingService {
   
     try {
       const response = await firstValueFrom(this.httpClient.post<ICreateListingResponse>(endPoint, listing));
-      this.toastr.success('Listing created successfully');
       return response;
     } catch (error) {
       this.toastr.error('Failed to create listing');

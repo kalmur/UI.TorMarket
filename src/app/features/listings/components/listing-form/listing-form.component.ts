@@ -99,6 +99,7 @@ export class ListingFormComponent implements OnInit {
     };
 
     await this.productService.createListing(listing);
+    this.toastr.success('Listing created successfully');
     this.router.navigate(['/']);
   }
 
