@@ -22,6 +22,7 @@ const appConfig = {
         timeOut: 3000,
         positionClass: 'toast-top-right',
         preventDuplicates: true,
+        closeButton: true
       })
     ),
     provideHttpClient(withFetch()),

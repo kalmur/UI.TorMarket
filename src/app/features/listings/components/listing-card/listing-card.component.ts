@@ -2,7 +2,7 @@ import { Component, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RatingModule } from 'primeng/rating';
 import { FormsModule } from '@angular/forms';
-import { IListing } from '../../models/listings';
+import { IListingWithDetails } from '../../models/listings';
 
 @Component({
   selector: 'app-listing-card',
@@ -12,7 +12,7 @@ import { IListing } from '../../models/listings';
   styleUrl: './listing-card.component.scss'
 })
 export class ListingCardComponent {
-  listing = input<IListing>();
+  listing = input<IListingWithDetails>();
   listingDetailsRequested = output<number>();
 
   onViewDetails(): void {
