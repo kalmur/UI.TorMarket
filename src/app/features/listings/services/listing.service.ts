@@ -23,10 +23,18 @@ export class ListingService {
       throw error;
     }
 
-    return await firstValueFrom(this.httpClient.get<IListingWithDetails[]>(endPoint)).catch((error) => {
-      this.toastr.error('Failed to get listings');
-      throw error;
-    });
+    // return await firstValueFrom(this.httpClient.get<IListingWithDetails[]>(endPoint))
+    //   .catch((error) => {
+    //     // if (error.status === StatusCodes.OK) {
+    //     //   this.toastr.error('');
+    //     // } else if (error.status === StatusCodes.INTERNAL_SERVER_ERROR) {
+    //     //   this.toastr.error('');
+    //     // } else {
+    //     //   this.toastr.error('');
+    //     // }
+    //     throw error;
+    //   }
+    // );
   }
 
   async getListingById(id: number): Promise<IListingWithDetails> {
