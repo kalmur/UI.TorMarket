@@ -77,7 +77,7 @@ export class ListingService {
       return await firstValueFrom(this.httpClient.get<IListingWithDetails[]>(endPoint));
     } catch (error) {
       this.toastr.error('Failed to get listings by ProviderId');
-      throw error;
+      return [];
     }
   }
 

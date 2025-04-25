@@ -30,15 +30,11 @@ export class HomeComponent implements OnInit {
   }
 
   private loadListings(): void {
-    if (this.searchTerm()) {
-      return;
-    }
-    else if (this.categoryName()) {
-      this.fetchListingsByCategoryName(this.categoryName());
-    }
-    else {
+    if (this.title() === 'Best sellers') {
       this.fetchAllListings();
-    }
+    } else if (this.categoryName()) {
+      this.fetchListingsByCategoryName(this.categoryName());
+    } return;
   }
 
   private async fetchListingsByCategoryName(categoryName: string): Promise<void> {

@@ -23,7 +23,6 @@ export class NavBarComponent implements OnInit {
 
   searchTerm = model<string>('');
   categories = model<ICategory[]>([]);
-  userListingsNavigation = output<void>();
 
   private static cachedCategories: ICategory[] = [];
 
@@ -52,7 +51,6 @@ export class NavBarComponent implements OnInit {
   }
 
   handleUserListingsNavigation(): void {
-    this.userListingsNavigation.emit();
     this.router.navigate(['/profile/listings']);
   }
 
