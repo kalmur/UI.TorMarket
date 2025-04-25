@@ -4,6 +4,18 @@
   <div class="details-container d-flex">
     <div class="listing-card-container flex-grow-1 me-3">
       <app-listing-card *ngIf="listing" [listing]="listing"></app-listing-card>
+
+      <div class="review-box">
+        <textarea 
+          class="form-control" 
+          rows="4" 
+          placeholder="Write your review here...">
+        </textarea>
+        <button 
+          class="btn btn-primary submit-button">
+          Submit
+        </button>
+      </div>
     </div>
 
     <div class="reviews-container flex-grow-2">

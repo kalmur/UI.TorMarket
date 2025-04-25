@@ -25,3 +25,27 @@
 .margin-top-custom {
 margin-top: 40px;
 }
+
+.review-box {
+    position: relative;
+    width: 160%; 
+    max-width: 900px; 
+    margin-top: 20px;
+    margin-left: -25%; 
+    margin-right: -10%;
+}
+
+textarea.form-control {
+    width: 100%;
+    resize: none; 
+    min-height: 120px; 
+    padding-right: 50px; 
+}
+
+button.submit-button {
+    position: absolute;
+    bottom: 8px; 
+    right: 8px;
+    padding: 5px 10px;
+    font-size: 0.9rem;
+}
