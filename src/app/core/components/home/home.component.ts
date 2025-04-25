@@ -22,14 +22,6 @@ export class HomeComponent implements OnInit {
   searchTerm = model<string>('');
 
   ngOnInit(): void {
-    this.loadListings();
-  }
-
-  onUserListingsNavigation(): void {
-    this.fetchListingsByProviderId();
-  }
-
-  private loadListings(): void {
     if (this.title() === 'Best sellers') {
       this.fetchAllListings();
     } else if (this.categoryName()) {
@@ -37,21 +29,13 @@ export class HomeComponent implements OnInit {
     } return;
   }
 
-  private async fetchListingsByCategoryName(categoryName: string): Promise<void> {
-    const response = await this.listingService.getListingsByCategoryName(categoryName);
+  private async fetchAllListings(): Promise<void> {
+    const response = await this.listingService.getListings();
     this.listings.set(response);
   }
 
-  private async fetchListingsByProviderId(): Promise<void> {
-    const user = this.authHelperService.user();
-    if (user && user.sub) {
-      const response = await this.listingService.getListingsByProviderId(user.sub);
-      this.listings.set(response);
-    }
-  }
-
-  private async fetchAllListings(): Promise<void> {
-    const response = await this.listingService.getListings();
+  private async fetchListingsByCategoryName(categoryName: string): Promise<void> {
+    const response = await this.listingService.getListingsByCategoryName(categoryName);
     this.listings.set(response);
   }
 }
