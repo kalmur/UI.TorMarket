@@ -55,12 +55,12 @@ export class NavBarComponent implements OnInit {
   }
 
   handleSearchEvent(): void {
-    const searchTerm = this.searchTerm();
-    if (!searchTerm.trim()) {
+    if (!this.searchTerm().trim()) {
+      this.router.navigate(['/']);
       return;
     }
 
-    this.router.navigate(['/search', searchTerm]);
+    this.router.navigate(['/search', this.searchTerm()]);
   }
 
   async createUserInDatabase(): Promise<void> {
