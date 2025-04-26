@@ -13,15 +13,15 @@
               <div class="form-group col-12 col-md-8 mx-auto mt-4">
                 <div class="btn-group w-100" dropdown [autoClose]="true">
                   <button id="button-category" dropdownToggle type="button" class="btn btn-primary dropdown-toggle w-100" aria-controls="dropdown-category">
-                    {{ listingFormGroup.controls['category'].value || 'Select Category' }} <span class="caret"></span>
+                    {{ listingFormGroup.controls['category'].value ? listingFormGroup.controls['category'].value : 'Select Category' }} 
+                    <span class="caret"></span>
                   </button>
                   <ul id="dropdown-category" *dropdownMenu class="dropdown-menu w-100" role="menu" aria-labelledby="button-category">
-                    <li role="menuitem" *ngFor="let category of categories()">
+                    <li *ngFor="let category of categories()" role="menuitem">
                       <a 
                         class="dropdown-item text-center" 
                         (click)="setCategory(category.name)" 
                         (keydown.enter)="setCategory(category.name)" 
-                        tabindex="0" 
                         role="button"
                       >
                         {{ category.name }}

@@ -48,7 +48,7 @@ export class ListingFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if(this.listingFormGroup.valid) {
+    if (this.listingFormGroup.valid) {
       this.createListing();
     } else {
       this.toastr.error('Please fill in all required fields');

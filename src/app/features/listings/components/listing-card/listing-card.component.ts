@@ -1,8 +1,9 @@
-import { Component, input, output } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RatingModule } from 'primeng/rating';
 import { FormsModule } from '@angular/forms';
 import { IListingWithDetails } from '../../models/listings';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-listing-card',
@@ -12,12 +13,15 @@ import { IListingWithDetails } from '../../models/listings';
   styleUrl: './listing-card.component.scss'
 })
 export class ListingCardComponent {
+  private readonly router = inject(Router);
+
   listing = input<IListingWithDetails>();
-  listingDetailsRequested = output<number>();
 
   onViewDetails(): void {
-    this.listingDetailsRequested.emit(
+    console.log('Navigating to listingId:', this.listing()!.listingId);
+    this.router.navigate([
+      '/listing', 
       this.listing()!.listingId
-    );
+    ]);
   }
 }
