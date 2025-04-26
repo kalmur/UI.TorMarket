@@ -18,10 +18,6 @@ export class ListingCardComponent {
   listing = input<IListingWithDetails>();
 
   onViewDetails(): void {
-    console.log('Navigating to listingId:', this.listing()!.listingId);
-    this.router.navigate([
-      '/listing', 
-      this.listing()!.listingId
-    ]);
+    this.router.navigate(['/listing', this.listing()!.listingId]);
   }
 }

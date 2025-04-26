@@ -109,7 +109,7 @@ export class ListingFormComponent implements OnInit {
         const dbUser = await this.userService.getUserByProviderId(user.sub);
         return dbUser.userId;
     } else {
-      throw new Error('User not found or invalid');
+      throw new Error('User not found');
     }
   }
 }
