@@ -1,9 +1,8 @@
-import { Component, inject, model, OnInit } from '@angular/core';
+import { Component, inject, input, model, OnInit } from '@angular/core';
 import { NavBarComponent } from '../nav-bar/nav-bar.component';
 import { ListingListComponent } from '../../../features/listings/components/listing-list/listing-list.component';
 import { ListingService } from '../../../features/listings/services/listing.service';
 import { IListingWithDetails } from '../../../features/listings/models/listings';
-import { AuthHelperService } from '../../auth/services/auth-helper.service';
 
 @Component({
   selector: 'app-home',
@@ -14,12 +13,11 @@ import { AuthHelperService } from '../../auth/services/auth-helper.service';
 })
 export class HomeComponent implements OnInit {
   private readonly listingService = inject(ListingService);
-  private readonly authHelperService = inject(AuthHelperService);
 
   title = model<string>('Best sellers');
   listings = model<IListingWithDetails[]>([]);
-  categoryName = model<string>('');
   searchTerm = model<string>('');
+  categoryName = input<string>('');
 
   ngOnInit(): void {
     if (this.title() === 'Best sellers') {

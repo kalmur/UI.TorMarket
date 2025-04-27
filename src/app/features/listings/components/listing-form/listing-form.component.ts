@@ -89,7 +89,7 @@ export class ListingFormComponent implements OnInit {
       category.name === this.listingFormGroup.value.category
     )!.categoryId;
 
-    const listing: ICreateListingRequest = {
+    const request: ICreateListingRequest = {
       userId: userId,
       name: this.listingFormGroup.value.name,
       categoryId: selectedCategoryId,
@@ -98,7 +98,7 @@ export class ListingFormComponent implements OnInit {
       availableFrom: this.listingFormGroup.value.availableFrom
     };
 
-    await this.productService.createListing(listing);
+    await this.productService.createListing(request);
     this.toastr.success('Listing created successfully');
     this.router.navigate(['/']);
   }
