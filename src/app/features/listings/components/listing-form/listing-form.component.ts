@@ -1,14 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
+import { Component, inject, model, OnInit, output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { ICreateListingRequest, IListingFormDetails } from '../../models/listings';
+import { ICreateListingRequest, ICreateListingFormDetails } from '../../models/listings';
 import { ListingService } from '../../services/listing.service';
 import { ToastrService } from 'ngx-toastr';
-import { Subject, takeUntil } from 'rxjs';
 import { ListingCategoryService } from '../../../categories/services/listing-category.service';
 import { ICategory } from '../../../../core/models/categories';
+import { AuthHelperService } from '../../../../core/auth/services/auth-helper.service';
+import { UserService } from '../../../../core/services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-listing-form',
@@ -22,33 +24,32 @@ import { ICategory } from '../../../../core/models/categories';
   templateUrl: './listing-form.component.html',
   styleUrl: './listing-form.component.scss'
 })
-export class ListingFormComponent implements OnDestroy{
-  private destroy$ = new Subject<void>();
+export class ListingFormComponent implements OnInit {
+  private readonly fb: FormBuilder = inject(FormBuilder);
+  private readonly authHelperService: AuthHelperService = inject(AuthHelperService);
+  private readonly userService: UserService = inject(UserService);
+  private readonly productService: ListingService = inject(ListingService);
+  private readonly listingCategoryService: ListingCategoryService = inject(ListingCategoryService);
+  private readonly router: Router = inject(Router);
+  private readonly toastr: ToastrService = inject(ToastrService);
 
-  @Output() listingChange = new EventEmitter<IListingFormDetails>();
+  categories = model<ICategory[]>([]);
+  listingChange = output<ICreateListingFormDetails>();
 
   listingFormGroup: FormGroup;
-  categories: ICategory[] = [];
 
-  constructor(
-    private fb: FormBuilder,
-    private readonly productService: ListingService,
-    private readonly listingCategoryService: ListingCategoryService,
-    private readonly toastr: ToastrService
-  ) {
+  constructor() {
     this.listingFormGroup = this.initializeForm();
+  }
+
+  ngOnInit(): void {
     this.subscribeToFormChanges();
     this.fetchAllCategories();
   }
 
-  ngOnDestroy() {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
-
   onSubmit(): void {
-    if(this.listingFormGroup.valid) {
-      this.createProduct();
+    if (this.listingFormGroup.valid) {
+      this.createListing();
     } else {
       this.toastr.error('Please fill in all required fields');
     }
@@ -63,45 +64,52 @@ export class ListingFormComponent implements OnDestroy{
       name: ['', Validators.required],
       category: ['', Validators.required],
       price: ['', Validators.required],
-      availableFrom: [''],
+      availableFrom: ['', Validators.required],
       description: [''],
       imageUrl: ['']
     });
   }
   
+  // Continously listening to form changes would not work with Promises
   private subscribeToFormChanges(): void {
     this.listingFormGroup.valueChanges.subscribe(value => {
       this.listingChange.emit(value);
     });
   }
 
-  private fetchAllCategories(): void {
-      this.listingCategoryService.getAllProductCategories().subscribe({
-        next: (response: ICategory[]) => {
-          this.categories = response;
-        },
-        error: (error) => {
-          console.error('Failed to fetch categories:', error);
-        }
-      }
-    );
+  private async fetchAllCategories(): Promise<void> {
+    const categories = await this.listingCategoryService.getAllListingCategories();
+    this.categories.set(categories);
   }
 
-  private createProduct() {
-    console.log('Starting request');
+  private async createListing(): Promise<void> {
+    const userId = await this.fetchUserId();
 
-    const product: ICreateListingRequest = {
-      userId: this.listingFormGroup.value.userId,
+    const selectedCategoryId = this.categories().find(category => 
+      category.name === this.listingFormGroup.value.category
+    )!.categoryId;
+
+    const request: ICreateListingRequest = {
+      userId: userId,
       name: this.listingFormGroup.value.name,
-      // fEtch from db
-      categoryId: 1,
+      categoryId: selectedCategoryId,
       price: this.listingFormGroup.value.price,
       description: this.listingFormGroup.value.description,
       availableFrom: this.listingFormGroup.value.availableFrom
     };
 
-    this.productService.createListing(product)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe();
+    await this.productService.createListing(request);
+    this.toastr.success('Listing created successfully');
+    this.router.navigate(['/']);
+  }
+
+  private async fetchUserId(): Promise<number> {
+    const user = this.authHelperService.user();
+    if (user && user.sub) {
+        const dbUser = await this.userService.getUserByProviderId(user.sub);
+        return dbUser.userId;
+    } else {
+      throw new Error('User not found');
+    }
   }
 }
