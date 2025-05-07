@@ -77,6 +77,7 @@ export class NavBarComponent implements OnInit {
     }
 
     const response = await this.listingCategoryService.getAllListingCategories();
+    NavBarComponent.cachedCategories = response;
     this.categories.set(response);
   }
 }
