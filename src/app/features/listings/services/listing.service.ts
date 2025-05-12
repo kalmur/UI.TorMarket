@@ -16,80 +16,66 @@ export class ListingService {
   async getListings(): Promise<IListingWithDetails[]> {
     const endPoint = this.urlProvider.getListings;
 
-    try {
-      return await firstValueFrom(this.httpClient.get<IListingWithDetails[]>(endPoint));
-    } catch (error) {
-      this.toastr.error('Failed to get listings');
-      throw error;
-    }
-
-    // return await firstValueFrom(this.httpClient.get<IListingWithDetails[]>(endPoint))
-    //   .catch((error) => {
-    //     // if (error.status === StatusCodes.OK) {
-    //     //   this.toastr.error('');
-    //     // } else if (error.status === StatusCodes.INTERNAL_SERVER_ERROR) {
-    //     //   this.toastr.error('');
-    //     // } else {
-    //     //   this.toastr.error('');
-    //     // }
-    //     throw error;
-    //   }
-    // );
+    return await firstValueFrom(this.httpClient.get<IListingWithDetails[]>(endPoint))
+      .catch((error) => {
+        this.toastr.error('Failed to get listings');
+        throw error;
+      }
+    );
   }
 
   async getListingById(id: number): Promise<IListingWithDetails> {
     const endPoint = this.urlProvider.getListingById(id);
   
-    try {
-      return await firstValueFrom(this.httpClient.get<IListingWithDetails>(endPoint));
-    } catch (error) {
-      this.toastr.error('Failed to get listing by ID');
-      throw error;
-    }
+    return await firstValueFrom(this.httpClient.get<IListingWithDetails>(endPoint))
+      .catch((error) => {
+        this.toastr.error('Failed to get listing by ID');
+        throw error;
+      }
+    );
   }
 
   async getListingBySearchTerm(searchTerm: string): Promise<IListingWithDetails[]> {
     const endPoint = this.urlProvider.getListingBySearchTerm(searchTerm);
   
-    try {
-      return await firstValueFrom(this.httpClient.get<IListingWithDetails[]>(endPoint));
-    } catch (error) {
-      this.toastr.error('Failed to get listings by search term');
-      throw error;
-    }
+    return await firstValueFrom(this.httpClient.get<IListingWithDetails[]>(endPoint))
+      .catch((error) => {
+        this.toastr.error('Failed to get listings by search term');
+        throw error;
+      }
+    );
   }
 
   async getListingsByCategoryName(categoryName: string): Promise<IListingWithDetails[]> {
     const endPoint = this.urlProvider.getListingsByCategoryName(categoryName);
   
-    try {
-      return await firstValueFrom(this.httpClient.get<IListingWithDetails[]>(endPoint));
-    } catch (error) {
-      this.toastr.error('Failed to get listings by category name');
-      throw error;
-    }
+    return await firstValueFrom(this.httpClient.get<IListingWithDetails[]>(endPoint))
+      .catch((error) => {
+        this.toastr.error('Failed to get listings by category name');
+        throw error;
+      }
+    );
   }
 
   async getListingsByProviderId(providerId: string): Promise<IListingWithDetails[]> {
     const endPoint = this.urlProvider.getListingsByProviderId(providerId);
   
-    try {
-      return await firstValueFrom(this.httpClient.get<IListingWithDetails[]>(endPoint));
-    } catch (error) {
-      this.toastr.error('Failed to get listings by ProviderId');
-      return [];
-    }
+    return await firstValueFrom(this.httpClient.get<IListingWithDetails[]>(endPoint))
+      .catch((error) => {
+        this.toastr.error('Failed to get listings by ProviderId');
+        throw error;
+      }
+    );
   }
 
   async createListing(listing: ICreateListingRequest): Promise<ICreateListingResponse> {
     const endPoint = this.urlProvider.createListing;
   
-    try {
-      const response = await firstValueFrom(this.httpClient.post<ICreateListingResponse>(endPoint, listing));
-      return response;
-    } catch (error) {
-      this.toastr.error('Failed to create listing');
-      throw error;
-    }
+    return await firstValueFrom(this.httpClient.post<ICreateListingResponse>(endPoint, listing))
+      .catch((error) => {
+        this.toastr.success('Listing created successfully');
+        return error;
+      }
+    )
   }
 }

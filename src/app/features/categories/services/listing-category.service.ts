@@ -16,11 +16,11 @@ export class ListingCategoryService {
   async getAllListingCategories(): Promise<ICategory[]> {
     const endPoint = this.urlProvider.getAllListingCategories;
 
-    try {
-      return firstValueFrom(this.httpClient.get<ICategory[]>(endPoint));
-    } catch (error) {
-      this.toastr.error('Failed to get all listing categories');
-      throw error;
-    }
+    return firstValueFrom(this.httpClient.get<ICategory[]>(endPoint))
+      .catch((error) => {
+        this.toastr.error('Failed to get all listing categories');
+        throw error;
+      }
+    );
   }
 }
