@@ -56,7 +56,7 @@ nav form button {
 }
 
 nav form button:hover {
-  background: #e63600;
+  background: var(--primary-tor-red);
 }
 
 nav .nav-items {
@@ -100,11 +100,11 @@ nav .search-icon {
 }
 
 .row {
-  background-color: #171c24;
+  background-color: var(--primary-bg-color);
 }
 
 .category {
-  background-color: #171c24;
+  background-color: var(--primary-bg-color);
   color: white;
   border-radius: 4px;
   text-align: center;
@@ -116,7 +116,7 @@ nav .search-icon {
 }
 
 .bg-dark {
-  background-color: #171c24 !important;
+  background-color: var(--primary-bg-color) !important;
 }
 
 .text-white {
@@ -261,12 +261,12 @@ nav .search-icon {
 }
 
 .custom-dropdown-menu {
-  background-color: #171c24; 
-  color: #171c24;
+  background-color: var(--primary-bg-color);
+  color: var(--primary-bg-color);
   padding-top: 0.75rem;
 }
 
 .custom-dropdown-menu .dropdown-item:hover {
-  color: #e63600;
-  background-color: #171c24;
+  color: var(--primary-tor-red);
+  background-color: var(--primary-bg-color);
 }

@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, model } from '@angular/core';
 import { ListingFormComponent } from '../listing-form/listing-form.component';
 import { NavBarComponent } from '../../../../core/components/nav-bar/nav-bar.component';
 import { ListingFormPreviewComponent } from '../listing-form-preview/listing-form-preview.component';
+import { ICreateListingFormDetails } from '../../models/listings';
 
 @Component({
   selector: 'app-create-listing',
@@ -15,9 +16,16 @@ import { ListingFormPreviewComponent } from '../listing-form-preview/listing-for
   styleUrl: './create-listing.component.scss'
 })
 export class CreateListingComponent {
-  // listing: any = {};
+  listing = model<ICreateListingFormDetails>({
+    name: '',
+    description: '',
+    price: 0,
+    category: 0,
+    availableFrom: new Date(),
+    imageUrl: ''
+  });
 
-  // onListingChanged(listing: any) {
-  //   this.listing = listing;
-  // }
+  onListingChanged(listing: ICreateListingFormDetails): void {
+    this.listing.set(listing);
+  }
 }

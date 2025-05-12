@@ -11,8 +11,7 @@ src: url(/assets/fonts/Hanson-Bold.ttf);
     min-height: 500px;
     padding: 5px 5px;
     margin-bottom: 1.5rem;
-    background-color: #171c24 !important;
-    // background-color: rgb(77, 71, 71);
+    background-color: var(--primary-bg-color) !important;
 }
 
 .card-body h2 {

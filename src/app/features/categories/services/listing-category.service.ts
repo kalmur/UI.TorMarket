@@ -1,31 +1,26 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { UrlProviderService } from '../../../core/services/url-provider.service';
-import { catchError, Observable, throwError } from 'rxjs';
-import { LoggingService } from '../../../core/services/logging.service';
+import { firstValueFrom } from 'rxjs';
 import { ICategory } from '../../../core/models/categories';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ListingCategoryService {
-  constructor(
-    private readonly httpClient: HttpClient,
-    private readonly urlProvider: UrlProviderService,
-    private readonly logger: LoggingService
-  ) {}
+  private readonly httpClient = inject(HttpClient);
+  private readonly urlProvider = inject(UrlProviderService);
+  private readonly toastr = inject(ToastrService);
 
-  getAllProductCategories(): Observable<ICategory[]> {
+  async getAllListingCategories(): Promise<ICategory[]> {
     const endPoint = this.urlProvider.getAllListingCategories;
 
-    return this.httpClient
-      .get<ICategory[]>(endPoint)
-      .pipe(
-        catchError(error => 
-          throwError(
-            this.logger.log('get all product categories request', error)
-          )
-        )
+    return firstValueFrom(this.httpClient.get<ICategory[]>(endPoint))
+      .catch((error) => {
+        this.toastr.error('Failed to get all listing categories');
+        throw error;
+      }
     );
   }
 }

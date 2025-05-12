@@ -1,10 +1,51 @@
-.best-sellers {
-    text-align: center;  
-    padding-top: 2.75rem;   
-    padding-bottom: 1.5rem;
+.background {
+    display: grid;
+    place-items: center;
+    min-height: 80vh;
 }
 
 .extra-padding {
     margin-left: 100px;
     margin-right: 100px;
+}
+
+.details-container {
+    display: flex;
+    gap: 250px;
+  }
+  
+.listing-card-container {
+    flex: 1;
+}
+
+.reviews-container {
+    flex: 2;
+}
+
+.margin-top-custom {
+    margin-top: 15px;
+}
+
+.review-box {
+    position: relative;
+    width: 160%; 
+    max-width: 900px; 
+    margin-top: 20px;
+    margin-left: -25%; 
+    margin-right: -10%;
+}
+
+textarea.form-control {
+    width: 100%;
+    resize: none; 
+    min-height: 120px; 
+    padding-right: 50px; 
+}
+
+button.submit-button {
+    position: absolute;
+    bottom: 8px; 
+    right: 8px;
+    padding: 5px 10px;
+    font-size: 0.9rem;
 }

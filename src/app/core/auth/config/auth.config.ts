@@ -1,6 +1,6 @@
 export const authConfig = {
-    domain: 'kalmardev.uk.auth0.com',   // For development purposes - to be removed later
-    clientId: 'pYjVDw6PRDNIfOroAztK0GaXNKmT3u0o',  // For development purposes - to be removed later
+    domain: 'tormarket.uk.auth0.com',   // For development purposes - to be removed later
+    clientId: 'XnpHhSqzZmC3zIooh44PtOzhIF0SLewc',  // For development purposes - to be removed later
     authorizationParams: {
       redirect_uri: window.location.origin
     }
