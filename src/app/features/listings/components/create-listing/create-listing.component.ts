@@ -1,4 +1,4 @@
-import { Component, model } from '@angular/core';
+import { Component, model, signal } from '@angular/core';
 import { ListingFormComponent } from '../listing-form/listing-form.component';
 import { NavBarComponent } from '../../../../core/components/nav-bar/nav-bar.component';
 import { ListingFormPreviewComponent } from '../listing-form-preview/listing-form-preview.component';
@@ -22,8 +22,13 @@ export class CreateListingComponent {
     price: 0,
     description: ''
   });
+  imagePreviewUrl = signal<string | null>(null);
 
   onListingChanged(listing: ICreateListingFormDetails): void {
     this.listing.set(listing);
+  }
+
+  onImagePreviewUrlChange(url: string | null) {
+    this.imagePreviewUrl.set(url);
   }
 }

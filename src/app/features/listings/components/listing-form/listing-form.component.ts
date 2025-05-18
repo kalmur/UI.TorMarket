@@ -36,6 +36,8 @@ export class ListingFormComponent implements OnInit {
   categories = model<ICategory[]>([]);
   listingChange = output<ICreateListingFormDetails>();
   selectedFile = signal<File | null>(null);
+  imagePreviewUrl = signal<string | null>(null);
+  imagePreviewUrlChange = output<string | null>();
 
   listingFormGroup: FormGroup;
 
@@ -49,28 +51,31 @@ export class ListingFormComponent implements OnInit {
   }
 
   onFileSelected(event: Event): void {
-  const input = event.target as HTMLInputElement;
-  if (input.files && input.files.length > 0) {
-    this.selectedFile.set(input.files[0]);
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      this.selectedFile.set(file);
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imagePreviewUrl.set(reader.result as string);
+        this.imagePreviewUrlChange.emit(this.imagePreviewUrl());
+      };
+      reader.readAsDataURL(file);
+    }
   }
-}
 
   async onSubmit(): Promise<void> {
     if (this.listingFormGroup.valid) {
       const createdListing = await this.createListing();
 
       if (this.selectedFile()) {
-        const formData = new FormData();
-        formData.append('file', this.selectedFile()!);
-
-        const blobUrl = await this.listingService.uploadFileToBlob(formData);
-
-        await this.listingService.updateListingBlobUrls(
-          createdListing.listingId,
-          blobUrl
+        await this.uploadAndAttachBlob(
+          createdListing.listingId, 
+          this.selectedFile()!
         );
       }
-
+      
       this.router.navigate(['/']);
     } else {
       this.toastr.error('Please fill in all required fields');
@@ -127,5 +132,17 @@ export class ListingFormComponent implements OnInit {
     } else {
       throw new Error('User not found');
     }
+  }
+
+  private async uploadAndAttachBlob(listingId: number, file: File): Promise<void> {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    const blobUrl = await this.listingService.uploadFileToBlob(formData);
+
+    await this.listingService.updateListingBlobUrls(
+      listingId,
+      blobUrl
+    );
   }
 }

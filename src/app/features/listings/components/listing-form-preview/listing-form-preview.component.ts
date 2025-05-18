@@ -11,4 +11,5 @@ import { ICreateListingFormDetails } from '../../models/listings';
 })
 export class ListingFormPreviewComponent {
   listing = input<ICreateListingFormDetails>();
+  imagePreviewUrl = input<string | null>(null);
 }
