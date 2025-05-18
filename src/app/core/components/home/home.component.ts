@@ -3,11 +3,16 @@ import { NavBarComponent } from '../nav-bar/nav-bar.component';
 import { ListingListComponent } from '../../../features/listings/components/listing-list/listing-list.component';
 import { ListingService } from '../../../features/listings/services/listing.service';
 import { IListingWithDetails } from '../../../features/listings/models/listings';
+import { FooterComponent } from '../footer/footer.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [NavBarComponent, ListingListComponent],
+  imports: [
+    NavBarComponent, 
+    FooterComponent,
+    ListingListComponent
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })

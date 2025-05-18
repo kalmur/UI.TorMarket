@@ -1,0 +1,74 @@
+.footer {
+  background-color: var(--primary-bg-color);
+  padding: 2rem;
+  font-family: Arial, sans-serif;
+  color: #fff; // Changed from #333 to white
+
+  .footer-top {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding-bottom: 1.5rem;
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+
+    .footer-column {
+      min-width: 150px;
+
+      h4 {
+        font-size: 0.9rem;
+        font-weight: bold;
+        margin-bottom: 0.75rem;
+        color: #fff; // Ensure white
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+
+        li {
+          margin-bottom: 0.5rem;
+
+          a {
+            text-decoration: none;
+            color: #fff; // Changed from #333 to white
+
+            &:hover {
+              text-decoration: underline;
+              color: #fff; // Keep white on hover
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+
+      .truck-icon {
+        font-size: 1.5rem;
+        color: #fff; // Ensure icon is white if applicable
+      }
+
+      div {
+        line-height: 1.2;
+        color: #fff; // Ensure white
+      }
+    }
+
+    .footer-copy {
+      font-size: 0.875rem;
+      color: #fff; // Changed from #777 to white
+      margin-top: 0.5rem;
+    }
+  }
+}
