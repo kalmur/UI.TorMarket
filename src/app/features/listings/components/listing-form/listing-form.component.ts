@@ -36,7 +36,6 @@ export class ListingFormComponent implements OnInit {
   categories = model<ICategory[]>([]);
   listingChange = output<ICreateListingFormDetails>();
   selectedFile = signal<File | null>(null);
-  imagePreviewUrl = signal<string | null>(null);
   imagePreviewUrlChange = output<string | null>();
 
   listingFormGroup: FormGroup;
@@ -58,8 +57,7 @@ export class ListingFormComponent implements OnInit {
 
       const reader = new FileReader();
       reader.onload = () => {
-        this.imagePreviewUrl.set(reader.result as string);
-        this.imagePreviewUrlChange.emit(this.imagePreviewUrl());
+        this.imagePreviewUrlChange.emit(reader.result as string);
       };
       reader.readAsDataURL(file);
     }

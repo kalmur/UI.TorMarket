@@ -22,6 +22,7 @@ export class CreateListingComponent {
     price: 0,
     description: ''
   });
+  
   imagePreviewUrl = signal<string | null>(null);
 
   onListingChanged(listing: ICreateListingFormDetails): void {
