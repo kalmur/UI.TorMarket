@@ -8,7 +8,7 @@ export interface IListing {
     name: string;
     price: number;
     description?: string;
-    availableFrom?: string;
+    blobUrls?: string[];
 }
 
 export interface IListingWithDetails extends IListing {
@@ -21,8 +21,8 @@ export interface ICreateListingRequest {
     name: string;
     categoryId: number;
     price: number;
-    availableFrom: Date;
     description: string;
+    filePaths?: string[];
 }
 
 export interface ICreateListingResponse {
@@ -31,14 +31,12 @@ export interface ICreateListingResponse {
     name: string;
     price: number;
     description: string;
-    availableFrom: Date;
 }
 
 export interface ICreateListingFormDetails {
     name: string;
     category: number;
     price: number;
-    availableFrom: Date;
     description: string;
-    imageUrl: string;
+    filePaths?: string[];
 }

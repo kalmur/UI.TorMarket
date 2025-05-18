@@ -42,13 +42,8 @@
               </div>
 
               <div class="form-group col-12 col-md-8 mx-auto mt-4">
-                <label for="available-from" class="white-text mb-2">Available from</label>
-                <input type="text" class="form-control" formControlName="availableFrom" placeholder="" bsDatepicker />
-              </div>
-
-              <div class="form-group col-12 col-md-8 mx-auto mt-4">
                 <label for="image" class="white-text mb-2">Image</label>
-                <input type="file" class="form-control" />
+                <input type="file" class="form-control" (change)="onFileSelected($event)"/>
               </div>
 
               <div class="form-group col-12 col-md-8 mx-auto mt-4">

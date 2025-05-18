@@ -18,11 +18,9 @@ import { ICreateListingFormDetails } from '../../models/listings';
 export class CreateListingComponent {
   listing = model<ICreateListingFormDetails>({
     name: '',
-    description: '',
-    price: 0,
     category: 0,
-    availableFrom: new Date(),
-    imageUrl: ''
+    price: 0,
+    description: ''
   });
 
   onListingChanged(listing: ICreateListingFormDetails): void {

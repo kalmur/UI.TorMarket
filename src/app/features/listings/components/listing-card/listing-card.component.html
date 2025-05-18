@@ -2,7 +2,7 @@
     <div class="card-img-wrapper">
         <img 
             class="card-img-top" 
-            src="/images/msi.jpg" 
+            [src]="listing()?.blobUrls?.[0] || '/images/msi.jpg'" 
             (click)="onViewDetails()" 
             (keydown.enter)="onViewDetails()" 
             tabindex="0" 
