@@ -87,5 +87,8 @@ src: url(/assets/fonts/Hanson-Bold.ttf);
 }
 
 .red-button {
-    background-color: #ff3d00 !important;
+  background-color: #ff3d00 !important;
+  padding: 0.25rem 0.5rem; // smaller padding
+  font-size: 0.85rem;      // smaller text/icon
+  border-radius: 0.2rem;
 }
