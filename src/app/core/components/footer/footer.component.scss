@@ -1,25 +1,26 @@
 .footer {
   background-color: var(--primary-bg-color);
-  padding: 2rem;
+  padding: 1rem 2rem;
   font-family: Arial, sans-serif;
-  color: #fff; // Changed from #333 to white
+  color: #fff;
+  font-size: 0.8rem; // smaller base font
 
   .footer-top {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    padding-bottom: 1.5rem;
-    margin-top: 3rem;
-    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem; // reduced
+    margin-top: 1.5rem; // reduced
+    margin-bottom: 0.75rem; // reduced
 
     .footer-column {
-      min-width: 150px;
+      min-width: 120px; // reduced
 
       h4 {
-        font-size: 0.9rem;
+        font-size: 0.75rem; // reduced
         font-weight: bold;
-        margin-bottom: 0.75rem;
-        color: #fff; // Ensure white
+        margin-bottom: 0.5rem; // reduced
+        color: #fff;
       }
 
       ul {
@@ -27,15 +28,16 @@
         padding: 0;
 
         li {
-          margin-bottom: 0.5rem;
+          margin-bottom: 0.3rem; // reduced
 
           a {
             text-decoration: none;
-            color: #fff; // Changed from #333 to white
+            color: #fff;
+            font-size: 0.8rem; // reduced
 
             &:hover {
               text-decoration: underline;
-              color: #fff; // Keep white on hover
+              color: #fff;
             }
           }
         }
@@ -52,23 +54,24 @@
     .footer-logo {
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.4rem; // reduced
 
       .truck-icon {
-        font-size: 1.5rem;
-        color: #fff; // Ensure icon is white if applicable
+        font-size: 1.1rem; // reduced
+        color: #fff;
       }
 
       div {
-        line-height: 1.2;
-        color: #fff; // Ensure white
+        line-height: 1.1; // tighter
+        color: #fff;
+        font-size: 0.8rem; // reduced
       }
     }
 
     .footer-copy {
-      font-size: 0.875rem;
-      color: #fff; // Changed from #777 to white
-      margin-top: 0.5rem;
+      font-size: 0.7rem; // reduced
+      color: #fff;
+      margin-top: 0.2rem; // reduced
     }
   }
 }
