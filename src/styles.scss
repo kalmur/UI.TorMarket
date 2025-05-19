@@ -1,9 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 html, body {
     background-color: #171c24;
-  height: 100%;
-  margin: 0;
-  padding: 0;
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 body, app-root {
@@ -13,6 +13,6 @@ body, app-root {
 }
 
 :root {
-    --primary-bg-color: #171c24;
-    --primary-tor-red: #ff3d00;
+  --primary-bg-color: #171c24;
+  --primary-tor-red: #ff3d00;
 }
