@@ -2,10 +2,10 @@
   <div *ngIf="listing" class="card custom-card mx-auto">
     <div class="card-body text-center">
       <div class="image-container mb-4">
-        <img [src]="imagePreviewUrl()" alt="No photo yet" class="listing-image small-image">
+        <img [src]="imagePreviewUrl()" alt="" class="listing-image small-image">
       </div>
       <h1 class="mb-4">{{ listing()!.name }}</h1>
-      <h4 class="mb-3">{{ listing()!.category }}</h4>
+      <h4 class="mb-3">{{ listing()!.category || null }}</h4>
       <h5 *ngIf="listing()!.price" class="mb-3 custom-color">£{{ listing()!.price }}</h5>
       <p class="mb-3">{{ listing()!.description }}</p>
     </div>

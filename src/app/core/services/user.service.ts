@@ -4,11 +4,13 @@ import { firstValueFrom } from 'rxjs';
 import { UrlProviderService } from './url-provider.service';
 import { IDatabaseUser } from '../models/user';
 import { ToastrService } from 'ngx-toastr';
+import { AuthHelperService } from '../auth/services/auth-helper.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
+  private readonly authHelperService = inject(AuthHelperService);
   private readonly urlProvider = inject(UrlProviderService);
   private readonly httpClient = inject(HttpClient);
   private readonly toastr = inject(ToastrService);
@@ -24,7 +26,17 @@ export class UserService {
     }
   }
 
-  async getUserByProviderId(providerId: string): Promise<IDatabaseUser> {
+  async fetchUserId(): Promise<number> {
+    const user = this.authHelperService.user();
+    if (user && user.sub) {
+      const dbUser = await this.getUserByProviderId(user.sub);
+      return dbUser.userId;
+    } else {
+      throw new Error('User not found');
+    }
+  }
+
+  private async getUserByProviderId(providerId: string): Promise<IDatabaseUser> {
     const url = this.urlProvider.getUserByProviderId(providerId);
 
     try {

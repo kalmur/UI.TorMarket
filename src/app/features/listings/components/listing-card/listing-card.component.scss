@@ -48,21 +48,23 @@ src: url(/assets/fonts/Hanson-Bold.ttf);
     padding-top: 25px;
 }
 
-.card:hover img {
-    transform: scale(1.15, 1.15);
-    transition-duration: 400ms;
-    transition-timing-function: ease-out;
-    height: 250px;
-    width: 252px;
-    opacity:0.95;
-}
-
 .card img {
     transform: scale(1, 1);
     transition-duration: 400ms;
     transition-timing-function: ease-out;
     height: 250px;
     width: 250px;
+    object-fit: cover;
+    display: block;
+}
+
+.card:hover img {
+    height: 250px;
+    width: 250px;
+    transform: scale(1.1, 1.1);
+    transition-duration: 350ms;
+    transition-timing-function: ease-out;
+    opacity: 0.95;
 }
 
 .member-icons {

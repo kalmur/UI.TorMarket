@@ -84,15 +84,17 @@ export class ListingFormComponent implements OnInit {
     this.listingFormGroup.controls['category'].setValue(categoryName);
   }
 
+  // Private methods
+
   private initializeForm(): FormGroup {
     return this.fb.group({
       name: ['', Validators.required],
       category: ['', Validators.required],
       price: ['', Validators.required],
+      description: ['']
     });
   }
   
-  // Continously listening to form changes would not work with Promises
   private subscribeToFormChanges(): void {
     this.listingFormGroup.valueChanges.subscribe(value => {
       this.listingChange.emit(value);
@@ -105,8 +107,9 @@ export class ListingFormComponent implements OnInit {
   }
 
   private async createListing(): Promise<ICreateListingResponse> {
-    const userId = await this.fetchUserId();
+    const userId = await this.userService.fetchUserId();
 
+    // TODO - Down the line, we should be fetching by categoryName
     const selectedCategoryId = this.categories().find(category => 
       category.name === this.listingFormGroup.value.category
     )!.categoryId;
@@ -120,16 +123,6 @@ export class ListingFormComponent implements OnInit {
     };
 
     return await this.listingService.createListing(request);
-  }
-
-  private async fetchUserId(): Promise<number> {
-    const user = this.authHelperService.user();
-    if (user && user.sub) {
-        const dbUser = await this.userService.getUserByProviderId(user.sub);
-        return dbUser.userId;
-    } else {
-      throw new Error('User not found');
-    }
   }
 
   private async uploadAndAttachBlob(listingId: number, file: File): Promise<void> {
