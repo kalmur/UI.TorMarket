@@ -1,7 +1,9 @@
+import { environment } from "../../../../environments/environment";
+
 export const authConfig = {
-    domain: 'tormarket.uk.auth0.com',   // For development purposes - to be removed later
-    clientId: 'XnpHhSqzZmC3zIooh44PtOzhIF0SLewc',  // For development purposes - to be removed later
-    authorizationParams: {
-      redirect_uri: window.location.origin
-    }
+  domain: environment.auth.domain,
+  clientId: environment.auth.clientId,
+  authorizationParams: {
+    redirect_uri: window.location.origin
+  }
 };
