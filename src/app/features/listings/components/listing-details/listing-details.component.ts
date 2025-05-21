@@ -6,6 +6,7 @@ import { ListingService } from '../../services/listing.service';
 import { ListingCardComponent } from '../listing-card/listing-card.component';
 import { CommonModule } from '@angular/common';
 import { ListingReviewListComponent } from '../../../reviews/components/listing-review-list/listing-review-list.component';
+import { FooterComponent } from '../../../../core/components/footer/footer.component';
 
 @Component({
   selector: 'app-listing-details',
@@ -14,7 +15,8 @@ import { ListingReviewListComponent } from '../../../reviews/components/listing-
     CommonModule, 
     NavBarComponent, 
     ListingCardComponent, 
-    ListingReviewListComponent
+    ListingReviewListComponent,
+    FooterComponent
 ],
   templateUrl: './listing-details.component.html',
   styleUrl: './listing-details.component.scss'
