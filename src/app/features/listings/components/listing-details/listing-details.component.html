@@ -4,7 +4,7 @@
   <div class="details-container row">
     <div class="col-md-4 d-flex align-items-start justify-content-center">
       <img 
-        class="img-detail"
+        class="img-detail img-fluid"
         *ngIf="listing?.blobUrls?.length"
         [src]="listing?.blobUrls?.[0]"
         alt="Listing image"
@@ -23,7 +23,7 @@
     </div>
   </div>
 
-  <div class="pt-3 mb-3">
+  <div class="reviews">
     <app-listing-review-list></app-listing-review-list>
   </div>
 
