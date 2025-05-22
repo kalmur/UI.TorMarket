@@ -5,7 +5,7 @@
 
     <div class="w-full lg:w-1/2 flex justify-center">
       <img
-        class="w-full max-w-md rounded-xl shadow-lg"
+        class="w-full max-w-xl rounded-xl shadow-lg"
         *ngIf="listing?.blobUrls?.length"
         [src]="listing?.blobUrls?.[0]"
         alt="Listing image"
@@ -17,23 +17,21 @@
 
       <div class="mt-2">
         <h5 class="text-lg text-gray-300">{{ listing?.category?.name }}</h5>
-
         <p class="mt-6 text-base leading-relaxed text-gray-300">{{ listing?.description }}</p>
+      </div>
 
-        <div class="flex items-center gap-2 mt-8 mb-4">
+      <div class="flex flex-col gap-4 mt-auto mb-6">
+        <div class="flex items-center gap-2">
           <i class="bi bi-star-fill text-yellow-400"></i>
           <strong>5.0</strong>
           <a href="#" class="ml-2 underline hover:text-blue-400">
             <span class="text-sm">132 reviews</span>
           </a>
         </div>
-      </div>
-
-      <div class="mt-4 mb-6">
         <span class="text-2xl font-bold" style="color: var(--primary-tor-red)">£ {{ listing?.price }}</span>
       </div>
 
-      <button class="bg-blue-600 hover:bg-blue-800 text-white font-semibold rounded-lg py-3 px-6 mt-auto">
+      <button class="bg-blue-600 hover:bg-blue-800 text-white font-semibold rounded-lg py-3 px-6">
         <i class="bi bi-bag-plus-fill"></i> Add to Cart
       </button>
     </div>
