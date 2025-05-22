@@ -21,7 +21,7 @@ src: url(/assets/fonts/Hanson-Bold.ttf);
 }
 
 .font-highlight {
-    color: #ff3d00 !important;
+    color: var(--primary-tor-red);
 }
 
 .card-body h4 {

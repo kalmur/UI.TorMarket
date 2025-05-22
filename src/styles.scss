@@ -1,4 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+
 html, body {
     background-color: #171c24;
     height: 100%;
@@ -14,5 +16,5 @@ body, app-root {
 
 :root {
   --primary-bg-color: #171c24;
-  --primary-tor-red: #ff3d00;
+  --primary-tor-red: #e9661b;
 }
