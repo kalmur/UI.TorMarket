@@ -1,32 +1,44 @@
 <app-nav-bar></app-nav-bar>
 
-<div class="background">
-  <div class="details-container row">
-    <div class="col-md-4 d-flex align-items-start justify-content-center">
-      <img 
-        class="img-detail img-fluid"
+<div class="product-container container">
+  <div class="row product-details">
+    <div class="col-md-6 text-center">
+      <img
+        class="product-image img-fluid"
         *ngIf="listing?.blobUrls?.length"
         [src]="listing?.blobUrls?.[0]"
         alt="Listing image"
       />
     </div>
-    <div class="col-md-8">
-      <h2>{{ listing?.name }}</h2>
-      <h4 class="pt-2">{{ listing?.category?.name }}</h4>
-      <h5 class="pt-2">£{{ listing?.price }}</h5>
-      <p class="pt-2">{{ listing?.description }}</p>
-      <div class="mt-3">
-        <button class="btn btn-primary mt-3">
-          <i class="bi bi-bag-plus-fill"></i> Add to Cart
-        </button>
+
+    <div class="col-md-6 product-info">
+      <h1 class="product-title">{{ listing?.name }}</h1>
+
+      <div class="product-meta">
+        <span class="category">{{ listing?.category?.name }}</span>
+
+        <p class="product-description">{{ listing?.description }}</p>
+
+        <div class="rating">
+          <i class="bi bi-star-fill text-warning"></i>
+          <strong>5.0</strong>
+          <span class="review-count">132 reviews</span>
+        </div>
       </div>
+
+      <div class="product-pricing">
+        <span class="original-price">£{{ listing?.price }}</span>
+      </div>
+
+      <button class="btn btn-primary add-to-cart">
+        <i class="bi bi-bag-plus-fill"></i> Add to Cart
+      </button>
     </div>
   </div>
 
   <div class="reviews">
     <app-listing-review-list></app-listing-review-list>
   </div>
-
 </div>
 
 <app-footer></app-footer>
