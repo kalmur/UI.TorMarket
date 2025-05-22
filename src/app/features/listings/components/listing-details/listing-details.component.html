@@ -1,8 +1,47 @@
-<app-nav-bar 
-></app-nav-bar> 
+<app-nav-bar></app-nav-bar>
 
-<div class="background">
-    <div class="extra-padding mt-3">
-        <app-listing-card *ngIf="listing" [listing]="listing"></app-listing-card>
+<div class="product-container container">
+  <div class="row product-details">
+    <div class="col-md-6 text-center">
+      <img
+        class="product-image img-fluid"
+        *ngIf="listing?.blobUrls?.length"
+        [src]="listing?.blobUrls?.[0]"
+        alt="Listing image"
+      />
     </div>
+
+    <div class="col-md-6 product-info">
+      <h1 class="product-title">{{ listing?.name }}</h1>
+
+      <div class="product-meta mt-2">
+        <h5 class="category">{{ listing?.category?.name }}</h5>
+
+        <p class="product-description">{{ listing?.description }}</p>
+
+        <div class="rating">
+          <i class="bi bi-star-fill text-warning"></i>
+          <strong>5.0</strong>
+          <a href="">
+            <span class="review-count">132 reviews</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="product-pricing">
+        <span class="original-price">£{{ listing?.price }}</span>
+      </div>
+
+      <button class="btn btn-primary add-to-cart">
+        <i class="bi bi-bag-plus-fill"></i> Add to Cart
+      </button>
+
+    </div>
+  </div>
+
+  <div class="reviews">
+    <app-listing-review-list></app-listing-review-list>
+  </div>
 </div>
+
+<app-footer></app-footer>

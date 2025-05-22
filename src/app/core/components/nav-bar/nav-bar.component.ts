@@ -1,12 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, inject, model, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthHelperService } from '../../auth/services/auth-helper.service';
-import { Observable } from 'rxjs';
 import { ListingCategoryService } from '../../../features/categories/services/listing-category.service';
 import { ICategory } from '../../models/categories';
 import { FormsModule } from '@angular/forms';
-import { User } from '@auth0/auth0-angular';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -17,29 +16,18 @@ import { User } from '@auth0/auth0-angular';
 })
 
 export class NavBarComponent implements OnInit {
-  @Input() searchTerm = '';
+  readonly authHelperService = inject(AuthHelperService);
+  private readonly userService = inject(UserService);
+  private readonly listingCategoryService = inject(ListingCategoryService);
+  private readonly router = inject(Router);
 
-  @Output() searchTermChange = new EventEmitter<string>();
-  @Output() userListingsNavigation = new EventEmitter<void>();
+  private static cachedCategories: ICategory[] = [];
 
-  user$: Observable<User | null | undefined> = this.authHelperService.user$;
-  isAuthenticated$: Observable<boolean> = this.authHelperService.isAuthenticated$;
-
-  isAuthenticated = false;
-  categories: ICategory[] = []; 
-
-  constructor(
-    private readonly authHelperService: AuthHelperService,
-    private readonly listingCategoryService: ListingCategoryService,
-    private readonly router: Router
-  ) {}
+  searchTerm = model<string>('');
+  categories = model<ICategory[]>([]);
 
   ngOnInit(): void {
-    this.fetchAllCategories();
-
-    this.authHelperService.isAuthenticated$.subscribe((authStatus) => {
-      this.isAuthenticated = authStatus;
-    });
+    this.fetchOrReturnCachedCategories();
   }
 
   handleLogin(): void {
@@ -54,7 +42,7 @@ export class NavBarComponent implements OnInit {
     this.authHelperService.logout();
   }
 
-  handleSell(): void {
+  handleSellNavigation(): void {
     this.authHelperService.navigateToSellPage();
   }
 
@@ -63,24 +51,33 @@ export class NavBarComponent implements OnInit {
   }
 
   handleUserListingsNavigation(): void {
-    this.userListingsNavigation.emit();
     this.router.navigate(['/profile/listings']);
   }
 
-  handleSearch(searchTerm: string): void {
-    if (!searchTerm.trim()) {
+  handleSearchEvent(): void {
+    if (!this.searchTerm().trim()) {
+      this.router.navigate(['/']);
       return;
     }
-  
-    this.searchTermChange.emit(searchTerm);
-    this.router.navigate(['/search', searchTerm]);
+
+    this.router.navigate(['/search', this.searchTerm()]);
   }
 
-  private fetchAllCategories(): void {
-    this.listingCategoryService.getAllProductCategories().subscribe({
-      next: (response: ICategory[]) => {
-        this.categories = response;
-      }
-    });
+  async createUserInDatabase(): Promise<void> {
+    const user = this.authHelperService.user();
+    if (user && user.sub) {
+      await this.userService.createUserInDatabase(user.sub);
+    }
+  }
+
+  private async fetchOrReturnCachedCategories(): Promise<void> {
+    if (NavBarComponent.cachedCategories.length > 0) {
+      this.categories.set(NavBarComponent.cachedCategories);
+      return;
+    }
+
+    const response = await this.listingCategoryService.getAllListingCategories();
+    NavBarComponent.cachedCategories = response;
+    this.categories.set(response);
   }
 }

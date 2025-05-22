@@ -1,12 +1,18 @@
-<!-- <app-nav-bar></app-nav-bar>
+<app-nav-bar></app-nav-bar>
 
 <div class="container mt-4">
   <div class="row">
-    <div class="col-md-6">
-      <app-listing-form-preview [listing]="listing"></app-listing-form-preview>
+    <div class="col-md-6 custom-margin">
+      <app-listing-form
+        (listingChange)="onListingChanged($event)"
+        (imagePreviewUrlChange)="onImagePreviewUrlChange($event)">
+      </app-listing-form>
     </div>
     <div class="col-md-6">
-      <app-listing-form (listingChange)="onListingChanged($event)"></app-listing-form>
+      <app-listing-form-preview 
+        [listing]="listing()"
+        [imagePreviewUrl]="imagePreviewUrl()">
+      </app-listing-form-preview>
     </div>
   </div>
-</div> -->
+</div>

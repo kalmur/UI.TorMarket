@@ -1,8 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { ListingCardComponent } from '../listing-card/listing-card.component';
 import { CommonModule } from '@angular/common';
-import { IListing } from '../../models/listings';
-import { Router } from '@angular/router';
+import { IListingWithDetails } from '../../models/listings';
 
 @Component({
   selector: 'app-listing-list',
@@ -15,11 +14,5 @@ import { Router } from '@angular/router';
   styleUrl: './listing-list.component.scss'
 })
 export class ListingListComponent {
-  @Input() listings: IListing[] = [];
-
-  constructor(private readonly router: Router) {}
-
-  onViewDetails(listingId: number): void {
-    this.router.navigate(['/listing', listingId]);
-  }
+  listings = input<IListingWithDetails[]>([]);
 }

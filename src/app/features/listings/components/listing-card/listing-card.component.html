@@ -2,30 +2,30 @@
     <div class="card-img-wrapper">
         <img 
             class="card-img-top" 
-            src="/images/msi.jpg" 
+            [src]="listing()?.blobUrls?.[0] || '/images/msi.jpg'" 
             (click)="onViewDetails()" 
             (keydown.enter)="onViewDetails()" 
             tabindex="0" 
-            alt="Image of {{ listing.name }}"
+            alt="Image of {{ listing()!.name }}"
         />
-        <ul class="list-inline text-center member-icons animate">
+        <ul class="list-inline text-center member-icons animate btn-sm">
         <li class="list-inline-item">
               <button class="btn btn-primary red-button" (click)="onViewDetails()" (keydown.enter)="onViewDetails()">
                 <i class="bi bi-info-circle"></i>
             </button>
         </li>
         <li class="list-inline-item">
-            <button class="btn btn-primary red-button">
-                <i class="bi bi-person-lines-fill"></i>
+            <button class="btn btn-primary red-button btn-sm">
+                <i class="bi bi-bag-plus-fill"></i>
             </button>
         </li>
         </ul>
     </div>
 
     <div class="card-body p-1 mt-3" style="text-align: center">
-        <h2> {{listing.name}} </h2>
-        <h5> {{listing.category.name}} </h5>
-        <h5><span class="font-highlight">£{{listing.price}}</span></h5>
+        <h2> {{listing()!.name}} </h2>
+        <h5> {{listing()!.category.name}} </h5>
+        <h5><span class="font-highlight">£{{listing()!.price}}</span></h5>
         <p-rating 
             value="4"
             [readonly]="true" 

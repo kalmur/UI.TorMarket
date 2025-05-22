@@ -1,27 +1,49 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { firstValueFrom } from 'rxjs';
 import { UrlProviderService } from './url-provider.service';
-import { IListing } from '../../features/listings/models/listings';
+import { IDatabaseUser } from '../models/user';
+import { ToastrService } from 'ngx-toastr';
+import { AuthHelperService } from '../auth/services/auth-helper.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  constructor(
-    private readonly httpClient: HttpClient,
-    private readonly urlProvider: UrlProviderService
-  ) {}
+  private readonly authHelperService = inject(AuthHelperService);
+  private readonly urlProvider = inject(UrlProviderService);
+  private readonly httpClient = inject(HttpClient);
+  private readonly toastr = inject(ToastrService);
 
-  // Create return type for this
-  createUserInDatabase(providerId: string): Observable<IListing> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  async createUserInDatabase(providerId: string | undefined): Promise<IDatabaseUser> {
     const url = `${this.urlProvider.createUser}/${providerId}`;
 
-    return this.httpClient.post<IListing>(
-      url, 
-      {}, 
-      { headers }
-    );
+    try {
+      return await firstValueFrom(this.httpClient.post<IDatabaseUser>(url, {}));
+    } catch (error) {
+      this.toastr.error("Failed to create user in database");
+      throw error;
+    }
+  }
+
+  async fetchUserId(): Promise<number> {
+    const user = this.authHelperService.user();
+    if (user && user.sub) {
+      const dbUser = await this.getUserByProviderId(user.sub);
+      return dbUser.userId;
+    } else {
+      throw new Error('User not found');
+    }
+  }
+
+  private async getUserByProviderId(providerId: string): Promise<IDatabaseUser> {
+    const url = this.urlProvider.getUserByProviderId(providerId);
+
+    try {
+      return await firstValueFrom(this.httpClient.get<IDatabaseUser>(url));
+    } catch (error) {
+      this.toastr.error("Failed to get user by provider ID");
+      throw error;
+    }
   }
 }

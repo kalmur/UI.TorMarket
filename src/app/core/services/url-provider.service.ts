@@ -10,10 +10,16 @@ export class UrlProviderService {
   private readonly userEndpoint = `${this.baseUrl}/users`;
   private readonly listingEndpoint = `${this.baseUrl}/listings`;
   private readonly listingCategoryEndpoint = `${this.baseUrl}/categories`;
+  private readonly blobEndpoint = `${this.baseUrl}/blob`;
 
   // Users
   get createUser(): string {
     return this.userEndpoint;
+  }
+
+  get getUserByProviderId(): (providerId: string) => string {
+    return (providerId: string) => 
+      `${this.userEndpoint}/${providerId}`;
   }
 
   // Listings
@@ -45,6 +51,11 @@ export class UrlProviderService {
       `${this.listingEndpoint}/user/${providerId}`;
   }
 
+  get updateListingBlobUrls(): (listingId: number) => string {
+    return (listingId: number) => 
+      `${this.listingEndpoint}/blob/${listingId}`;
+  }
+
   // Categories
   get getAllListingCategories(): string {
     return this.listingCategoryEndpoint;
@@ -52,5 +63,10 @@ export class UrlProviderService {
 
   get getListingCategoryByName(): string {
     return this.listingCategoryEndpoint + '/name';
+  }
+
+  // Files
+  get uploadFileToBlob(): string {
+    return `${this.blobEndpoint}/upload`;
   }
 }

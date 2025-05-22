@@ -1,108 +1,111 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { catchError, map, Observable, throwError } from 'rxjs';
+import { inject, Injectable } from '@angular/core';
+import { firstValueFrom } from 'rxjs';
 import { UrlProviderService } from '../../../core/services/url-provider.service';
 import { ToastrService } from 'ngx-toastr';
-import { ICreateListingResponse, ICreateListingRequest, IListing } from '../models/listings';
-import { LoggingService } from '../../../core/services/logging.service';
+import { ICreateListingResponse, ICreateListingRequest, IListingWithDetails } from '../models/listings';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ListingService {
-  constructor(
-    private readonly httpClient: HttpClient,
-    private readonly urlProvider: UrlProviderService,
-    private readonly toastr: ToastrService,
-    private readonly logger: LoggingService
-  ) {}
+  private readonly httpClient = inject(HttpClient);
+  private readonly urlProvider = inject(UrlProviderService);
+  private readonly toastr = inject(ToastrService);
 
-  getListings(): Observable<IListing[]> {
+  async getListings(): Promise<IListingWithDetails[]> {
     const endPoint = this.urlProvider.getListings;
-  
-    return this.httpClient
-      .get<IListing[]>(endPoint)
-      .pipe(
-        catchError(error => 
-          throwError(() => 
-            this.logger.log('get listings', error)
-          )
-        )
-      );
+
+    return await firstValueFrom(
+      this.httpClient.get<IListingWithDetails[]>(endPoint)
+    ).catch((error) => {
+        this.toastr.error('Failed to get listings');
+        throw error;
+      }
+    );
   }
 
-  getListingById(id: number): Observable<IListing> {
+  async getListingById(id: number): Promise<IListingWithDetails> {
     const endPoint = this.urlProvider.getListingById(id);
   
-    return this.httpClient
-      .get<IListing>(endPoint)
-      .pipe(
-        catchError(error => 
-          throwError(() => 
-            this.logger.log('get listing by ID request', error)
-          )
-        )
-      );
+    return await firstValueFrom(
+      this.httpClient.get<IListingWithDetails>(endPoint)
+    ).catch((error) => {
+        this.toastr.error('Failed to get listing by ID');
+        throw error;
+      }
+    );
   }
 
-  getListingBySearchTerm(searchTerm: string): Observable<IListing[]> {
+  async getListingBySearchTerm(searchTerm: string): Promise<IListingWithDetails[]> {
     const endPoint = this.urlProvider.getListingBySearchTerm(searchTerm);
   
-    return this.httpClient
-      .get<IListing[]>(endPoint)
-      .pipe(
-        catchError(error => 
-          throwError(() => 
-            this.logger.log('get listings by search term', error)
-          )
-        )
-      );
+    return await firstValueFrom(
+      this.httpClient.get<IListingWithDetails[]>(endPoint)
+    ).catch((error) => {
+        this.toastr.error('Failed to get listings by search term');
+        throw error;
+      }
+    );
   }
 
-  getListingsByCategoryName(categoryName: string): Observable<IListing[]> {
+  async getListingsByCategoryName(categoryName: string): Promise<IListingWithDetails[]> {
     const endPoint = this.urlProvider.getListingsByCategoryName(categoryName);
-
-    return this.httpClient
-      .get<IListing[]>(endPoint)
-      .pipe(
-        catchError(error => 
-          throwError(
-            this.logger.log('get listing by category request', error)
-          )
-        )
+  
+    return await firstValueFrom(
+      this.httpClient.get<IListingWithDetails[]>(endPoint)
+    ).catch((error) => {
+        this.toastr.error('Failed to get listings by category name');
+        throw error;
+      }
     );
   }
 
-  getListingsByProviderId(providerId: string): Observable<IListing[]> {
+  async getListingsByProviderId(providerId: string): Promise<IListingWithDetails[]> {
     const endPoint = this.urlProvider.getListingsByProviderId(providerId);
-
-    return this.httpClient
-      .get<IListing[]>(endPoint)
-      .pipe(
-        catchError(error => 
-          throwError(
-            this.logger.log('get listing by category request', error)
-          )
-        )
+  
+    return await firstValueFrom(
+      this.httpClient.get<IListingWithDetails[]>(endPoint)
+    ).catch((error) => {
+        this.toastr.error('Failed to get listings by ProviderId');
+        throw error;
+      }
     );
   }
 
-  createListing(listing: ICreateListingRequest): Observable<ICreateListingResponse> {
+  async createListing(listing: ICreateListingRequest): Promise<ICreateListingResponse> {
     const endPoint = this.urlProvider.createListing;
   
-    return this.httpClient
-      .post<ICreateListingResponse>(endPoint, listing)
-      .pipe(
-        map(response => {
-          this.toastr.success('Listing created successfully');
-          return response;
-        }),
-        catchError(error => {
-          this.toastr.error('Failed to create listing');
-          return throwError(() => 
-            this.logger.log('create listing', error)
-          );
-        })
-      );
+    return await firstValueFrom(
+      this.httpClient.post<ICreateListingResponse>(endPoint, listing)
+    ).catch((error) => {
+        this.toastr.success('Listing created successfully');
+        return error;
+      }
+    )
+  }
+
+  async uploadFileToBlob(formData: FormData): Promise<string> {
+    const endPoint = this.urlProvider.uploadFileToBlob;
+
+    return await firstValueFrom(
+      this.httpClient.post<string>(endPoint, formData)
+    ).catch((error) => {
+        this.toastr.error('Failed to upload files');
+        throw error;
+      }
+    );
+  }
+
+  async updateListingBlobUrls(listingId: number, blobUrl: string): Promise<void> {
+    const endpoint = this.urlProvider.updateListingBlobUrls(listingId);
+    const body = { blobUrl };
+    return await firstValueFrom(
+      this.httpClient.put<void>(endpoint, body)
+    ).catch((error) => {
+        this.toastr.error('Failed to update files');
+        throw error;
+      }
+    );
   }
 }
