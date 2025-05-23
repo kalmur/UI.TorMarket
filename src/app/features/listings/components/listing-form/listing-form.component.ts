@@ -8,7 +8,6 @@ import { ListingService } from '../../services/listing.service';
 import { ToastrService } from 'ngx-toastr';
 import { ListingCategoryService } from '../../../categories/services/listing-category.service';
 import { ICategory } from '../../../../core/models/categories';
-import { AuthHelperService } from '../../../../core/auth/services/auth-helper.service';
 import { UserService } from '../../../../core/services/user.service';
 import { Router } from '@angular/router';
 
@@ -26,7 +25,6 @@ import { Router } from '@angular/router';
 })
 export class ListingFormComponent implements OnInit {
   private readonly fb: FormBuilder = inject(FormBuilder);
-  private readonly authHelperService: AuthHelperService = inject(AuthHelperService);
   private readonly userService: UserService = inject(UserService);
   private readonly listingService: ListingService = inject(ListingService);
   private readonly listingCategoryService: ListingCategoryService = inject(ListingCategoryService);
@@ -85,7 +83,7 @@ export class ListingFormComponent implements OnInit {
   }
 
   // Private methods
-
+  
   private initializeForm(): FormGroup {
     return this.fb.group({
       name: ['', Validators.required],
