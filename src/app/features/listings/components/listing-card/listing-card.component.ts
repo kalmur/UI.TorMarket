@@ -2,7 +2,7 @@ import { Component, inject, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RatingModule } from 'primeng/rating';
 import { FormsModule } from '@angular/forms';
-import { IListingWithDetails } from '../../models/listings';
+import { ListingWithDetails } from '../../models/listings';
 import { Router } from '@angular/router';
 
 @Component({
@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
 export class ListingCardComponent {
   private readonly router = inject(Router);
 
-  listing = input<IListingWithDetails>();
+  listing = input<ListingWithDetails>();
 
   onViewDetails(): void {
     this.router.navigate(['/listing', this.listing()!.listingId]);

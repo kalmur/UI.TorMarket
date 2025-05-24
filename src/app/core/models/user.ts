@@ -1,4 +1,4 @@
-export interface IDatabaseUser {
+export interface DatabaseUser {
     userId: number;
     providerId: string;
 }

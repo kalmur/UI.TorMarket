@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { UrlProviderService } from './url-provider.service';
-import { IDatabaseUser } from '../models/user';
+import { DatabaseUser } from '../models/user';
 import { ToastrService } from 'ngx-toastr';
 import { AuthHelperService } from '../auth/services/auth-helper.service';
 
@@ -15,11 +15,11 @@ export class UserService {
   private readonly httpClient = inject(HttpClient);
   private readonly toastr = inject(ToastrService);
 
-  async createUserInDatabase(providerId: string | undefined): Promise<IDatabaseUser> {
+  async createUserInDatabase(providerId: string | undefined): Promise<DatabaseUser> {
     const url = `${this.urlProvider.createUser}/${providerId}`;
 
     try {
-      return await firstValueFrom(this.httpClient.post<IDatabaseUser>(url, {}));
+      return await firstValueFrom(this.httpClient.post<DatabaseUser>(url, {}));
     } catch (error) {
       this.toastr.error("Failed to create user in database");
       throw error;
@@ -36,11 +36,11 @@ export class UserService {
     }
   }
 
-  private async getUserByProviderId(providerId: string): Promise<IDatabaseUser> {
+  private async getUserByProviderId(providerId: string): Promise<DatabaseUser> {
     const url = this.urlProvider.getUserByProviderId(providerId);
 
     try {
-      return await firstValueFrom(this.httpClient.get<IDatabaseUser>(url));
+      return await firstValueFrom(this.httpClient.get<DatabaseUser>(url));
     } catch (error) {
       this.toastr.error("Failed to get user by provider ID");
       throw error;

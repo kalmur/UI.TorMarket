@@ -1,7 +1,7 @@
-import { ICategory } from "../../../core/models/categories";
-import { IDatabaseUser } from "../../../core/models/user";
+import { Category } from "../../../core/models/categories";
+import { DatabaseUser } from "../../../core/models/user";
 
-export interface IListing {
+export interface Listing {
     listingId: number;
     userId: number;
     categoryId: number;
@@ -11,12 +11,12 @@ export interface IListing {
     blobUrls?: string[];
 }
 
-export interface IListingWithDetails extends IListing {
-    user: IDatabaseUser;
-    category: ICategory;
+export interface ListingWithDetails extends Listing {
+    user: DatabaseUser;
+    category: Category;
 }
 
-export interface ICreateListingRequest {
+export interface CreateListingRequest {
     userId: number;
     name: string;
     categoryId: number;
@@ -25,7 +25,7 @@ export interface ICreateListingRequest {
     filePaths?: string[];
 }
 
-export interface ICreateListingResponse {
+export interface CreateListingResponse {
     listingId: number;
     categoryId: number;
     name: string;
@@ -33,7 +33,7 @@ export interface ICreateListingResponse {
     description: string;
 }
 
-export interface ICreateListingFormDetails {
+export interface CreateListingFormDetails {
     name: string;
     category: number;
     price: number;

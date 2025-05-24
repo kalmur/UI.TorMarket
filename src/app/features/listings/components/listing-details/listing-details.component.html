@@ -51,14 +51,9 @@
         <app-listing-review-list></app-listing-review-list>
       </div>
       <div class="w-full lg:w-1/2 flex flex-col items-start">
-        <h4 class="text-xl font-semibold mb-4">Leave a Comment</h4>
-        <textarea
-          class="w-full p-3 rounded-lg text-white mb-4 border-1 border-white focus:outline-none focus:border-white"
-          rows="5"
-        ></textarea>
-        <button class="bg-blue-600 hover:bg-blue-800 text-white font-semibold rounded-lg py-2 px-6 self-end">
-          Submit
-        </button>
+        <div class="w-full">
+          <app-listing-review-form [listingId]="listingId"></app-listing-review-form>
+        </div>
       </div>
     </div>
   </div>

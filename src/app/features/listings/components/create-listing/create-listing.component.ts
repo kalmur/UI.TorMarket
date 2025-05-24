@@ -2,7 +2,7 @@ import { Component, model, signal } from '@angular/core';
 import { ListingFormComponent } from '../listing-form/listing-form.component';
 import { NavBarComponent } from '../../../../core/components/nav-bar/nav-bar.component';
 import { ListingFormPreviewComponent } from '../listing-form-preview/listing-form-preview.component';
-import { ICreateListingFormDetails } from '../../models/listings';
+import { CreateListingFormDetails } from '../../models/listings';
 
 @Component({
   selector: 'app-create-listing',
@@ -16,7 +16,7 @@ import { ICreateListingFormDetails } from '../../models/listings';
   styleUrl: './create-listing.component.scss'
 })
 export class CreateListingComponent {
-  listing = model<ICreateListingFormDetails>({
+  listing = model<CreateListingFormDetails>({
     name: '',
     category: 0,
     price: 0,
@@ -25,7 +25,7 @@ export class CreateListingComponent {
   
   imagePreviewUrl = signal<string | null>(null);
 
-  onListingChanged(listing: ICreateListingFormDetails): void {
+  onListingChanged(listing: CreateListingFormDetails): void {
     this.listing.set(listing);
   }
 

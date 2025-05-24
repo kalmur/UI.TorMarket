@@ -1,24 +1,25 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { UrlProviderService } from '../../../core/services/url-provider.service';
-import { firstValueFrom } from 'rxjs';
-import { Category } from '../../../core/models/categories';
 import { ToastrService } from 'ngx-toastr';
+import { firstValueFrom } from 'rxjs';
+import { CreateReviewRequest } from '../models/reviews';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ListingCategoryService {
+export class ReviewService {
   private readonly httpClient = inject(HttpClient);
   private readonly urlProvider = inject(UrlProviderService);
   private readonly toastr = inject(ToastrService);
 
-  async getAllListingCategories(): Promise<Category[]> {
-    const endPoint = this.urlProvider.getAllListingCategories;
+  async createListingReview(review: CreateReviewRequest) : Promise<void> {
+    const endpoint = this.urlProvider.createListingReview;
 
-    return firstValueFrom(this.httpClient.get<Category[]>(endPoint))
-      .catch((error) => {
-        this.toastr.error('Failed to get all listing categories');
+    return await firstValueFrom(
+      this.httpClient.post<void>(endpoint, review)
+    ).catch((error) => {
+        this.toastr.error('Failed to get listings');
         throw error;
       }
     );

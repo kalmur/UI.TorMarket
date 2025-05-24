@@ -11,6 +11,7 @@ export class UrlProviderService {
   private readonly listingEndpoint = `${this.baseUrl}/listings`;
   private readonly listingCategoryEndpoint = `${this.baseUrl}/categories`;
   private readonly blobEndpoint = `${this.baseUrl}/blob`;
+  private readonly reviewEndpoint = `${this.baseUrl}/reviews`;
 
   // Users
   get createUser(): string {
@@ -68,5 +69,10 @@ export class UrlProviderService {
   // Files
   get uploadFileToBlob(): string {
     return `${this.blobEndpoint}/upload`;
+  }
+
+  // Reviews
+  get createListingReview(): string {
+    return this.reviewEndpoint;
   }
 }

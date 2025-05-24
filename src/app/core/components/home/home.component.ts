@@ -2,7 +2,7 @@ import { Component, inject, input, model, OnInit } from '@angular/core';
 import { NavBarComponent } from '../nav-bar/nav-bar.component';
 import { ListingListComponent } from '../../../features/listings/components/listing-list/listing-list.component';
 import { ListingService } from '../../../features/listings/services/listing.service';
-import { IListingWithDetails } from '../../../features/listings/models/listings';
+import { ListingWithDetails } from '../../../features/listings/models/listings';
 import { FooterComponent } from '../footer/footer.component';
 
 @Component({
@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
   private readonly listingService = inject(ListingService);
 
   title = model<string>('Best sellers');
-  listings = model<IListingWithDetails[]>([]);
+  listings = model<ListingWithDetails[]>([]);
   searchTerm = model<string>('');
   categoryName = input<string>('');
 

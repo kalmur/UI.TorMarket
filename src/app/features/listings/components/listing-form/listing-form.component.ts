@@ -3,11 +3,11 @@ import { Component, inject, model, OnInit, output, signal } from '@angular/core'
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { ICreateListingRequest, ICreateListingFormDetails, ICreateListingResponse } from '../../models/listings';
+import { CreateListingRequest, CreateListingFormDetails, CreateListingResponse } from '../../models/listings';
 import { ListingService } from '../../services/listing.service';
 import { ToastrService } from 'ngx-toastr';
 import { ListingCategoryService } from '../../../categories/services/listing-category.service';
-import { ICategory } from '../../../../core/models/categories';
+import { Category } from '../../../../core/models/categories';
 import { UserService } from '../../../../core/services/user.service';
 import { Router } from '@angular/router';
 
@@ -31,8 +31,8 @@ export class ListingFormComponent implements OnInit {
   private readonly router: Router = inject(Router);
   private readonly toastr: ToastrService = inject(ToastrService);
 
-  categories = model<ICategory[]>([]);
-  listingChange = output<ICreateListingFormDetails>();
+  categories = model<Category[]>([]);
+  listingChange = output<CreateListingFormDetails>();
   selectedFile = signal<File | null>(null);
   imagePreviewUrlChange = output<string | null>();
 
@@ -104,7 +104,7 @@ export class ListingFormComponent implements OnInit {
     this.categories.set(categories);
   }
 
-  private async createListing(): Promise<ICreateListingResponse> {
+  private async createListing(): Promise<CreateListingResponse> {
     const userId = await this.userService.fetchUserId();
 
     // TODO - Down the line, we should be fetching by categoryName
@@ -112,7 +112,7 @@ export class ListingFormComponent implements OnInit {
       category.name === this.listingFormGroup.value.category
     )!.categoryId;
 
-    const request: ICreateListingRequest = {
+    const request: CreateListingRequest = {
       userId: userId,
       name: this.listingFormGroup.value.name,
       categoryId: selectedCategoryId,

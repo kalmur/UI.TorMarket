@@ -3,7 +3,7 @@ import { Component, inject, model, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthHelperService } from '../../auth/services/auth-helper.service';
 import { ListingCategoryService } from '../../../features/categories/services/listing-category.service';
-import { ICategory } from '../../models/categories';
+import { Category } from '../../models/categories';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 
@@ -21,10 +21,10 @@ export class NavBarComponent implements OnInit {
   private readonly listingCategoryService = inject(ListingCategoryService);
   private readonly router = inject(Router);
 
-  private static cachedCategories: ICategory[] = [];
+  private static cachedCategories: Category[] = [];
 
   searchTerm = model<string>('');
-  categories = model<ICategory[]>([]);
+  categories = model<Category[]>([]);
 
   ngOnInit(): void {
     this.fetchOrReturnCachedCategories();

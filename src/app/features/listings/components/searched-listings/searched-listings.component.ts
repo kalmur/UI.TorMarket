@@ -1,7 +1,7 @@
 import { Component, inject, model, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HomeComponent } from '../../../../core/components/home/home.component';
-import { IListingWithDetails } from '../../models/listings';
+import { ListingWithDetails } from '../../models/listings';
 import { ListingService } from '../../services/listing.service';
 
 @Component({
@@ -18,7 +18,7 @@ export class SearchedListingsComponent implements OnInit {
   private readonly listingService: ListingService = inject(ListingService);
 
   searchTerm = model<string>('');
-  listings = model<IListingWithDetails[]>([]); 
+  listings = model<ListingWithDetails[]>([]); 
 
   title = 'Searched Listings';
 

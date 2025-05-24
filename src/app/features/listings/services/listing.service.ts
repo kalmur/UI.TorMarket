@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { UrlProviderService } from '../../../core/services/url-provider.service';
 import { ToastrService } from 'ngx-toastr';
-import { ICreateListingResponse, ICreateListingRequest, IListingWithDetails } from '../models/listings';
+import { CreateListingResponse, CreateListingRequest, ListingWithDetails } from '../models/listings';
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +13,11 @@ export class ListingService {
   private readonly urlProvider = inject(UrlProviderService);
   private readonly toastr = inject(ToastrService);
 
-  async getListings(): Promise<IListingWithDetails[]> {
-    const endPoint = this.urlProvider.getListings;
+  async getListings(): Promise<ListingWithDetails[]> {
+    const endpoint = this.urlProvider.getListings;
 
     return await firstValueFrom(
-      this.httpClient.get<IListingWithDetails[]>(endPoint)
+      this.httpClient.get<ListingWithDetails[]>(endpoint)
     ).catch((error) => {
         this.toastr.error('Failed to get listings');
         throw error;
@@ -25,11 +25,11 @@ export class ListingService {
     );
   }
 
-  async getListingById(id: number): Promise<IListingWithDetails> {
-    const endPoint = this.urlProvider.getListingById(id);
+  async getListingById(id: number): Promise<ListingWithDetails> {
+    const endpoint = this.urlProvider.getListingById(id);
   
     return await firstValueFrom(
-      this.httpClient.get<IListingWithDetails>(endPoint)
+      this.httpClient.get<ListingWithDetails>(endpoint)
     ).catch((error) => {
         this.toastr.error('Failed to get listing by ID');
         throw error;
@@ -37,11 +37,11 @@ export class ListingService {
     );
   }
 
-  async getListingBySearchTerm(searchTerm: string): Promise<IListingWithDetails[]> {
-    const endPoint = this.urlProvider.getListingBySearchTerm(searchTerm);
+  async getListingBySearchTerm(searchTerm: string): Promise<ListingWithDetails[]> {
+    const endpoint = this.urlProvider.getListingBySearchTerm(searchTerm);
   
     return await firstValueFrom(
-      this.httpClient.get<IListingWithDetails[]>(endPoint)
+      this.httpClient.get<ListingWithDetails[]>(endpoint)
     ).catch((error) => {
         this.toastr.error('Failed to get listings by search term');
         throw error;
@@ -49,11 +49,11 @@ export class ListingService {
     );
   }
 
-  async getListingsByCategoryName(categoryName: string): Promise<IListingWithDetails[]> {
+  async getListingsByCategoryName(categoryName: string): Promise<ListingWithDetails[]> {
     const endPoint = this.urlProvider.getListingsByCategoryName(categoryName);
   
     return await firstValueFrom(
-      this.httpClient.get<IListingWithDetails[]>(endPoint)
+      this.httpClient.get<ListingWithDetails[]>(endPoint)
     ).catch((error) => {
         this.toastr.error('Failed to get listings by category name');
         throw error;
@@ -61,11 +61,11 @@ export class ListingService {
     );
   }
 
-  async getListingsByProviderId(providerId: string): Promise<IListingWithDetails[]> {
-    const endPoint = this.urlProvider.getListingsByProviderId(providerId);
+  async getListingsByProviderId(providerId: string): Promise<ListingWithDetails[]> {
+    const endpoint = this.urlProvider.getListingsByProviderId(providerId);
   
     return await firstValueFrom(
-      this.httpClient.get<IListingWithDetails[]>(endPoint)
+      this.httpClient.get<ListingWithDetails[]>(endpoint)
     ).catch((error) => {
         this.toastr.error('Failed to get listings by ProviderId');
         throw error;
@@ -73,11 +73,11 @@ export class ListingService {
     );
   }
 
-  async createListing(listing: ICreateListingRequest): Promise<ICreateListingResponse> {
-    const endPoint = this.urlProvider.createListing;
+  async createListing(listing: CreateListingRequest): Promise<CreateListingResponse> {
+    const endpoint = this.urlProvider.createListing;
   
     return await firstValueFrom(
-      this.httpClient.post<ICreateListingResponse>(endPoint, listing)
+      this.httpClient.post<CreateListingResponse>(endpoint, listing)
     ).catch((error) => {
         this.toastr.success('Listing created successfully');
         return error;
@@ -86,10 +86,10 @@ export class ListingService {
   }
 
   async uploadFileToBlob(formData: FormData): Promise<string> {
-    const endPoint = this.urlProvider.uploadFileToBlob;
+    const endpoint = this.urlProvider.uploadFileToBlob;
 
     return await firstValueFrom(
-      this.httpClient.post<string>(endPoint, formData)
+      this.httpClient.post<string>(endpoint, formData)
     ).catch((error) => {
         this.toastr.error('Failed to upload files');
         throw error;
@@ -99,7 +99,9 @@ export class ListingService {
 
   async updateListingBlobUrls(listingId: number, blobUrl: string): Promise<void> {
     const endpoint = this.urlProvider.updateListingBlobUrls(listingId);
+
     const body = { blobUrl };
+    
     return await firstValueFrom(
       this.httpClient.put<void>(endpoint, body)
     ).catch((error) => {

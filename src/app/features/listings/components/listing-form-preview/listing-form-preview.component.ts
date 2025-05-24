@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, input } from '@angular/core';
-import { ICreateListingFormDetails } from '../../models/listings';
+import { CreateListingFormDetails } from '../../models/listings';
 
 @Component({
   selector: 'app-listing-form-preview',
@@ -10,6 +10,6 @@ import { ICreateListingFormDetails } from '../../models/listings';
   styleUrl: './listing-form-preview.component.scss'
 })
 export class ListingFormPreviewComponent {
-  listing = input<ICreateListingFormDetails>();
+  listing = input<CreateListingFormDetails>();
   imagePreviewUrl = input<string | null>(null);
 }

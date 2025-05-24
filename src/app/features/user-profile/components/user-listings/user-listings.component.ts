@@ -1,6 +1,6 @@
 import { Component, inject, model, OnInit } from '@angular/core';
 import { HomeComponent } from '../../../../core/components/home/home.component';
-import { IListingWithDetails } from '../../../listings/models/listings';
+import { ListingWithDetails } from '../../../listings/models/listings';
 import { ListingService } from '../../../listings/services/listing.service';
 import { AuthHelperService } from '../../../../core/auth/services/auth-helper.service';
 
@@ -15,7 +15,7 @@ export class UserListingsComponent implements OnInit {
   private readonly listingService = inject(ListingService);
   private readonly authHelperService = inject(AuthHelperService);
 
-  listings = model<IListingWithDetails[]>([]); 
+  listings = model<ListingWithDetails[]>([]); 
 
   title = 'My listings';
 
