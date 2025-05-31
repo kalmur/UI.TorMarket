@@ -107,15 +107,14 @@ export class ListingFormComponent implements OnInit {
   private async createListing(): Promise<CreateListingResponse> {
     const userId = await this.userService.fetchUserId();
 
-    // TODO - Down the line, we should be fetching by categoryName
-    const selectedCategoryId = this.categories().find(category => 
+    const selectedCategory = this.categories().find(category => 
       category.name === this.listingFormGroup.value.category
-    )!.categoryId;
+    )!.name;
 
     const request: CreateListingRequest = {
       userId: userId,
-      name: this.listingFormGroup.value.name,
-      categoryId: selectedCategoryId,
+      categoryName: selectedCategory,
+      listingName: this.listingFormGroup.value.name,
       price: this.listingFormGroup.value.price,
       description: this.listingFormGroup.value.description
     };

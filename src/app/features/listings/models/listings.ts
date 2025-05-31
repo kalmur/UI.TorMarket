@@ -8,18 +8,23 @@ export interface Listing {
     name: string;
     price: number;
     description?: string;
-    blobUrls?: string[];
 }
 
 export interface ListingWithDetails extends Listing {
     user: DatabaseUser;
     category: Category;
+    listingBlobs: ListingBlob[];
+}
+
+export interface ListingBlob {
+    url: string;
+    isPrimary: boolean;
 }
 
 export interface CreateListingRequest {
     userId: number;
-    name: string;
-    categoryId: number;
+    categoryName: string;
+    listingName: string;
     price: number;
     description: string;
     filePaths?: string[];
