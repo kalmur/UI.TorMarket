@@ -29,14 +29,15 @@ export class ListingDetailsComponent implements OnInit {
 
   listing: ListingWithDetails | null = null;
   listingId: number | null = null;
+  primaryImageUrl: string | undefined;
 
   ngOnInit(): void {
     const listingIdFromUrl = this.route.snapshot.paramMap.get('id');
     const listingId = listingIdFromUrl 
       ? +listingIdFromUrl 
       : null;
-
     this.listingId = listingId;
+
     if (listingIdFromUrl) {
       this.fetchListingDetails(+listingIdFromUrl);
     }
@@ -45,5 +46,6 @@ export class ListingDetailsComponent implements OnInit {
   private async fetchListingDetails(listingId: number): Promise<void> {
     const listing = await this.listingService.getListingById(listingId);
     this.listing = listing;
+    this.primaryImageUrl = listing.listingBlobs?.find(blob => blob.isPrimary)?.url;
   }
 }

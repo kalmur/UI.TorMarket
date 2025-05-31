@@ -17,6 +17,10 @@ export class ListingCardComponent {
 
   listing = input<ListingWithDetails>();
 
+  get primaryImageUrl(): string | undefined {
+    return this.listing()?.listingBlobs?.find(blob => blob.isPrimary)?.url;
+  }
+
   onViewDetails(): void {
     this.router.navigate(['/listing', this.listing()!.listingId]);
   }
