@@ -26,17 +26,7 @@ export class UserService {
     }
   }
 
-  async fetchUserId(): Promise<number> {
-    const user = this.authHelperService.user();
-    if (user && user.sub) {
-      const dbUser = await this.getUserByProviderId(user.sub);
-      return dbUser.userId;
-    } else {
-      throw new Error('User not found');
-    }
-  }
-
-  private async getUserByProviderId(providerId: string): Promise<DatabaseUser> {
+  async getByProviderId(providerId: string): Promise<DatabaseUser> {
     const url = this.urlProvider.getUserByProviderId(providerId);
 
     try {
@@ -44,6 +34,16 @@ export class UserService {
     } catch (error) {
       this.toastr.error("Failed to get user by provider ID");
       throw error;
+    }
+  }
+
+  async fetchUserId(): Promise<number> {
+    const user = this.authHelperService.user();
+    if (user && user.sub) {
+      const dbUser = await this.getByProviderId(user.sub);
+      return dbUser.userId;
+    } else {
+      throw new Error('User not found');
     }
   }
 }
