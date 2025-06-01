@@ -29,18 +29,9 @@ export class NavBarComponent implements OnInit {
 
   constructor() {
     effect(() => {
-      const user = this.authHelperService.user();
-      if (user?.sub) {
-        this.userService.getByProviderId(user.sub).then((userFromDb) => {
-          // Change to better check later
-          this.loggedInAsAdmin.set(userFromDb?.roleId === 1);
-        });
-      } else {
-        this.loggedInAsAdmin.set(false);
-      }
+      this.checkAndSetAdminStatus();
     }, { allowSignalWrites: true });
   }
-
 
   ngOnInit(): void {
     this.fetchOrReturnCachedCategories();
@@ -86,6 +77,7 @@ export class NavBarComponent implements OnInit {
     }
   }
 
+  // Private methods
   private async fetchOrReturnCachedCategories(): Promise<void> {
     if (NavBarComponent.cachedCategories.length > 0) {
       this.categories.set(NavBarComponent.cachedCategories);
@@ -95,5 +87,15 @@ export class NavBarComponent implements OnInit {
     const response = await this.listingCategoryService.getAllListingCategories();
     NavBarComponent.cachedCategories = response;
     this.categories.set(response);
+  }
+
+  private async checkAndSetAdminStatus(): Promise<void> {
+    const user = this.authHelperService.user();
+    if (user && user.sub) {
+      const userFromDb = await this.userService.getByProviderId(user.sub);
+      this.loggedInAsAdmin.set(userFromDb?.roleId === 1);
+    } else {
+      this.loggedInAsAdmin.set(false);
+    }
   }
 }
