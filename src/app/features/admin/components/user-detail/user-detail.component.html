@@ -1,0 +1,5 @@
+<div *ngIf="user() as user" class="text-center p-8 rounded-lg shadow-lg bg-[var(--primary-bg-color)] text-white">
+  <img [src]="user.picture" alt="User Picture" class="w-24 h-24 rounded-full mx-auto object-cover mb-5" />
+  <p class="text-lg mb-2"> {{ user.name }}</p>
+  <p class="text-lg">{{ user.email }}</p>
+</div>

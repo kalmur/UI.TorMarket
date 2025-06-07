@@ -7,7 +7,7 @@
   </form>
   <div class="nav-items me-4">
     <li *ngIf="loggedInAsAdmin()">
-      <a  tabindex="0" role="button">
+      <a (click)="handleAdminNavigation()" (keydown.enter)="handleAdminNavigation()" tabindex="0" role="button">
         Admin
       </a>
     </li>

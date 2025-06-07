@@ -49,6 +49,10 @@ export class NavBarComponent implements OnInit {
     this.authHelperService.logout();
   }
 
+  handleAdminNavigation(): void {
+    this.router.navigate(['/admin']);
+  }
+
   handleSellNavigation(): void {
     this.authHelperService.navigateToSellPage();
   }

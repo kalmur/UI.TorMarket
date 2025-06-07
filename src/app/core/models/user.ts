@@ -3,3 +3,10 @@ export interface DatabaseUser {
     providerId: string;
     roleId: number;
 }
+
+export interface SiteUser {
+    id: number;
+    name: string;
+    email: string;
+    picture: string;
+}
