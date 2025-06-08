@@ -15,7 +15,6 @@ export class AuthHelperService {
 
   constructor() {
     this.authService.isAuthenticated$.subscribe(isAuthenticated => {
-
       if (isAuthenticated) {
         this.isAuthenticated.set(isAuthenticated);
         this.fetchAccessToken();
@@ -31,6 +30,7 @@ export class AuthHelperService {
 
   login(): void {
     this.authService.loginWithRedirect();
+    this.fetchAccessToken();
   }
 
   signUp(): void {
@@ -65,8 +65,12 @@ export class AuthHelperService {
     try {
       const token = await this.authService.getAccessTokenSilently().toPromise();
       this.accessToken.set(token ?? null);
+      if (token) {
+        sessionStorage.setItem('access_token', token);
+      }
     } catch {
       this.accessToken.set(null);
+      sessionStorage.removeItem('access_token');
     }
   }
 }
