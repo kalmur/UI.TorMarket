@@ -6,16 +6,12 @@
     <button type="submit" class="btn btn-outline-secondary"><i class="bi bi-search"></i></button>
   </form>
   <div class="nav-items me-4">
-    <li *ngIf="loggedInAsAdmin()">
-      <a (click)="handleAdminNavigation()" (keydown.enter)="handleAdminNavigation()" tabindex="0" role="button">
-        Admin
-      </a>
-    </li>
     <li>
       <a (click)="handleSellNavigation()" (keydown.enter)="handleSellNavigation()" tabindex="0" role="button">
         Sell
       </a>
     </li>
+    
     <li *ngIf="!authHelperService.isAuthenticated()">
       <a (click)="handleLogin()" (keydown.enter)="handleLogin()" tabindex="0" role="button">
         Login
@@ -24,6 +20,11 @@
     <li *ngIf="!authHelperService.isAuthenticated()">
       <a (click)="handleSignUp()" (keydown.enter)="handleSignUp()" tabindex="0" role="button">
         Register
+      </a>
+    </li>
+    <li *ngIf="loggedInAsAdmin()">
+      <a (click)="handleAdminNavigation()" (keydown.enter)="handleAdminNavigation()" tabindex="0" role="button">
+        Admin
       </a>
     </li>
     <li *ngIf="authHelperService.isAuthenticated()" class="nav-item dropdown me-4">
