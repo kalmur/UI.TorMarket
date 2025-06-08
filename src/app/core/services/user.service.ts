@@ -26,7 +26,7 @@ export class UserService {
     }
   }
 
-  async getByProviderId(providerId: string): Promise<DatabaseUser> {
+  async getUserByProviderId(providerId: string): Promise<DatabaseUser> {
     const url = this.urlProvider.getUserByProviderId(providerId);
 
     try {
@@ -37,10 +37,21 @@ export class UserService {
     }
   }
 
-  async fetchUserId(): Promise<number> {
+  async getAllUsers(): Promise<DatabaseUser[]> {
+    const url = this.urlProvider.getAllUsers;
+
+    try {
+      return await firstValueFrom(this.httpClient.get<DatabaseUser[]>(url));
+    } catch (error) {
+      this.toastr.error("Failed to fetch all users");
+      throw error;
+    }
+  }
+
+  async getUserId(): Promise<number> {
     const user = this.authHelperService.user();
     if (user && user.sub) {
-      const dbUser = await this.getByProviderId(user.sub);
+      const dbUser = await this.getUserByProviderId(user.sub);
       return dbUser.userId;
     } else {
       throw new Error('User not found');

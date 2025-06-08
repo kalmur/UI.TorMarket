@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { SiteUser } from '../../../../core/models/user';
+import { DatabaseUser } from '../../../../core/models/user';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -12,5 +12,6 @@ import { CommonModule } from '@angular/common';
   styleUrl: './user-detail.component.scss'
 })
 export class UserDetailComponent {
-    user = input<SiteUser>();
+  // Change to IdentityProviderUser later
+  user = input<DatabaseUser>();
 }

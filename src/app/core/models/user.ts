@@ -4,7 +4,7 @@ export interface DatabaseUser {
     roleId: number;
 }
 
-export interface SiteUser {
+export interface IdentityProviderUser {
     id: number;
     name: string;
     email: string;

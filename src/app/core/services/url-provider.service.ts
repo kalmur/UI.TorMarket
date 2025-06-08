@@ -18,6 +18,10 @@ export class UrlProviderService {
     return this.userEndpoint;
   }
 
+  get getAllUsers(): string {
+    return this.userEndpoint;
+  }
+
   get getUserByProviderId(): (providerId: string) => string {
     return (providerId: string) => 
       `${this.userEndpoint}/${providerId}`;

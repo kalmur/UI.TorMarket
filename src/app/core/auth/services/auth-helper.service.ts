@@ -9,12 +9,19 @@ export class AuthHelperService {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
 
-  isAuthenticated = signal(false);
   user = signal<User | null | undefined>(null);
+  isAuthenticated = signal(false);
+  accessToken = signal<string | null>(null);
 
   constructor() {
     this.authService.isAuthenticated$.subscribe(isAuthenticated => {
-      this.isAuthenticated.set(isAuthenticated);
+
+      if (isAuthenticated) {
+        this.isAuthenticated.set(isAuthenticated);
+        this.fetchAccessToken();
+      } else {
+        this.accessToken.set(null);
+      }
     });
 
     this.authService.user$.subscribe(user => {
@@ -51,6 +58,15 @@ export class AuthHelperService {
           action: 'sell' 
         } 
       });
+    }
+  }
+
+  private async fetchAccessToken(): Promise<void> {
+    try {
+      const token = await this.authService.getAccessTokenSilently().toPromise();
+      this.accessToken.set(token ?? null);
+    } catch {
+      this.accessToken.set(null);
     }
   }
 }

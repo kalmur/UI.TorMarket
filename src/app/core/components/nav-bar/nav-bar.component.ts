@@ -96,7 +96,7 @@ export class NavBarComponent implements OnInit {
   private async checkAndSetAdminStatus(): Promise<void> {
     const user = this.authHelperService.user();
     if (user && user.sub) {
-      const userFromDb = await this.userService.getByProviderId(user.sub);
+      const userFromDb = await this.userService.getUserByProviderId(user.sub);
       this.loggedInAsAdmin.set(userFromDb?.roleId === 1);
     } else {
       this.loggedInAsAdmin.set(false);
