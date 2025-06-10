@@ -1,6 +1,6 @@
 import { Component, inject, model } from '@angular/core';
 import { UserDetailComponent } from '../user-detail/user-detail.component';
-import { DatabaseUser, IdentityProviderUser } from '../../../../core/models/user';
+import { DatabaseUser } from '../../../../core/models/user';
 import { CommonModule } from '@angular/common';
 import { NavBarComponent } from '../../../../core/components/nav-bar/nav-bar.component';
 import { FooterComponent } from '../../../../core/components/footer/footer.component';
