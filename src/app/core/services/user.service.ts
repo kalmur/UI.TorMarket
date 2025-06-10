@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { UrlProviderService } from './url-provider.service';
-import { DatabaseUser } from '../models/user';
+import { CreateUserRequest, DatabaseUser } from '../models/user';
 import { ToastrService } from 'ngx-toastr';
 import { AuthHelperService } from '../auth/services/auth-helper.service';
 
@@ -15,11 +15,11 @@ export class UserService {
   private readonly httpClient = inject(HttpClient);
   private readonly toastr = inject(ToastrService);
 
-  async createUserInDatabase(providerId: string | undefined): Promise<DatabaseUser> {
-    const url = `${this.urlProvider.createUser}/${providerId}`;
+  async createUserInDatabase(createUserRequest: CreateUserRequest): Promise<DatabaseUser> {
+    const url = this.urlProvider.createUser;
 
     try {
-      return await firstValueFrom(this.httpClient.post<DatabaseUser>(url, {}));
+      return await firstValueFrom(this.httpClient.post<DatabaseUser>(url, createUserRequest));
     } catch (error) {
       this.toastr.error("Failed to create user in database");
       throw error;

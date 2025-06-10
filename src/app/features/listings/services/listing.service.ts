@@ -12,6 +12,18 @@ export class ListingService {
   private readonly httpClient = inject(HttpClient);
   private readonly urlProvider = inject(UrlProviderService);
   private readonly toastr = inject(ToastrService);
+  
+  async createListing(listing: CreateListingRequest): Promise<CreateListingResponse> {
+    const endpoint = this.urlProvider.createListing;
+  
+    return await firstValueFrom(
+      this.httpClient.post<CreateListingResponse>(endpoint, listing)
+    ).catch((error) => {
+        this.toastr.success('Listing created successfully');
+        return error;
+      }
+    )
+  }
 
   async getListings(): Promise<ListingWithDetails[]> {
     const endpoint = this.urlProvider.getListings;
@@ -71,18 +83,6 @@ export class ListingService {
         throw error;
       }
     );
-  }
-
-  async createListing(listing: CreateListingRequest): Promise<CreateListingResponse> {
-    const endpoint = this.urlProvider.createListing;
-  
-    return await firstValueFrom(
-      this.httpClient.post<CreateListingResponse>(endpoint, listing)
-    ).catch((error) => {
-        this.toastr.success('Listing created successfully');
-        return error;
-      }
-    )
   }
 
   async uploadFileToBlob(formData: FormData): Promise<string> {

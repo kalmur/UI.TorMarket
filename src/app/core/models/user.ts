@@ -10,3 +10,8 @@ export interface IdentityProviderUser {
     email: string;
     picture: string;
 }
+
+export interface CreateUserRequest {
+    roleId: number;
+    providerId: string;
+}

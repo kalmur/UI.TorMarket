@@ -77,7 +77,12 @@ export class NavBarComponent implements OnInit {
   async createUserInDatabase(): Promise<void> {
     const user = this.authHelperService.user();
     if (user && user.sub) {
-      await this.userService.createUserInDatabase(user.sub);
+      const createUserRequest = {
+        roleId: 0,
+        providerId: user.sub
+      };
+      
+      await this.userService.createUserInDatabase(createUserRequest);
     }
   }
 
