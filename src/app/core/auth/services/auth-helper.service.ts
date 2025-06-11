@@ -1,6 +1,7 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService, User } from '@auth0/auth0-angular';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,26 +12,13 @@ export class AuthHelperService {
 
   user = signal<User | null | undefined>(null);
   isAuthenticated = signal(false);
-  accessToken = signal<string | null>(null);
 
   constructor() {
-    this.authService.isAuthenticated$.subscribe(isAuthenticated => {
-      if (isAuthenticated) {
-        this.isAuthenticated.set(isAuthenticated);
-        this.fetchAccessToken();
-      } else {
-        this.accessToken.set(null);
-      }
-    });
-
-    this.authService.user$.subscribe(user => {
-      this.user.set(user);
-    });
+    this.subscribeToAuthState();
   }
 
   login(): void {
     this.authService.loginWithRedirect();
-    this.fetchAccessToken();
   }
 
   signUp(): void {
@@ -61,15 +49,27 @@ export class AuthHelperService {
     }
   }
 
+  // Private methods
+  private subscribeToAuthState(): void {
+    this.authService.isAuthenticated$.subscribe(isAuthenticated => {
+      if (isAuthenticated) {
+        this.isAuthenticated.set(isAuthenticated);
+        this.fetchAccessToken();
+      }
+    });
+
+    this.authService.user$.subscribe(user => {
+      this.user.set(user);
+    });
+  }
+
   private async fetchAccessToken(): Promise<void> {
     try {
-      const token = await this.authService.getAccessTokenSilently().toPromise();
-      this.accessToken.set(token ?? null);
+      const token = await firstValueFrom(this.authService.getAccessTokenSilently());
       if (token) {
         sessionStorage.setItem('access_token', token);
       }
     } catch {
-      this.accessToken.set(null);
       sessionStorage.removeItem('access_token');
     }
   }
