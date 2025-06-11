@@ -15,11 +15,18 @@ import { UserProfileDetailComponent } from './features/user-profile/components/u
 import { UserListingsComponent } from './features/user-profile/components/user-listings/user-listings.component';
 import { ListingDetailsComponent } from './features/listings/components/listing-details/listing-details.component';
 import { UserListComponent } from './features/admin/components/user-list/user-list.component';
+import { AuthGuardService } from './core/auth/services/auth-guard.service';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
     { path: 'auth-prompt', component: AuthPromptComponent},
-    { path: 'admin', component: UserListComponent},
+    {
+        path: 'admin', 
+        component: UserListComponent,
+        canActivate: [
+            AuthGuardService
+        ]
+},
     { path: 'profile', component: UserProfileDetailComponent },
     { path: 'profile/listings', component: UserListingsComponent },
     { path: 'search/:searchTerm', component: SearchedListingsComponent },
