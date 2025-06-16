@@ -3,8 +3,6 @@ import { DatabaseUser } from "../../../core/models/user";
 
 export interface Listing {
     listingId: number;
-    userId: number;
-    categoryId: number;
     name: string;
     price: number;
     description?: string;
@@ -24,7 +22,7 @@ export interface ListingBlob {
 export interface CreateListingRequest {
     userId: number;
     categoryName: string;
-    listingName: string;
+    title: string;
     price: number;
     description: string;
     filePaths?: string[];

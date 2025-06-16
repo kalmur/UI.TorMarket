@@ -52,12 +52,7 @@ export class ListingFormComponent implements OnInit {
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
       this.selectedFile.set(file);
-
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.imagePreviewUrlChange.emit(reader.result as string);
-      };
-      reader.readAsDataURL(file);
+      this.readImagePreview(file);
     }
   }
 
@@ -83,10 +78,10 @@ export class ListingFormComponent implements OnInit {
   }
 
   // Private methods
-  
+
   private initializeForm(): FormGroup {
     return this.fb.group({
-      name: ['', Validators.required],
+      title: ['', Validators.required],
       category: ['', Validators.required],
       price: ['', Validators.required],
       description: ['']
@@ -114,12 +109,21 @@ export class ListingFormComponent implements OnInit {
     const request: CreateListingRequest = {
       userId: userId,
       categoryName: selectedCategory,
-      listingName: this.listingFormGroup.value.name,
+      title: this.listingFormGroup.value.title,
       price: this.listingFormGroup.value.price,
       description: this.listingFormGroup.value.description
     };
 
     return await this.listingService.createListing(request);
+  }
+
+  
+  private readImagePreview(file: File): void {
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreviewUrlChange.emit(reader.result as string);
+    };
+    reader.readAsDataURL(file);
   }
 
   private async uploadAndAttachBlob(listingId: number, file: File): Promise<void> {

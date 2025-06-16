@@ -10,7 +10,7 @@ export class UrlProviderService {
   private readonly userEndpoint = `${this.baseUrl}/users`;
   private readonly listingEndpoint = `${this.baseUrl}/listings`;
   private readonly listingCategoryEndpoint = `${this.baseUrl}/categories`;
-  private readonly blobEndpoint = `${this.baseUrl}/blob`;
+  private readonly blobEndpoint = `${this.baseUrl}/blobs`;
   private readonly reviewEndpoint = `${this.baseUrl}/reviews`;
 
   // Users
