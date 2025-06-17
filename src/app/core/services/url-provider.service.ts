@@ -5,13 +5,13 @@ import { Injectable } from '@angular/core';
 })
 export class UrlProviderService {
   // This is for local development only - to be replaced with a proper URL in production
-  private readonly baseUrl = 'http://localhost:5261/api';
+  private readonly baseUrl_v1 = 'http://localhost:5261/api/v1';
 
-  private readonly userEndpoint = `${this.baseUrl}/users`;
-  private readonly listingEndpoint = `${this.baseUrl}/listings`;
-  private readonly listingCategoryEndpoint = `${this.baseUrl}/categories`;
-  private readonly blobEndpoint = `${this.baseUrl}/blobs`;
-  private readonly reviewEndpoint = `${this.baseUrl}/reviews`;
+  private readonly userEndpoint = `${this.baseUrl_v1}/users`;
+  private readonly listingEndpoint = `${this.baseUrl_v1}/listings`;
+  private readonly listingCategoryEndpoint = `${this.baseUrl_v1}/categories`;
+  private readonly blobEndpoint = `${this.baseUrl_v1}/blobs`;
+  private readonly reviewEndpoint = `${this.baseUrl_v1}/reviews`;
 
   // Users
   get createUser(): string {
