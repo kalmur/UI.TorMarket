@@ -4,6 +4,7 @@ import { ListingListComponent } from '../../../features/listings/components/list
 import { ListingService } from '../../../features/listings/services/listing.service';
 import { ListingWithDetails } from '../../../features/listings/models/listings';
 import { FooterComponent } from '../footer/footer.component';
+import { PaginatedRequest } from '../../models/pagination';
 
 @Component({
   selector: 'app-home',
@@ -33,8 +34,16 @@ export class HomeComponent implements OnInit {
   }
 
   private async fetchAllListings(): Promise<void> {
-    const response = await this.listingService.getListings();
-    this.listings.set(response);
+    // Change this later down the line
+    const paginatedRequest: PaginatedRequest = {
+      pageSize: 20,
+      pageIndex: 0,
+      sortColumn: 'Name',
+      sortAscending: true
+    };
+
+    const response = await this.listingService.getAllListings(paginatedRequest);
+    this.listings.set(response.items);
   }
 
   private async fetchListingsByCategoryName(categoryName: string): Promise<void> {

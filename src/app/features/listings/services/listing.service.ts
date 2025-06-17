@@ -1,9 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { UrlProviderService } from '../../../core/services/url-provider.service';
 import { ToastrService } from 'ngx-toastr';
 import { CreateListingResponse, CreateListingRequest, ListingWithDetails } from '../models/listings';
+import { PaginatedRequest, PaginatedResponse } from '../../../core/models/pagination';
 
 @Injectable({
   providedIn: 'root'
@@ -25,16 +26,22 @@ export class ListingService {
     )
   }
 
-  async getListings(): Promise<ListingWithDetails[]> {
+  async getAllListings(paginatedRequest: PaginatedRequest): Promise<PaginatedResponse<ListingWithDetails>> {
     const endpoint = this.urlProvider.getListings;
 
+    let params = new HttpParams();
+    Object.entries(paginatedRequest).forEach(([key, value]) => {
+        if (value !== undefined && value !== null) {
+            params = params.set(key, value.toString());
+        }
+    });
+
     return await firstValueFrom(
-      this.httpClient.get<ListingWithDetails[]>(endpoint)
+        this.httpClient.get<PaginatedResponse<ListingWithDetails>>(endpoint, { params })
     ).catch((error) => {
         this.toastr.error('Failed to get listings');
         throw error;
-      }
-    );
+    });
   }
 
   async getListingById(id: number): Promise<ListingWithDetails> {
