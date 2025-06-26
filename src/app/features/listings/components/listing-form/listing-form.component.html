@@ -1,60 +1,68 @@
-<div class="full-background">
-  <div class="container py-5">
-    <div class="row mb-5 justify-content-center">
-      <div class="col-md-12 shadow-lg p-0 form-background">
-        <div class="card">
-          <div class="card-body">
-            <form (ngSubmit)="onSubmit()" [formGroup]="listingFormGroup">
-              <div class="form-group col-12 col-md-8 mx-auto">
-                <label for="title" class="white-text mb-2">Title</label>
-                <input formControlName="title" type="text" placeholder="" class="form-control" />
-              </div>
-
-              <div class="form-group col-12 col-md-8 mx-auto mt-4">
-                <div class="btn-group w-100" dropdown [autoClose]="true">
-                  <button id="button-category" dropdownToggle type="button" class="btn btn-primary dropdown-toggle w-100" aria-controls="dropdown-category">
-                    {{ listingFormGroup.controls['category'].value ? listingFormGroup.controls['category'].value : 'Select Category' }} 
-                    <span class="caret"></span>
-                  </button>
-                  <ul id="dropdown-category" *dropdownMenu class="dropdown-menu w-100" role="menu" aria-labelledby="button-category">
-                    <li *ngFor="let category of categories()" role="menuitem">
-                      <a 
-                        class="dropdown-item text-center" 
-                        (click)="setCategory(category.name)" 
-                        (keydown.enter)="setCategory(category.name)" 
-                        role="button"
-                      >
-                        {{ category.name }}
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-
-              <div class="form-group col-12 col-md-8 mx-auto mt-4">
-                <label for="price" class="white-text mb-2">Price</label>
-                <input type="text" formControlName="price" placeholder="" class="form-control" />
-              </div>
-
-              <div class="form-group col-12 col-md-8 mx-auto mt-4">
-                <label for="description" class="white-text mb-2">Description</label>
-                <textarea class="form-control" formControlName="description" rows="4" placeholder=""></textarea>
-              </div>
-
-              <div class="form-group col-12 col-md-8 mx-auto mt-4">
-                <label for="image" class="white-text mb-2">Image</label>
-                <input type="file" class="form-control" (change)="onFileSelected($event)"/>
-              </div>
-
-              <div class="form-group col-12 col-md-8 mx-auto mt-4">
-                <div class="d-grid gap-2">
-                  <button type="submit" class="btn btn-primary btn-block submit-button">Submit</button>
-                </div>
-              </div>
-            </form>
+<div class=" min-h-[calc(100vh-200px)] flex justify-center items-center">
+  <div class="w-full max-w-4xl shadow-lg p-6 rounded-lg">
+    <div class="p-6 rounded-lg">
+      <form (ngSubmit)="onSubmit()" [formGroup]="listingFormGroup" class="space-y-6">
+        <div class="flex flex-col items-center">
+          <label for="title" class="text-white mb-2">Title</label>
+          <input 
+            formControlName="title" 
+            type="text" 
+            class="w-full md:w-2/3 rounded border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" 
+          />
+        </div>
+        <div class="form-group col-12 col-md-8 mx-auto mt-4">
+          <div class="btn-group w-100" dropdown [autoClose]="true">
+            <button id="button-category" dropdownToggle type="button" class="btn btn-primary dropdown-toggle w-100" aria-controls="dropdown-category">
+              {{ listingFormGroup.controls['category'].value ? listingFormGroup.controls['category'].value : 'Select Category' }} 
+              <span class="caret"></span>
+            </button>
+            <ul id="dropdown-category" *dropdownMenu class="dropdown-menu w-100" role="menu" aria-labelledby="button-category">
+              <li *ngFor="let category of categories()" role="menuitem">
+                <a 
+                  class="dropdown-item text-center" 
+                  (click)="setCategory(category.name)" 
+                  (keydown.enter)="setCategory(category.name)" 
+                  role="button"
+                >
+                  {{ category.name }}
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
-      </div>
+        <div class="flex flex-col items-center">
+          <label for="price" class="text-white mb-2">Price</label>
+          <input 
+            formControlName="price" 
+            type="text" 
+            class="w-full md:w-2/3 rounded border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" 
+          />
+        </div>
+        <div class="flex flex-col items-center">
+          <label for="description" class="text-white mb-2">Description</label>
+          <textarea 
+            formControlName="description" 
+            rows="4" 
+            class="w-full md:w-2/3 rounded border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          ></textarea>
+        </div>
+        <div class="flex flex-col items-center">
+          <label for="image" class="text-white mb-2">Image</label>
+          <input 
+            type="file" 
+            (change)="onFileSelected($event)" 
+            class="w-full md:w-2/3 rounded border border-gray-300 p-2 bg-white file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:bg-blue-600 file:text-white hover:file:bg-blue-700"
+          />
+        </div>
+        <div class="flex justify-center">
+          <button 
+            type="submit" 
+            class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded w-full md:w-2/3"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

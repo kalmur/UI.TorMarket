@@ -1,13 +1,25 @@
-<div class="full-background">
-  <div *ngIf="listing" class="card custom-card mx-auto">
-    <div class="card-body text-center">
-      <div class="image-container mb-4">
-        <img [src]="imagePreviewUrl()" alt="" class="listing-image small-image">
+<div class="flex items-center justify-center min-h-[calc(100vh-300px)] bg-gray-900">
+  <div *ngIf="listing" class="bg-gray-900 text-white max-w-[700px] w-full rounded-lg p-6">
+    <div class="flex flex-col items-center text-center">
+      <div *ngIf="imagePreviewUrl()" class="mb-4">
+        <img 
+          [src]="imagePreviewUrl()" 
+          alt="Listing Image" 
+          class="max-w-[450px] w-full rounded-md"
+        />
       </div>
-      <h1 class="mb-4">{{ listing()!.name }}</h1>
-      <h4 class="mb-3">{{ listing()!.category || null }}</h4>
-      <h5 *ngIf="listing()!.price" class="mb-3 custom-color">£{{ listing()!.price }}</h5>
-      <p class="mb-3">{{ listing()!.description }}</p>
+      <h1 class="text-2xl font-bold mb-4">
+        {{ listing()!.title }}
+      </h1>
+      <h4 class="text-lg mb-3">
+        {{ listing()!.category || null }}
+      </h4>
+      <h5 *ngIf="listing()!.price" class="text-red-500 text-md mb-3">
+        £{{ listing()!.price }}
+      </h5>
+      <p class="text-base mb-3">
+        {{ listing()!.description }}
+      </p>
     </div>
   </div>
 </div>

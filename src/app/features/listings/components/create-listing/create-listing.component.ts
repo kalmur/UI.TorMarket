@@ -17,7 +17,7 @@ import { CreateListingFormDetails } from '../../models/listings';
 })
 export class CreateListingComponent {
   listing = model<CreateListingFormDetails>({
-    name: '',
+    title: '',
     category: 0,
     price: 0,
     description: ''

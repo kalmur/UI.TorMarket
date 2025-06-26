@@ -37,7 +37,7 @@ export interface CreateListingResponse {
 }
 
 export interface CreateListingFormDetails {
-    name: string;
+    title: string;
     category: number;
     price: number;
     description: string;
