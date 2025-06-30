@@ -26,7 +26,7 @@ export const routes: Routes = [
         canActivate: [
             AuthGuardService
         ]
-},
+    },
     { path: 'profile', component: UserProfileDetailComponent },
     { path: 'profile/listings', component: UserListingsComponent },
     { path: 'search/:searchTerm', component: SearchedListingsComponent },
