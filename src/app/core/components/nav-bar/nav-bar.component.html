@@ -22,7 +22,7 @@
         Register
       </a>
     </li>
-    <li *ngIf="loggedInAsAdmin()">
+    <li *ngIf="isAdmin">
       <a (click)="handleAdminNavigation()" (keydown.enter)="handleAdminNavigation()" tabindex="0" role="button">
         Admin
       </a>

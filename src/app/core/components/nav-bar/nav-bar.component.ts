@@ -1,11 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, inject, model, OnInit, signal } from '@angular/core';
+import { Component, effect, inject, model, OnDestroy, OnInit, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthHelperService } from '../../auth/services/auth-helper.service';
 import { ListingCategoryService } from '../../../features/categories/services/listing-category.service';
 import { Category } from '../../models/categories';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../services/user.service';
+import { Subscription } from 'rxjs';
+import { AuthService, User } from '@auth0/auth0-angular';
 
 @Component({
   selector: 'app-nav-bar',
@@ -15,7 +17,8 @@ import { UserService } from '../../services/user.service';
   styleUrl: './nav-bar.component.scss'
 })
 
-export class NavBarComponent implements OnInit {
+export class NavBarComponent implements OnInit, OnDestroy {
+  private readonly authService = inject(AuthService);
   readonly authHelperService = inject(AuthHelperService);
   private readonly userService = inject(UserService);
   private readonly listingCategoryService = inject(ListingCategoryService);
@@ -25,16 +28,20 @@ export class NavBarComponent implements OnInit {
 
   searchTerm = model<string>('');
   categories = model<Category[]>([]);
-  loggedInAsAdmin = signal(false);
-
-  constructor() {
-    effect(() => {
-      this.checkAndSetAdminStatus();
-    }, { allowSignalWrites: true });
-  }
+  
+  isAdmin = false;
+  private userSub: Subscription | undefined;
 
   ngOnInit(): void {
     this.fetchOrReturnCachedCategories();
+
+    this.userSub = this.authService.user$.subscribe(user => {
+      this.fetchOrReturnCachedAdminStatus(user);
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.userSub?.unsubscribe();
   }
 
   handleLogin(): void {
@@ -99,13 +106,25 @@ export class NavBarComponent implements OnInit {
     this.categories.set(response);
   }
 
-  private async checkAndSetAdminStatus(): Promise<void> {
-    const user = this.authHelperService.user();
-    if (user && user.sub) {
-      const userFromDb = await this.userService.getUserByProviderId(user.sub);
-      this.loggedInAsAdmin.set(userFromDb?.roleId === 1);
-    } else {
-      this.loggedInAsAdmin.set(false);
+  private fetchOrReturnCachedAdminStatus(user: User | undefined | null): void {
+    const sub = user?.sub;
+    if (!sub) {
+      this.isAdmin = false;
+      return;
     }
+    const cacheKey = 'admin_status_' + sub;
+    const cached = sessionStorage.getItem(cacheKey);
+    if (cached !== null) {
+      this.isAdmin = cached === 'true';
+      return;
+    }
+    this.userService.getUserByProviderId(sub).then(userFromDb => {
+      const isAdmin = userFromDb?.roleId === 1;
+      sessionStorage.setItem(cacheKey, String(isAdmin));
+      this.isAdmin = isAdmin;
+    }).catch(() => {
+      sessionStorage.setItem(cacheKey, 'false');
+      this.isAdmin = false;
+    });
   }
 }
