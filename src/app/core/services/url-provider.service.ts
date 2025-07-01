@@ -38,7 +38,7 @@ export class UrlProviderService {
 
   get getListingById(): (id: number) => string {
     return (id: number) => 
-      `${this.listingEndpoint}/id/${id}`;
+      `${this.listingEndpoint}/${id}`;
   }
 
   get getListingsByCategoryName(): (categoryName: string) => string {

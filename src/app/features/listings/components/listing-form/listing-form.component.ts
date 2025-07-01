@@ -106,9 +106,11 @@ export class ListingFormComponent implements OnInit {
       category.name === this.listingFormGroup.value.category
     )!.name;
 
+    // Change currencyCode later
     const request: CreateListingRequest = {
       userId: userId,
       categoryName: selectedCategory,
+      currencyCode: 'GBP',
       title: this.listingFormGroup.value.title,
       price: this.listingFormGroup.value.price,
       description: this.listingFormGroup.value.description

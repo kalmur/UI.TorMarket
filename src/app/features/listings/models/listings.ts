@@ -22,6 +22,7 @@ export interface ListingBlob {
 export interface CreateListingRequest {
     userId: number;
     categoryName: string;
+    currencyCode: string;
     title: string;
     price: number;
     description: string;
