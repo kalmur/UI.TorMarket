@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, inject, model, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, inject, model, OnDestroy, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthHelperService } from '../../auth/services/auth-helper.service';
 import { ListingCategoryService } from '../../../features/categories/services/listing-category.service';
@@ -19,10 +19,10 @@ import { AuthService, User } from '@auth0/auth0-angular';
 
 export class NavBarComponent implements OnInit, OnDestroy {
   private readonly authService = inject(AuthService);
-  readonly authHelperService = inject(AuthHelperService);
   private readonly userService = inject(UserService);
   private readonly listingCategoryService = inject(ListingCategoryService);
   private readonly router = inject(Router);
+  readonly authHelperService = inject(AuthHelperService);
 
   private static cachedCategories: Category[] = [];
 

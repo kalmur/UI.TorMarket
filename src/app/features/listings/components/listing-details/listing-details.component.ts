@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, output } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { NavBarComponent } from '../../../../core/components/nav-bar/nav-bar.component';
 import { ListingWithDetails } from '../../models/listings';
 import { ActivatedRoute } from '@angular/router';
