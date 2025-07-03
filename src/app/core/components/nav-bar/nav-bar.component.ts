@@ -25,12 +25,12 @@ export class NavBarComponent implements OnInit, OnDestroy {
   readonly authHelperService = inject(AuthHelperService);
 
   private static cachedCategories: Category[] = [];
+  private userSub: Subscription | undefined;
 
   searchTerm = model<string>('');
   categories = model<Category[]>([]);
   
   isAdmin = false;
-  private userSub: Subscription | undefined;
 
   ngOnInit(): void {
     this.fetchOrReturnCachedCategories();
