@@ -3,7 +3,6 @@ import { NavBarComponent } from '../../../../core/components/nav-bar/nav-bar.com
 import { ListingWithDetails } from '../../models/listings';
 import { ActivatedRoute } from '@angular/router';
 import { ListingService } from '../../services/listing.service';
-import { ListingCardComponent } from '../listing-card/listing-card.component';
 import { CommonModule } from '@angular/common';
 import { ListingReviewListComponent } from '../../../reviews/components/listing-review-list/listing-review-list.component';
 import { FooterComponent } from '../../../../core/components/footer/footer.component';
@@ -15,8 +14,7 @@ import { ListingReviewFormComponent } from '../../../reviews/components/listing-
   imports: [
     CommonModule, 
     NavBarComponent, 
-    FooterComponent,
-    ListingCardComponent, 
+    FooterComponent, 
     ListingReviewListComponent,
     ListingReviewFormComponent
 ],
@@ -36,6 +34,7 @@ export class ListingDetailsComponent implements OnInit {
     const listingId = listingIdFromUrl 
       ? +listingIdFromUrl 
       : null;
+
     this.listingId = listingId;
 
     if (listingIdFromUrl) {
