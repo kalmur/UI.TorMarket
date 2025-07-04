@@ -1,61 +1,65 @@
-<app-nav-bar></app-nav-bar>
+<div class="min-h-screen flex flex-col">
+  <app-nav-bar></app-nav-bar>
 
-<div class="container mx-auto px-4 mt-4">
-  <div class="bg-primary-bg-color text-white p-8 rounded-xl">
-    <div class="flex flex-col lg:flex-row gap-8">
-      <div class="w-full lg:w-1/2 flex justify-center">
-        <img
-          class="w-full max-w-xl rounded-xl shadow-lg"
-          [src]="primaryImageUrl"
-          alt="Listing image"
-        />
+  <main class="flex-1">
+    <div class="container mx-auto px-4 mt-4">
+      <div class="bg-primary-bg-color text-white p-8 rounded-xl">
+        <div class="flex flex-col lg:flex-row gap-8">
+          <div class="w-full lg:w-1/2 flex justify-center">
+            <img
+              class="w-full max-w-xl rounded-xl shadow-lg"
+              [src]="primaryImageUrl"
+              alt="Listing image"
+            />
+          </div>
+
+          <div class="w-full lg:w-1/2 flex flex-col justify-start min-w-[300px] relative">
+            <h1 class="text-4xl font-bold text-white mb-4">{{ listing?.name }}</h1>
+
+            <div class="mt-2">
+              <h5 class="text-lg text-gray-300">{{ listing?.category?.name }}</h5>
+            </div>
+
+            <div class="flex items-center gap-2 mt-4">
+              <i class="bi bi-star-fill text-yellow-400"></i>
+              <strong>5.0</strong>
+              <a href="#" class="ml-2 underline hover:text-blue-400">
+                <span class="text-sm">132 reviews</span>
+              </a>
+            </div>
+
+            <div class="flex flex-col gap-4 mt-auto mb-2">
+              <span class="text-3xl font-bold" style="color: var(--primary-tor-red)">£ {{ listing?.price }}</span>
+            </div>
+
+            <button class="bg-blue-600 hover:bg-blue-800 text-white font-semibold rounded-lg py-3 px-6">
+              <i class="bi bi-bag-plus-fill"></i> Add to Cart
+            </button>
+          </div>
+        </div>
+
+        <div class="mt-12">
+          <h4 class="text-2xl font-semibold text-white mb-4">Description</h4>
+          <p class="text-base text-gray-300 leading-relaxed">
+            {{ listing?.description }}
+          </p>
+        </div>
       </div>
 
-      <div class="w-full lg:w-1/2 flex flex-col justify-start min-w-[300px] relative">
-        <h1 class="text-4xl font-bold text-white mb-4">{{ listing?.name }}</h1>
-
-        <div class="mt-2">
-          <h5 class="text-lg text-gray-300">{{ listing?.category?.name }}</h5>
+      <div class="bg-primary-bg-color text-white p-4 rounded-xl">
+        <div class="flex flex-col lg:flex-row gap-8">
+          <div class="w-full lg:w-1/2">
+            <app-listing-review-list></app-listing-review-list>
+          </div>
+          <div class="w-full lg:w-1/2 flex flex-col items-start">
+            <div class="w-full">
+              <app-listing-review-form [listingId]="listingId"></app-listing-review-form>
+            </div>
+          </div>
         </div>
-
-        <div class="flex items-center gap-2 mt-4">
-          <i class="bi bi-star-fill text-yellow-400"></i>
-          <strong>5.0</strong>
-          <a href="#" class="ml-2 underline hover:text-blue-400">
-            <span class="text-sm">132 reviews</span>
-          </a>
-        </div>
-
-        <div class="flex flex-col gap-4 mt-auto mb-2">
-          <span class="text-3xl font-bold" style="color: var(--primary-tor-red)">£ {{ listing?.price }}</span>
-        </div>
-
-        <button class="bg-blue-600 hover:bg-blue-800 text-white font-semibold rounded-lg py-3 px-6">
-          <i class="bi bi-bag-plus-fill"></i> Add to Cart
-        </button>
       </div>
     </div>
+  </main>
 
-    <div class="mt-12">
-      <h4 class="text-2xl font-semibold text-white mb-4">Description</h4>
-      <p class="text-base text-gray-300 leading-relaxed">
-        {{ listing?.description }}
-      </p>
-    </div>
-  </div>
-
-  <div class="bg-primary-bg-color text-white p-4 rounded-xl">
-    <div class="flex flex-col lg:flex-row gap-8">
-      <div class="w-full lg:w-1/2">
-        <app-listing-review-list></app-listing-review-list>
-      </div>
-      <div class="w-full lg:w-1/2 flex flex-col items-start">
-        <div class="w-full">
-          <app-listing-review-form [listingId]="listingId"></app-listing-review-form>
-        </div>
-      </div>
-    </div>
-  </div>
+  <app-footer></app-footer>
 </div>
-
-<app-footer></app-footer>
