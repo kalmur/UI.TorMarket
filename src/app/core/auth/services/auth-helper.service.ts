@@ -54,7 +54,7 @@ export class AuthHelperService {
     this.authService.isAuthenticated$.subscribe(isAuthenticated => {
       if (isAuthenticated) {
         this.isAuthenticated.set(isAuthenticated);
-        this.fetchAccessToken();
+        this.setAccessTokenInSessionStorage();
       }
     });
 
@@ -63,7 +63,7 @@ export class AuthHelperService {
     });
   }
 
-  private async fetchAccessToken(): Promise<void> {
+  private async setAccessTokenInSessionStorage(): Promise<void> {
     try {
       const token = await firstValueFrom(this.authService.getAccessTokenSilently());
       if (token) {
