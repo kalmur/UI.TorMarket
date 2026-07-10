@@ -1,18 +1,16 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { UrlProviderService } from './url-provider.service';
 import { CreateUserRequest, DatabaseUser } from '../models/user';
 import { ToastrService } from 'ngx-toastr';
 import { AuthHelperService } from '../auth/services/auth-helper.service';
-import { AuthService } from '@auth0/auth0-angular';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   private readonly authHelperService = inject(AuthHelperService);
-  private readonly authService = inject(AuthService);
   private readonly urlProvider = inject(UrlProviderService);
   private readonly httpClient = inject(HttpClient);
   private readonly toastr = inject(ToastrService);
@@ -41,13 +39,10 @@ export class UserService {
 
   async getAllUsers(): Promise<DatabaseUser[]> {
     const url = this.urlProvider.getAllUsers;
-    const token = await firstValueFrom(this.authService.getAccessTokenSilently());
-
-    const headers = token ? new HttpHeaders({ Authorization: `Bearer ${token}` }) : undefined;
 
     try {
       return await firstValueFrom(
-        this.httpClient.get<DatabaseUser[]>(url, headers ? { headers } : {})
+        this.httpClient.get<DatabaseUser[]>(url)
       );
     } catch (error) {
       this.toastr.error('Failed to fetch all users');

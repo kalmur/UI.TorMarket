@@ -1,13 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, model, OnDestroy, OnInit } from '@angular/core';
+import { Component, effect, inject, model, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { AuthHelperService } from '../../auth/services/auth-helper.service';
+import { AuthHelperService, AuthUser } from '../../auth/services/auth-helper.service';
 import { ListingCategoryService } from '../../../features/categories/services/listing-category.service';
 import { Category } from '../../models/categories';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../../services/user.service';
-import { Subscription } from 'rxjs';
-import { AuthService, User } from '@auth0/auth0-angular';
 
 @Component({
   selector: 'app-nav-bar',
@@ -17,31 +15,28 @@ import { AuthService, User } from '@auth0/auth0-angular';
   styleUrl: './nav-bar.component.scss'
 })
 
-export class NavBarComponent implements OnInit, OnDestroy {
-  private readonly authService = inject(AuthService);
+export class NavBarComponent implements OnInit {
   private readonly userService = inject(UserService);
   private readonly listingCategoryService = inject(ListingCategoryService);
   private readonly router = inject(Router);
   readonly authHelperService = inject(AuthHelperService);
 
   private static cachedCategories: Category[] = [];
-  private userSub: Subscription | undefined;
 
   searchTerm = model<string>('');
   categories = model<Category[]>([]);
-  
+
   isAdmin = false;
 
-  ngOnInit(): void {
-    this.fetchOrReturnCachedCategories();
-
-    this.userSub = this.authService.user$.subscribe(user => {
+  constructor() {
+    effect(() => {
+      const user = this.authHelperService.user();
       this.fetchOrReturnCachedAdminStatus(user);
     });
   }
 
-  ngOnDestroy(): void {
-    this.userSub?.unsubscribe();
+  ngOnInit(): void {
+    this.fetchOrReturnCachedCategories();
   }
 
   handleLogin(): void {
@@ -106,7 +101,7 @@ export class NavBarComponent implements OnInit, OnDestroy {
     this.categories.set(response);
   }
 
-  private fetchOrReturnCachedAdminStatus(user: User | undefined | null): void {
+  private fetchOrReturnCachedAdminStatus(user: AuthUser | null): void {
     const sub = user?.sub;
     if (!sub) {
       this.isAdmin = false;

@@ -1,10 +1,10 @@
-import { environment } from "../../../../environments/environment";
+import { environment } from '../../../../environments/environment';
 
 export const authConfig = {
-  domain: environment.auth.domain,
+  authorizeUrl: environment.auth.authorizeUrl,
+  logoutUrl: environment.auth.logoutUrl,
   clientId: environment.auth.clientId,
-  authorizationParams: {
-    redirect_uri: window.location.origin,
-    audience: 'https://tormarket.com/api'
-  }
+  redirectUri: environment.auth.redirectUri,
+  audience: environment.auth.audience,
+  scope: environment.auth.scope,
 };

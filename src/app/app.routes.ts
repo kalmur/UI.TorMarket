@@ -16,9 +16,11 @@ import { UserListingsComponent } from './features/user-profile/components/user-l
 import { ListingDetailsComponent } from './features/listings/components/listing-details/listing-details.component';
 import { UserListComponent } from './features/admin/components/user-list/user-list.component';
 import { AuthGuardService } from './core/auth/services/auth-guard.service';
+import { AuthCallbackComponent } from './core/auth/auth-callback/auth-callback.component';
 
 export const routes: Routes = [
     { path: '', component: HomeComponent },
+    { path: 'callback', component: AuthCallbackComponent },
     { path: 'auth-prompt', component: AuthPromptComponent},
     {
         path: 'admin', 
